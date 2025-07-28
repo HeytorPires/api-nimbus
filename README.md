@@ -26,15 +26,6 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
   - Autenticação de usuários utilizando JWT.
   - Processo de recuperação de senha.
   - Upload de avatar de usuário.
-- 🛍️ **Gerenciamento de Produtos:**
-  - CRUD completo de produtos.
-- 👥 **Gerenciamento de Clientes:**
-  - CRUD completo de clientes.
-- 🛒 **Gerenciamento de Pedidos:**
-  - CRUD completo de pedidos, associando clientes e produtos.
-  - Cálculo do total do pedido.
-  - Listagem de pedidos por cliente.
-
 ---
 
 ## 🛠️ Tecnologias Utilizadas
