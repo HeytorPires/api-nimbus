@@ -2,34 +2,34 @@ import AppError from '@shared/errors/AppError';
 import { ICreateUser } from '../domain/models/ICreateUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
-import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/providers/HashProvider/models/IHashProvider';
 
 @injectable()
 class CreateUserService {
-  constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUserRepository,
-    @inject('HashProvider')
-    private hashProvider: IHashProvider
-  ) {
-    this.usersRepository;
-  }
-  public async execute({ name, email, password }: ICreateUser) {
-    const emailExists = await this.usersRepository.findByEmail(email);
-
-    if (emailExists) {
-      throw new AppError('Email address alredy used.');
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUserRepository,
+        @inject('HashProvider')
+        private hashProvider: IHashProvider
+    ) {
+        this.usersRepository;
     }
-    const hashedPassword = await this.hashProvider.generateHash(password);
+    public async execute({ name, email, password }: ICreateUser) {
+        const emailExists = await this.usersRepository.findByEmail(email);
 
-    const user = this.usersRepository.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
+        if (emailExists) {
+            throw new AppError('Email address alredy used.');
+        }
+        const hashedPassword = await this.hashProvider.generateHash(password);
 
-    return user;
-  }
+        const user = this.usersRepository.create({
+            name,
+            email,
+            password: hashedPassword,
+        });
+
+        return user;
+    }
 }
 
 export default CreateUserService;

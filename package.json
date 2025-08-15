@@ -54,6 +54,7 @@
     "handlebars": "^4.7.8",
     "ioredis": "^5.5.0",
     "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
     "multer": "^2.0.1",
     "nodemailer": "^6.10.0",
     "pg": "^8.13.1",
@@ -63,6 +64,7 @@
     "tsyringe": "^4.10.0",
     "typeorm": "^0.2.29",
     "typeorm-pagination": "^2.0.3",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "yup": "^1.7.0"
   }
 }
