@@ -1,10 +1,8 @@
-version: '3'
-
 services:
   app:
     build: .
     entrypoint: .docker/entrypoint.sh
-    container_name: apivendas-app
+    container_name: nimbus-app
     ports:
       - '3333:3333'
     volumes:
@@ -15,7 +13,7 @@ services:
 
   db:
     build: .docker/postgres
-    container_name: apivendas-db
+    container_name: nimbus-db
     restart: always
     tty: true
     ports:
@@ -24,17 +22,17 @@ services:
       - .docker/dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=apivendas
+      - POSTGRES_DB=nimbus-api
 
   redis:
     image: 'bitnami/redis:latest'
-    container_name: apivendas-redis
+    container_name: nimbus-redis
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: apivendas-pgadmin
+    container_name: nimbus-pgadmin
     tty: true
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com

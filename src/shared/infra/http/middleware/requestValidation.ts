@@ -1,6 +1,8 @@
 import { Response, NextFunction, Request } from 'express';
+import { AnySchema } from 'yup'; // É uma boa prática usar um tipo mais específico que 'any'
 
-const requestValidation = (schema: any) => async (req: Request, res: Response, next: NextFunction) => {
+// Adicionamos o tipo de retorno explícito: Promise<void>
+const requestValidation = (schema: AnySchema) => async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await schema.validate({
             body: req.body,
@@ -8,9 +10,12 @@ const requestValidation = (schema: any) => async (req: Request, res: Response, n
             params: req.params,
         });
 
-        return next();
+        // Apenas chame next() sem o 'return'
+        next();
     } catch (err: any) {
-        return res.status(400).json({ status: err.name, message: err.message });
+        // Apenas envie a resposta, sem 'return'.
+        // Isso já encerra o ciclo de requisição/resposta.
+        res.status(400).json({ status: err.name, message: err.message });
     }
 };
 

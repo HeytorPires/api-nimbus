@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { ITask } from '@modules/tasks/domain/models/ITask';
 import User from '@modules/users/infra/typeorm/entities/User';
-@Entity('users')
+@Entity('tasks')
 class Task implements ITask {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -25,6 +25,10 @@ class Task implements ITask {
 
     @Column()
     repository: string;
+
+    @Column({ name: 'initialization_vector', nullable: true })
+    InitializationVector: string;
+
 
     @CreateDateColumn()
     created_at: Date;

@@ -12,11 +12,12 @@ export default class TasksRepository implements ITaskRepository {
         this.ormRepository = getRepository(Task);
     }
 
-    public async create({ title, description, variablesEnvironment, userId }: ICreateTask): Promise<Task> {
+    public async create({ title, description, variablesEnvironment, InitializationVector, userId }: ICreateTask): Promise<ITask> {
         const entity = this.ormRepository.create({
             title,
             description,
             variablesEnvironment,
+            InitializationVector,
             user: { id: userId },
         });
         await this.ormRepository.save(entity);
@@ -33,14 +34,15 @@ export default class TasksRepository implements ITaskRepository {
         await this.ormRepository.remove(task);
     }
 
-    public async list(user: IUser): Promise<ITask[] | undefined> {
+    public async list(userId: string): Promise<ITask[] | undefined> {
         const tasks = await this.ormRepository.find({
-            where: user
+            where:
+                { user: { id: userId } }
         });
         return tasks;
     }
-    public async findByName(name: string, user: IUser): Promise<ITask | undefined> {
-        const entity = await this.ormRepository.findOne({ where: { name, user } });
+    public async findByName(title: string, user: IUser): Promise<ITask | undefined> {
+        const entity = await this.ormRepository.findOne({ where: { title, user } });
         return entity;
     }
 

@@ -8,12 +8,6 @@ const taskCreateSchema = yup.object({
     }),
 });
 
-const taskUpdateSchema = yup.object({
-    body: yup.object({
-        title: yup.string().required(),
-        description: yup.string().required(),
-        variablesEnvironment: yup.string().required()
-    }),
-});
 
-export { taskCreateSchema, taskUpdateSchema };
+
+export { taskCreateSchema };

@@ -5,7 +5,7 @@ import { ITaskRepository } from '../domain/repositories/ITaskRepository';
 import { IUpdateTask } from '../domain/models/IUpdateTask';
 
 @injectable()
-class UpdateProfileService {
+class UpdateTaskService {
     constructor(
         @inject('TasksRepository')
         private tasksRepository: ITaskRepository
@@ -31,4 +31,4 @@ class UpdateProfileService {
     }
 }
 
-export default UpdateProfileService;
+export default UpdateTaskService;

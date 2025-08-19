@@ -3,19 +3,38 @@ import isAuthenticated from '@shared/infra/http/middleware/isAuthenticated';
 import TasksController from '../controllers/TasksController';
 import { taskCreateSchema } from '../schemas/ICreateTaskSchema';
 import { requestValidation } from '@shared/infra/http/middleware/requestValidation';
+import { taskUpdateSchema } from '../schemas/IUpdateTaskSchema';
 
-const usersRouter = Router();
+const tasksRouter = Router();
 const taskController = new TasksController();
 
-usersRouter.use(isAuthenticated)
+tasksRouter.use(isAuthenticated)
 
-// usersRouter.get('/', taskController.index);
-usersRouter.post(
+tasksRouter.get('/:id', taskController.findById);
+
+
+tasksRouter.get(
+    '/',
+    // requestValidation(taskCreateSchema),
+    taskController.list
+);
+tasksRouter.post(
     '/',
     requestValidation(taskCreateSchema),
     taskController.create
 );
+tasksRouter.put(
+    '/:id',
+    requestValidation(taskUpdateSchema),
+    taskController.update
+);
+
+tasksRouter.delete(
+    '/:id',
+    // requestValidation(taskCreateSchema),
+    taskController.delete
+);
 
 
 
-export default usersRouter;
+export default tasksRouter;

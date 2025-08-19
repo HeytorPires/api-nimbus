@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { ICreateUser } from '../domain/models/ICreateUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
-import { IHashProvider } from '@shared/providers/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 
 @injectable()
 class CreateUserService {

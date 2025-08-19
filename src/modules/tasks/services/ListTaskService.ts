@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { ITaskRepository } from '../domain/repositories/ITaskRepository';
 import { ITask } from '../domain/models/ITask';
-import { IUser } from '@modules/users/domain/models/IUser';
 
 @injectable()
 class ListTaskService {
@@ -9,8 +8,9 @@ class ListTaskService {
         @inject('TasksRepository')
         private taskRepository: ITaskRepository
     ) { }
-    public async execute(user: IUser): Promise<ITask[] | undefined> {
-        const tasks = await this.taskRepository.list(user);
+    public async execute(userid: string): Promise<ITask[] | undefined> {
+        console.log("User id: ", userid)
+        const tasks = await this.taskRepository.list(userid);
 
         return tasks;
     }
