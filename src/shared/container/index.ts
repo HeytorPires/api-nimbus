@@ -8,6 +8,7 @@ import BcryptHashProvider from '@shared/providers/cryptography/implementations/B
 import cryptoProvider from '@shared/providers/cryptography/implementations/CryptoProvider';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import TasksRepository from '@modules/tasks/infra/typeorm/repositories/TasksRepository';
+import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
 
 //Dominios
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
@@ -16,6 +17,7 @@ import { ICacheProvider } from '@shared/providers/cache/models/IRedisProvider';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { ITaskRepository } from '@modules/tasks/domain/repositories/ITaskRepository';
+import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
 
 
 container.registerSingleton<IUserRepository>(
@@ -29,6 +31,11 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<ITaskRepository>(
   'TasksRepository',
   TasksRepository
+);
+
+container.registerSingleton<ITagRepository>(
+  'TagsRepository',
+  TagsRepository
 );
 
 // providers
