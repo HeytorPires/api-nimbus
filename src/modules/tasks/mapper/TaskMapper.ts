@@ -11,6 +11,7 @@ export class TaskMapper {
       repository: task.repository,
       updated_at: task.updated_at,
       userId: task.user.id,
+      tagId: task.tag?.id,
     };
   }
 

@@ -2,7 +2,8 @@
 export interface ICreateTask {
   title: string;
   description: string;
-  variablesEnvironment: string
-  InitializationVector?: string
-  userId: string
+  variablesEnvironment: string;
+  InitializationVector?: string;
+  userId: string;
+  tagId?: string;
 }

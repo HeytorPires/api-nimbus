@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { ITask } from '@modules/tasks/domain/models/ITask';
 import User from '@modules/users/infra/typeorm/entities/User';
+import Tag from '@modules/tags/infra/typeorm/entities/Tag';
 @Entity('tasks')
 class Task implements ITask {
   @PrimaryGeneratedColumn('uuid')
@@ -37,8 +38,12 @@ class Task implements ITask {
   updated_at: Date;
 
   @ManyToOne(() => User, user => user.tasks)
-  @JoinColumn({ name: 'userId' }) // nome da coluna FK
+  @JoinColumn({ name: 'userId' })
   user: User;
+
+  @ManyToOne(() => Tag)
+  @JoinColumn({ name: 'tagId' })
+  tag: Tag;
 
 }
 

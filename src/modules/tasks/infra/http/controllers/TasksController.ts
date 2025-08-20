@@ -9,10 +9,10 @@ import UpdateTaskService from '@modules/tasks/services/UpdateTaskService';
 
 export default class TasksController {
   public async create(request: Request, response: Response) {
-    const { title, description, variablesEnvironment } = request.body;
+    const { title, description, variablesEnvironment, tagId } = request.body;
     const userId = request.user.id
     const createtasks = container.resolve(CreateTaskService);
-    const task = await createtasks.execute({ title, description, variablesEnvironment, userId });
+    const task = await createtasks.execute({ title, description, variablesEnvironment, userId, tagId });
 
     response.json(instanceToInstance(task));
     return;
@@ -54,9 +54,9 @@ export default class TasksController {
   public async update(request: Request, response: Response) {
     const listUser = container.resolve(UpdateTaskService);
     const { id } = request.params
-    const { title, description, variablesEnvironment } = request.body
+    const { title, description, variablesEnvironment, tagId } = request.body
     const userId = request.user.id
-    const task = await listUser.execute({ id, title, description, variablesEnvironment, userId });
+    const task = await listUser.execute({ id, title, description, variablesEnvironment, userId, tagId });
 
     response.status(200).json(instanceToInstance(task));
     return;

@@ -17,8 +17,9 @@ class UpdateTaskService {
     @inject('CryptoProvider')
     private cryptoProvider: ICryptographyProvider,
     @inject('UsersRepository')
-    private usersRepository: IUserRepository
-
+    private usersRepository: IUserRepository,
+    @inject('TagsRepository')
+    private tagsRepository: ITagRepository
   ) {
     this.taskMapper = new TaskMapper()
   }
@@ -28,7 +29,8 @@ class UpdateTaskService {
     title,
     description,
     variablesEnvironment,
-    userId
+    userId,
+    tagId
   }: IUpdateTask): Promise<ITaskDTO> {
     const task = await this.tasksRepository.findById(id);
     if (!task) {
@@ -38,6 +40,17 @@ class UpdateTaskService {
 
     if (task.user.id !== user?.id) {
       throw new AppError('task not found.');
+    }
+
+    if (tagId) {
+      const tag = await this.tagsRepository.findById(tagId);
+      if (!tag) {
+        throw new AppError(`Tag not found: ${tagId}`, 400);
+      }
+      if (tag.user.id !== userId) {
+        throw new AppError('Tag belongs to another user', 403);
+      }
+      task.tag = tag;
     }
 
     task.title = title

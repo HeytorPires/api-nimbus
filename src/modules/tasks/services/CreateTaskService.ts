@@ -16,7 +16,9 @@ class CreateTaskService {
     @inject('CryptoProvider')
     private cryptoProvider: ICryptographyProvider,
     @inject('UsersRepository')
-    private usersRepository: IUserRepository
+    private usersRepository: IUserRepository,
+    @inject('TagsRepository')
+    private tagsRepository: ITagRepository
   ) {
     this.taskMapper = new TaskMapper()
   }
@@ -25,12 +27,22 @@ class CreateTaskService {
     description,
     variablesEnvironment,
     userId,
+    tagId
   }: ICreateTask): Promise<ITaskDTO> {
     const user = await this.usersRepository.findById(userId);
 
-
     if (!user) {
       throw new AppError(`User not exist: ${userId}`, 400);
+    }
+
+    if (tagId) {
+      const tag = await this.tagsRepository.findById(tagId);
+      if (!tag) {
+        throw new AppError(`Tag not found: ${tagId}`, 400);
+      }
+      if (tag.user.id !== userId) {
+        throw new AppError('Tag belongs to another user', 403);
+      }
     }
 
     const taskExistent = await this.tasksRepository.findByName(title, user);
@@ -46,6 +58,7 @@ class CreateTaskService {
       variablesEnvironment: encrypted.content,
       InitializationVector: encrypted.iv,
       userId,
+      tagId,
     });
 
     const taskDTO = this.taskMapper.toDTO(taskCreated);
