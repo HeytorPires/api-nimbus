@@ -4,66 +4,59 @@ import { ICreateTask } from '../../../domain/models/ICreateTask';
 import { ITask } from '@modules/tasks/domain/models/ITask';
 import { IUser } from '@modules/users/domain/models/IUser';
 import Task from '../entities/Task';
-import { IUpdateTask } from '@modules/tasks/domain/models/IUpdateTask';
 
 export default class TasksRepository implements ITaskRepository {
-    private ormRepository: Repository<Task>;
-    constructor() {
-        this.ormRepository = getRepository(Task);
-    }
+  private ormRepository: Repository<Task>;
+  constructor() {
+    this.ormRepository = getRepository(Task);
+  }
 
-    public async create({ title, description, variablesEnvironment, InitializationVector, userId }: ICreateTask): Promise<ITask> {
-        const entity = this.ormRepository.create({
-            title,
-            description,
-            variablesEnvironment,
-            InitializationVector,
-            user: { id: userId },
-        });
-        await this.ormRepository.save(entity);
-        return entity;
-    }
+  public async create({ title, description, variablesEnvironment, InitializationVector, userId }: ICreateTask): Promise<ITask> {
+    const entity = this.ormRepository.create({
+      title, description, variablesEnvironment, InitializationVector,
+      user: { id: userId },
+    });
+    await this.ormRepository.save(entity);
+    return entity;
+  }
 
 
-    public async save(task: Task): Promise<Task> {
-        await this.ormRepository.save(task);
-        return task;
-    }
+  public async save(task: Task): Promise<Task> {
+    await this.ormRepository.save(task);
+    return task;
+  }
 
-    public async remove(task: Task): Promise<void> {
-        await this.ormRepository.remove(task);
-    }
+  public async remove(task: Task): Promise<void> {
+    await this.ormRepository.remove(task);
+  }
 
-    public async list(userId: string): Promise<ITask[] | undefined> {
-        const tasks = await this.ormRepository.find({
-            where:
-                { user: { id: userId } }
-        });
-        return tasks;
-    }
-    public async findByName(title: string, user: IUser): Promise<ITask | undefined> {
-        const entity = await this.ormRepository.findOne({ where: { title, user } });
-        return entity;
-    }
+  public async list(userId: string): Promise<ITask[] | undefined> {
+    const tasks = await this.ormRepository.find({
+      where:
+        { user: { id: userId } },
+      relations: ['user']
+    });
+    return tasks;
+  }
+  public async findByName(title: string, user: IUser): Promise<ITask | undefined> {
+    const entity = await this.ormRepository.findOne({ where: { title, user } });
+    return entity;
+  }
 
-    public async findById(id: string): Promise<ITask | undefined> {
-        const user = await this.ormRepository.findOne({ where: { id } });
-        return user;
-    }
-    public async update({
-        id,
-        title,
-        description,
-        variablesEnvironment,
-    }: IUpdateTask): Promise<ITask | undefined> {
-        await this.ormRepository
-            .createQueryBuilder()
-            .update(Task)
-            .set({ title, description, variablesEnvironment })
-            .where("id = :id", { id })
-            .execute();
+  public async findById(id: string): Promise<ITask | undefined> {
+    console.log(id)
+    const task = await this.ormRepository.findOne({ where: { id }, relations: ['user'] });
+    return task;
+  }
+  public async update(task: ITask): Promise<ITask | undefined> {
+    await this.ormRepository
+      .createQueryBuilder()
+      .update(Task)
+      .set(task)
+      .where("id = :id", { id: task.id })
+      .execute();
 
-        return await this.ormRepository.findOne({ where: { id } });
-    }
+    return await this.ormRepository.findOne({ where: { id: task.id } });
+  }
 }
 

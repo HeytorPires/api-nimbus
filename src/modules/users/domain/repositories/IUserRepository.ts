@@ -1,12 +1,12 @@
+import User from '@modules/users/infra/typeorm/entities/User';
 import { ICreateUser } from '../models/ICreateUser';
-import { IUser } from '../models/IUser';
 
 export interface IUserRepository {
-  findByName(name: string): Promise<IUser | undefined>;
-  findByEmail(email: string): Promise<IUser | undefined>;
-  findById(id: string): Promise<IUser | undefined>;
-  list(): Promise<IUser[] | undefined>;
-  create(data: ICreateUser): Promise<IUser>;
-  save(customer: IUser): Promise<IUser>;
-  remove(customer: IUser): Promise<void>;
+  findByName(name: string): Promise<User | undefined>;
+  findByEmail(email: string): Promise<User | undefined>;
+  findById(id: string): Promise<User | undefined>;
+  list(): Promise<User[] | undefined>;
+  create(data: ICreateUser): Promise<User>;
+  save(customer: User): Promise<User>;
+  remove(customer: User): Promise<void>;
 }

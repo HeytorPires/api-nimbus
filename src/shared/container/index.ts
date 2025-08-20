@@ -5,7 +5,7 @@ import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 //repositories
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import BcryptHashProvider from '@shared/providers/cryptography/implementations/BcryptHashProvider';
-import cryptoProvider from '@shared/providers/cryptography/implementations/cryptoProvider';
+import cryptoProvider from '@shared/providers/cryptography/implementations/CryptoProvider';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import TasksRepository from '@modules/tasks/infra/typeorm/repositories/TasksRepository';
 
@@ -13,22 +13,22 @@ import TasksRepository from '@modules/tasks/infra/typeorm/repositories/TasksRepo
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
 import { ICacheProvider } from '@shared/providers/cache/models/IRedisProvider';
-import { IHashProvider } from '@shared/providers/Cryptography/models/IHashProvider';
+import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { ITaskRepository } from '@modules/tasks/domain/repositories/ITaskRepository';
 
 
 container.registerSingleton<IUserRepository>(
-    'UsersRepository',
-    UsersRepository
+  'UsersRepository',
+  UsersRepository
 );
 container.registerSingleton<IUserTokensRepository>(
-    'UsersTokensRepository',
-    UserTokensRepository
+  'UsersTokensRepository',
+  UserTokensRepository
 );
 container.registerSingleton<ITaskRepository>(
-    'TasksRepository',
-    TasksRepository
+  'TasksRepository',
+  TasksRepository
 );
 
 // providers
