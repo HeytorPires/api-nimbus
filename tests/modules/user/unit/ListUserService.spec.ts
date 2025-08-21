@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
 import ListUserService from '@modules/users/services/ListUserService';
+import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let ListUser: ListUserService;

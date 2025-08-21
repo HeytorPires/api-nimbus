@@ -10,7 +10,7 @@ class UpdateProfileService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUserRepository
-  ) {}
+  ) { }
   public async execute({
     user_id,
     name,
@@ -35,6 +35,8 @@ class UpdateProfileService {
     }
 
     if (password && old_password) {
+
+      console.log("User: ", user.password, "Old: ", old_password, "Nova: ", password)
       const checkOldPassoword = await bcrypt.compare(
         old_password,
         user.password

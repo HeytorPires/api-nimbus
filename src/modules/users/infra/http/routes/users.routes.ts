@@ -6,7 +6,7 @@ import UsersController from '../controllers/UsersController';
 import isAuthenticated from '@shared/infra/http/middleware/isAuthenticated';
 import UserAvatarController from '../controllers/UserAvatarController';
 import { requestValidation } from '@shared/infra/http/middleware/requestValidation';
-import { tagUpdateSchema } from '@modules/tags/infra/http/schemas/IUpdateTagSchema';
+import { tagCreateSchema } from '@modules/tags/infra/http/schemas/IUpdateTagSchema';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -17,7 +17,7 @@ const upload = multer({ storage: uploadConfig.Storage });
 usersRouter.get('/', isAuthenticated, usersController.index);
 usersRouter.post(
   '/',
-  requestValidation(tagUpdateSchema),
+  requestValidation(tagCreateSchema),
   usersController.create
 );
 

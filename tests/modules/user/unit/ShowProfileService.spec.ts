@@ -3,10 +3,12 @@ import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
+let createSession: CreateSessionsService
 let createUser: CreateUserService;
 let hashProvider: FakeHashProvider;
 
@@ -16,6 +18,7 @@ describe('Show Customer', () => {
     fakeUsersRepository = new FakeUsersRepository();
     showProfile = new ShowProfileService(fakeUsersRepository);
     createUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
   });
   it('should not show customer when not exist ', async () => {
     const id = '123456789abcd';
@@ -28,8 +31,13 @@ describe('Show Customer', () => {
       email: 'João@gmail.com',
       password: '123456',
     });
-    const { id } = user;
-    const customerShow = await showProfile.execute(id);
+
+    const session = await createSession.execute({
+      email: 'João@gmail.com',
+      password: '123456',
+    })
+
+    const customerShow = await showProfile.execute(session.user.id);
     expect(customerShow).toHaveProperty('id');
   });
 });

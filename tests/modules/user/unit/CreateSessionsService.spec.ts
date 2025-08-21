@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import AppError from '../../../../src/shared/errors/AppError';
 import CreateSessionsService from '../../../../src/modules/users/services/CreateSessionsService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateSession: CreateSessionsService;
@@ -55,17 +55,17 @@ describe('CreateSession', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  //   it('should not be able to create two users with the same email', async () => {
-  //     const User = await fakeUsersRepository.create({
-  //       name: 'joao',
+  // it('should not be able to create two users with the same email', async () => {
+  //   await fakeUsersRepository.create({
+  //     name: 'joao',
+  //     email: 'João@gmail.com',
+  //     password: '123456',
+  //   });
+  //   expect(
+  //     CreateSession.execute({
   //       email: 'João@gmail.com',
   //       password: '123456',
-  //     });
-  //     expect(
-  //       CreateSession.execute({
-  //         email: 'João@gmail.com',
-  //         password: '123456',
-  //       })
-  //     ).rejects.toBeInstanceOf(AppError);
-  //   });
+  //     })
+  //   ).rejects.toBeInstanceOf(AppError);
+  // });
 });

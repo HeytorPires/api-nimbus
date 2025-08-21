@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
+import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;
@@ -22,7 +22,7 @@ describe('Create User', () => {
       password: '123456',
     });
 
-    expect(User).toHaveProperty('id');
+    expect(User).toHaveProperty('email');
   });
   it('should not be able to create two users with the same email', async () => {
     await CreateUser.execute({
