@@ -13,7 +13,7 @@ class SendForgotPasswordEmailService {
     private usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
     private userTokensRepository: IUserTokensRepository
-  ) {}
+  ) { }
   public async execute({ email }: ISendForgotPasswordEmailUser) {
     const appWebUrl = process.env.APP_WEB_URL;
     const user = await this.usersRepository.findByEmail(email);
@@ -34,7 +34,7 @@ class SendForgotPasswordEmailService {
         name: user.name,
         email: user.email,
       },
-      subject: '[API Vendas] Recuperação de Senha',
+      subject: '[ Nimbus ] Recuperação de Senha',
       templateDate: {
         file: forgotPasswordTemplate,
         variables: {
