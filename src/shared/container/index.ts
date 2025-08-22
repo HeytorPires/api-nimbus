@@ -7,7 +7,7 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import BcryptHashProvider from '@shared/providers/cryptography/implementations/BcryptHashProvider';
 import cryptoProvider from '@shared/providers/cryptography/implementations/CryptoProvider';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
-import TasksRepository from '@modules/tasks/infra/typeorm/repositories/TasksRepository';
+import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
 
 //Dominios
@@ -16,7 +16,7 @@ import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserT
 import { ICacheProvider } from '@shared/providers/cache/models/IRedisProvider';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
-import { ITaskRepository } from '@modules/tasks/domain/repositories/ITaskRepository';
+import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
 
 
@@ -28,9 +28,9 @@ container.registerSingleton<IUserTokensRepository>(
   'UsersTokensRepository',
   UserTokensRepository
 );
-container.registerSingleton<ITaskRepository>(
-  'TasksRepository',
-  TasksRepository
+container.registerSingleton<IProjectRepository>(
+  'ProjectsRepository',
+  ProjectsRepository
 );
 
 container.registerSingleton<ITagRepository>(

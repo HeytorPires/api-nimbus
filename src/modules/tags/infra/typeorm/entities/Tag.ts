@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
 import { ITag } from '@modules/tags/domain/models/ITag';
-import Task from '@modules/tasks/infra/typeorm/entities/Task';
+import Project from '@modules/projects/infra/typeorm/entities/Project';
 @Entity('tags')
 class Tag implements ITag {
   @PrimaryGeneratedColumn('uuid')
@@ -27,9 +27,9 @@ class Tag implements ITag {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => Task, task => task.tag)
+  @OneToMany(() => Project, project => project.tag)
   @JoinColumn({ name: 'user_id' })
-  Tasks: Task[];
+  projects: Project[];
 
 }
 

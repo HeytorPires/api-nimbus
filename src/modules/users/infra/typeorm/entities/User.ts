@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
 import { IUser } from '@modules/users/domain/models/IUser';
-import Task from '@modules/tasks/infra/typeorm/entities/Task';
+import Project from '@modules/projects/infra/typeorm/entities/Project';
 import Tag from '@modules/tags/infra/typeorm/entities/Tag';
 @Entity('users')
 class User implements IUser {
@@ -35,8 +35,8 @@ class User implements IUser {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Task, task => task.user)
-  tasks: Task[];
+  @OneToMany(() => Project, project => project.user)
+  projects: Project[];
 
   @OneToMany(() => Tag, tag => tag.user)
   tags: Tag[];
