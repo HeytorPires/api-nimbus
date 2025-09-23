@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
 import UsersController from '../controllers/UsersController';
 import isAuthenticated from '@shared/infra/http/middleware/isAuthenticated';
 import UserAvatarController from '../controllers/UserAvatarController';
+import { createUserSchema } from '../schemas/ICreateUserSchema';
 import { requestValidation } from '@shared/infra/http/middleware/requestValidation';
-import { tagCreateSchema } from '@modules/tags/infra/http/schemas/IUpdateTagSchema';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -17,7 +16,7 @@ const upload = multer({ storage: uploadConfig.Storage });
 usersRouter.get('/', isAuthenticated, usersController.index);
 usersRouter.post(
   '/',
-  requestValidation(tagCreateSchema),
+  requestValidation(createUserSchema),
   usersController.create
 );
 
@@ -29,3 +28,4 @@ usersRouter.patch(
 );
 
 export default usersRouter;
+
