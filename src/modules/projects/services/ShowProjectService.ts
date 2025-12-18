@@ -13,7 +13,7 @@ class ShowProjectService {
     @inject('ProjectsRepository')
     private projectRepository: IProjectRepository,
     @inject('CryptoProvider')
-    private cryptoProvider: ICryptographyProvider,
+    private cryptoProvider: ICryptographyProvider
   ) {
     this.projectMapper = new ProjectMapper();
   }
@@ -30,12 +30,14 @@ class ShowProjectService {
     }
 
     const projectDTO = this.projectMapper.toDTO(project);
-    projectDTO.variablesEnvironment = await this.cryptoProvider.decrypt(
-      project.variablesEnvironment,
-    );
+    projectDTO.variablesEnvironment = await this.cryptoProvider.decrypt({
+      content: project.variablesEnvironment,
+      iv: project.InitializationVector,
+    });
 
     return projectDTO;
   }
 }
 
 export default ShowProjectService;
+

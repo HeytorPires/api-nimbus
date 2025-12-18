@@ -14,7 +14,6 @@ export default function isAuthenticated(
   next: NextFunction
 ): void {
   const authHeader = request.headers.authorization;
-
   if (!authHeader) {
     throw new AppError('JWT toker is missing');
   }
@@ -34,3 +33,4 @@ export default function isAuthenticated(
     throw new AppError('Invalid Token is missing');
   }
 }
+

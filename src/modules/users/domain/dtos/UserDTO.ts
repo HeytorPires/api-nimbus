@@ -5,3 +5,4 @@ export interface UserDTO {
   created_at: Date;
   updated_at: Date;
 }
+

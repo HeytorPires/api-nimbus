@@ -3,6 +3,7 @@ import ListUserService from '../../../services/ListUserService';
 import CreateUserService from '../../../services/CreateUserService';
 import { instanceToInstance } from 'class-transformer';
 import { container } from 'tsyringe';
+import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 export default class UsersController {
   public async index(request: Request, response: Response) {
@@ -22,4 +23,16 @@ export default class UsersController {
     response.json(instanceToInstance(user));
     return;
   }
+
+  public async getUser(request: Request, response: Response) {
+    const userId = request.user.id;
+
+    const showProfile = container.resolve(ShowProfileService);
+
+    const user = await showProfile.execute(userId);
+
+    response.json(instanceToInstance(user));
+    return;
+  }
 }
+
