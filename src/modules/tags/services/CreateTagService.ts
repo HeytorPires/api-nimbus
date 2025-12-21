@@ -26,7 +26,6 @@ class CreateTagService {
     }
 
     const tagExistent = await this.tagsRepository.findByName(name, user);
-    console.log('aqui chegea')
 
     if (tagExistent) {
       throw new AppError('Tag name already in use', 400);
@@ -41,3 +40,4 @@ class CreateTagService {
 }
 
 export default CreateTagService;
+

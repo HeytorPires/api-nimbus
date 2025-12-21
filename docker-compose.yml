@@ -1,16 +1,4 @@
 services:
-  app:
-    build: .
-    entrypoint: .docker/entrypoint.sh
-    container_name: nimbus-app
-    ports:
-      - '3333:3333'
-    volumes:
-      - .:/home/node/app
-    depends_on:
-      - db
-      - redis
-
   db:
     build: .docker/postgres
     container_name: nimbus-db
@@ -30,14 +18,3 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: nimbus-pgadmin
-    tty: true
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-    ports:
-      - '8000:80'
-    depends_on:
-      - db

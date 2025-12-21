@@ -13,7 +13,6 @@ export default class TagsRepository implements ITagRepository {
   }
 
   public async create({ name, userId }: ICreateTag): Promise<ITag> {
-    console.log(name, userId)
     const entity = this.ormRepository.create({
       name,
       user: { id: userId },
@@ -34,20 +33,25 @@ export default class TagsRepository implements ITagRepository {
   public async list(userId: string): Promise<ITag[] | undefined> {
     const tags = await this.ormRepository.find({
       where: { user: { id: userId } },
-      relations: ['user']
+      relations: ['user'],
     });
     return tags;
   }
 
-  public async findByName(name: string, user: IUser): Promise<ITag | undefined> {
-    const entity = await this.ormRepository.findOne({ where: { name, user: { id: user.id } } });
+  public async findByName(
+    name: string,
+    user: IUser
+  ): Promise<ITag | undefined> {
+    const entity = await this.ormRepository.findOne({
+      where: { name, user: { id: user.id } },
+    });
     return entity;
   }
 
   public async findById(id: string): Promise<ITag | undefined> {
     const tag = await this.ormRepository.findOne({
       where: { id },
-      relations: ['user']
+      relations: ['user'],
     });
     return tag;
   }
@@ -57,9 +61,10 @@ export default class TagsRepository implements ITagRepository {
       .createQueryBuilder()
       .update(Tag)
       .set(tag)
-      .where("id = :id", { id: tag.id })
+      .where('id = :id', { id: tag.id })
       .execute();
 
     return await this.ormRepository.findOne({ where: { id: tag.id } });
   }
 }
+

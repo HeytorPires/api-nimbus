@@ -17,7 +17,7 @@ export default class ProjectsController {
       description,
       variablesEnvironment,
       userId,
-      tagId
+      tagId,
     });
 
     response.json(instanceToInstance(project));
@@ -27,7 +27,15 @@ export default class ProjectsController {
   public async list(request: Request, response: Response) {
     const listProjects = container.resolve(ListProjectService);
     const userId = request.user.id;
-    const projects = await listProjects.execute(userId);
+    const { perPage, currentPage } = request.query as {
+      perPage: string;
+      currentPage: string;
+    };
+    const projects = await listProjects.execute(
+      Number(perPage),
+      Number(currentPage),
+      userId
+    );
 
     response.json(instanceToInstance(projects));
     return;
@@ -63,10 +71,11 @@ export default class ProjectsController {
       description,
       variablesEnvironment,
       userId,
-      tagId
+      tagId,
     });
 
     response.status(200).json(instanceToInstance(project));
     return;
   }
 }
+

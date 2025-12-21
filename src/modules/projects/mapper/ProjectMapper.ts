@@ -17,6 +17,7 @@ export class ProjectMapper {
   }
 
   toDTOList(projects: IProject[]): IProjectDTO[] {
-    return projects.map(project => this.toDTO(project));
+    return projects.map((project) => this.toDTO(project));
   }
 }
+

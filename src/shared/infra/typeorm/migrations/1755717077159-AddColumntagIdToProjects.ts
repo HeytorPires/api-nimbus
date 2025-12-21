@@ -1,10 +1,14 @@
-import { MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  TableColumn,
+  TableForeignKey,
+} from 'typeorm';
 
 export class AddColumntagIdToTasks1755717077159 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      "tasks",
+      'projects',
       new TableColumn({
         name: 'tag_id',
         type: 'uuid',
@@ -13,7 +17,7 @@ export class AddColumntagIdToTasks1755717077159 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      'tasks',
+      'projects',
       new TableForeignKey({
         name: 'tagsToTasks',
         columnNames: ['tag_id'],
@@ -26,12 +30,15 @@ export class AddColumntagIdToTasks1755717077159 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable('tasks');
-    const foreignKey = table!.foreignKeys.find(fk => fk.name === 'tagsToTasks');
+    const table = await queryRunner.getTable('projects');
+    const foreignKey = table!.foreignKeys.find(
+      (fk) => fk.name === 'tagsToTasks'
+    );
     if (foreignKey) {
-      await queryRunner.dropForeignKey('tasks', foreignKey);
+      await queryRunner.dropForeignKey('projects', foreignKey);
     }
 
-    await queryRunner.dropColumn('tasks', 'tag_id');
+    await queryRunner.dropColumn('projects', 'tag_id');
   }
 }
+

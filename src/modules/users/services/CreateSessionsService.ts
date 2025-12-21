@@ -16,7 +16,7 @@ class CreateSessionsService {
     private usersRepository: IUserRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider
-  ) { }
+  ) {}
   public async execute({
     email,
     password,
@@ -42,9 +42,9 @@ class CreateSessionsService {
       subject: user.id,
       expiresIn: '1d',
     });
-    console.log(user, token)
     return { user, token };
   }
 }
 
 export default CreateSessionsService;
+

@@ -4,6 +4,7 @@ import { ICreateProject } from '../../../domain/models/ICreateProject';
 import { IProject } from '@modules/projects/domain/models/IProject';
 import { IUser } from '@modules/users/domain/models/IUser';
 import Project from '../entities/Project';
+import { IPaginationReturn } from '@shared/interfaces/IPaginationReturn';
 
 export default class ProjectsRepository implements IProjectRepository {
   private ormRepository: Repository<Project>;
@@ -12,7 +13,14 @@ export default class ProjectsRepository implements IProjectRepository {
     this.ormRepository = getRepository(Project);
   }
 
-  public async create({ title, description, variablesEnvironment, InitializationVector, userId, tagId }: ICreateProject): Promise<IProject> {
+  public async create({
+    title,
+    description,
+    variablesEnvironment,
+    InitializationVector,
+    userId,
+    tagId,
+  }: ICreateProject): Promise<IProject> {
     const project = this.ormRepository.create({
       title,
       description,
@@ -36,17 +44,32 @@ export default class ProjectsRepository implements IProjectRepository {
     await this.ormRepository.remove(project);
   }
 
-  public async list(userId: string): Promise<IProject[] | undefined> {
+  public async list(
+    perPage: number,
+    currentPage: number,
+    userId: string
+  ): Promise<IPaginationReturn<IProject[]>> {
     const projects = await this.ormRepository.find({
       where: { user: { id: userId } },
-      relations: ['user', 'tag']
+      relations: ['user', 'tag'],
+      order: { created_at: 'DESC' },
+      take: perPage,
+      skip: (currentPage - 1) * perPage,
     });
-    return projects;
+    return {
+      currentPage,
+      perPage,
+      totalRows: projects.length,
+      data: projects,
+    };
   }
 
-  public async findByName(title: string, user: IUser): Promise<IProject | undefined> {
+  public async findByName(
+    title: string,
+    user: IUser
+  ): Promise<IProject | undefined> {
     const project = await this.ormRepository.findOne({
-      where: { title, user }
+      where: { title, user },
     });
     return project;
   }
@@ -54,7 +77,7 @@ export default class ProjectsRepository implements IProjectRepository {
   public async findById(id: string): Promise<IProject | undefined> {
     const project = await this.ormRepository.findOne({
       where: { id },
-      relations: ['user', 'tag']
+      relations: ['user', 'tag'],
     });
     return project;
   }
@@ -64,9 +87,10 @@ export default class ProjectsRepository implements IProjectRepository {
       .createQueryBuilder()
       .update(Project)
       .set(project)
-      .where("id = :id", { id: project.id })
+      .where('id = :id', { id: project.id })
       .execute();
 
     return await this.ormRepository.findOne({ where: { id: project.id } });
   }
 }
+

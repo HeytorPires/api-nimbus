@@ -12,7 +12,7 @@ class CreateUserService {
     private usersRepository: IUserRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider
-  ) { }
+  ) {}
 
   public async execute({ name, email, password }: ICreateUser) {
     const emailExists = await this.usersRepository.findByEmail(email);
@@ -22,13 +22,11 @@ class CreateUserService {
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
-    console.log(hashedPassword)
     const user = await this.usersRepository.create({
       name,
       email,
       password: hashedPassword,
     });
-
 
     // Aplica o mapper antes de retornar
     return UserMapper.toDTO(user);
@@ -36,3 +34,4 @@ class CreateUserService {
 }
 
 export default CreateUserService;
+

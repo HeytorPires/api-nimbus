@@ -1,9 +1,11 @@
-import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
+import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
-export class AddColumnInitializationVector1755555823981 implements MigrationInterface {
+export class AddColumnInitializationVector1755555823981
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      'tasks',
+      'projects',
       new TableColumn({
         name: 'InitializationVector',
         type: 'varchar',
@@ -14,6 +16,7 @@ export class AddColumnInitializationVector1755555823981 implements MigrationInte
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('tasks', 'initialization_vector');
+    await queryRunner.dropColumn('projects', 'InitializationVector');
   }
 }
+
