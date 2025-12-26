@@ -16,11 +16,11 @@ passwordRouter.post(
   forgotPasswordController.create
 );
 
-passwordRouter.post(
+passwordRouter.put(
   '/reset',
   requestValidation(resetPasswordSchema),
-  //   isAuthenticated,
   resetPasswordController.Reset
 );
 
 export default passwordRouter;
+
