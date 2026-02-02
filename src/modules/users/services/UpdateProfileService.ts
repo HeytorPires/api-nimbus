@@ -1,15 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import bcrypt from 'bcryptjs';
 import { IUpdateProfileUser } from '../domain/models/IUpdateProfileUser';
 import { IUser } from '../domain/models/IUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
+import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 
 @injectable()
 class UpdateProfileService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUserRepository
+    private usersRepository: IUserRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider
   ) {}
   public async execute({
     user_id,
@@ -33,18 +35,21 @@ class UpdateProfileService {
     if (password && !old_password) {
       throw new AppError('Old password is required');
     }
-
+    console.log('Password:', password, 'Old password:', old_password);
     if (password && old_password) {
-      const checkOldPassoword = await bcrypt.compare(
+      console.log('Old password input:', old_password);
+      console.log('User password hash:', user.password);
+      const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
         user.password
       );
-      if (!checkOldPassoword) {
+      console.log('Password match:', checkOldPassword);
+      if (!checkOldPassword) {
         throw new AppError('Old password does not match.');
       }
 
       const saltRounds = 8;
-      user.password = await bcrypt.hash(password, saltRounds);
+      user.password = await this.hashProvider.generateHash(password);
     }
     user.email = email;
     user.name = name;

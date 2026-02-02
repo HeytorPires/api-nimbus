@@ -37,17 +37,20 @@ class Project implements IProject {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, user => user.projects)
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column({ name: 'tag_id' })
+  @Column({ name: 'tagId' })
   tagId: string;
 
   @ManyToOne(() => Tag)
-  @JoinColumn({ name: 'tag_id' })
+  @JoinColumn({ name: 'tagId' })
   tag: Tag;
-
 }
 
 export default Project;
+

@@ -9,7 +9,7 @@ class ListTagService {
 
   constructor(
     @inject('TagsRepository')
-    private tagRepository: ITagRepository,
+    private tagRepository: ITagRepository
   ) {
     this.tagMapper = new TagMapper();
   }
@@ -22,3 +22,4 @@ class ListTagService {
 }
 
 export default ListTagService;
+

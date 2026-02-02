@@ -23,14 +23,17 @@ class Tag implements ITag {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => User, user => user.tags)
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.tags)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => Project, project => project.tag)
+  @OneToMany(() => Project, (project) => project.tag)
   @JoinColumn({ name: 'user_id' })
   projects: Project[];
-
 }
 
 export default Tag;
+

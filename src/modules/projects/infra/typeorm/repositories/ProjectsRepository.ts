@@ -48,14 +48,16 @@ export default class ProjectsRepository implements IProjectRepository {
     perPage: number,
     currentPage: number,
     userId: string
-  ): Promise<IPaginationReturn<IProject[]>> {
+  ): Promise<IPaginationReturn<Project[]>> {
+    console.log(userId);
     const projects = await this.ormRepository.find({
-      where: { user: { id: userId } },
-      relations: ['user', 'tag'],
+      where: { userId: userId },
+      // relations: ['users', 'tags'],
       order: { created_at: 'DESC' },
       take: perPage,
       skip: (currentPage - 1) * perPage,
     });
+    console.log(projects);
     return {
       currentPage,
       perPage,

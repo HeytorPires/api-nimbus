@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import { ITagRepository } from '../../../domain/repositories/ITagRepository';
 import { ICreateTag } from '../../../domain/models/ICreateTag';
-import { ITag } from '@modules/tags/domain/models/ITag';
 import { IUser } from '@modules/users/domain/models/IUser';
 import Tag from '../entities/Tag';
 
@@ -12,7 +11,7 @@ export default class TagsRepository implements ITagRepository {
     this.ormRepository = getRepository(Tag);
   }
 
-  public async create({ name, userId }: ICreateTag): Promise<ITag> {
+  public async create({ name, userId }: ICreateTag): Promise<Tag> {
     const entity = this.ormRepository.create({
       name,
       user: { id: userId },
@@ -30,25 +29,22 @@ export default class TagsRepository implements ITagRepository {
     await this.ormRepository.remove(tag);
   }
 
-  public async list(userId: string): Promise<ITag[] | undefined> {
+  public async list(userId: string): Promise<Tag[] | undefined> {
     const tags = await this.ormRepository.find({
       where: { user: { id: userId } },
-      relations: ['user'],
+      // relations: ['user'],
     });
     return tags;
   }
 
-  public async findByName(
-    name: string,
-    user: IUser
-  ): Promise<ITag | undefined> {
+  public async findByName(name: string, user: IUser): Promise<Tag | undefined> {
     const entity = await this.ormRepository.findOne({
       where: { name, user: { id: user.id } },
     });
     return entity;
   }
 
-  public async findById(id: string): Promise<ITag | undefined> {
+  public async findById(id: string): Promise<Tag | undefined> {
     const tag = await this.ormRepository.findOne({
       where: { id },
       relations: ['user'],
@@ -56,7 +52,7 @@ export default class TagsRepository implements ITagRepository {
     return tag;
   }
 
-  public async update(tag: ITag): Promise<ITag | undefined> {
+  public async update(tag: Tag): Promise<Tag | undefined> {
     await this.ormRepository
       .createQueryBuilder()
       .update(Tag)

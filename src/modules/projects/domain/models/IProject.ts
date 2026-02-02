@@ -1,5 +1,5 @@
-import { IUser } from "@modules/users/domain/models/IUser";
-import { ITag } from "@modules/tags/domain/models/ITag";
+import { IUser } from '@modules/users/domain/models/IUser';
+import { ITag } from '@modules/tags/domain/models/ITag';
 
 export interface IProject {
   id: string;
@@ -10,5 +10,8 @@ export interface IProject {
   repository: string;
   user: IUser;
   tag?: ITag;
+  userid?: string;
+  tagId?: string;
   updated_at: Date;
 }
+
