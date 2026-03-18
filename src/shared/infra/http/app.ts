@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import 'express-async-errors';
 
 import express from 'express';
@@ -14,7 +14,6 @@ import { pagination } from 'typeorm-pagination';
 
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 // app.use(rateLimiter);
@@ -22,6 +21,11 @@ app.use(pagination);
 app.use(routes);
 app.use('/files', express.static(uploadConfig.directory));
 app.use(ErrorHandler);
+dotenv.config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development',
+});
 
-
-export default app
+export default app;
