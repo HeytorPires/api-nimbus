@@ -52,12 +52,11 @@ export default class ProjectsRepository implements IProjectRepository {
     console.log(userId);
     const projects = await this.ormRepository.find({
       where: { userId: userId },
-      // relations: ['users', 'tags'],
       order: { created_at: 'DESC' },
       take: perPage,
       skip: (currentPage - 1) * perPage,
     });
-    console.log(projects);
+
     return {
       currentPage,
       perPage,

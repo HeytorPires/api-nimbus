@@ -19,7 +19,6 @@ import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICr
 import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
 
-
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
   UsersRepository
@@ -33,13 +32,13 @@ container.registerSingleton<IProjectRepository>(
   ProjectsRepository
 );
 
-container.registerSingleton<ITagRepository>(
-  'TagsRepository',
-  TagsRepository
-);
+container.registerSingleton<ITagRepository>('TagsRepository', TagsRepository);
 
 // providers
 container.registerSingleton<ICacheProvider>('cacheProvider', RedisCache);
 container.registerSingleton<IHashProvider>('HashProvider', BcryptHashProvider);
-container.registerSingleton<ICryptographyProvider>('CryptoProvider', cryptoProvider);
+container.registerSingleton<ICryptographyProvider>(
+  'CryptoProvider',
+  cryptoProvider
+);
 
