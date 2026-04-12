@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    /* ================== BASE ================== */
+    "target": "ES2020",
     "module": "CommonJS",
-    "allowJs": true,
-    "outDir": "./build",
-    "rootDir": ".",
-    "strict": true,
-    "noImplicitAny": true,
-    "strictPropertyInitialization": false,
-    "esModuleInterop": true,
-    "noImplicitThis": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
+
+    /* ================== PATHS ================== */
     "baseUrl": ".",
     "paths": {
       "@config/*": ["src/config/*"],
@@ -18,14 +13,35 @@
       "@shared/*": ["src/shared/*"],
       "@docs/*": ["src/docs/*"]
     },
+
+    /* ================== OUTPUT ================== */
+    "outDir": "./build",
+    "rootDir": ".",
+
+    /* ================== INTEROP ================== */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    /* ================== STRICT ================== */
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
+
+    /* ================== TYPES ================== */
     "typeRoots": ["./@types", "./node_modules/@types"],
     "types": ["node", "express", "jest"],
+
+    /* ================== DECORATORS ================== */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+
+    /* ================== PERFORMANCE ================== */
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "build"],
-  "include": ["src/**/*", "tests/**/*"]
+
+  /* ================== INCLUDE / EXCLUDE ================== */
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "build"]
 }
