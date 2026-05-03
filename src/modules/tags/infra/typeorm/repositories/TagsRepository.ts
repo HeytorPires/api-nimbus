@@ -3,6 +3,7 @@ import { ITagRepository } from '../../../domain/repositories/ITagRepository';
 import { ICreateTag } from '../../../domain/models/ICreateTag';
 import { IUser } from '@modules/users/domain/models/IUser';
 import Tag from '../entities/Tag';
+import { IPaginationReturn } from '@shared/interfaces/IPaginationReturn';
 
 export default class TagsRepository implements ITagRepository {
   private ormRepository: Repository<Tag>;
@@ -29,12 +30,24 @@ export default class TagsRepository implements ITagRepository {
     await this.ormRepository.remove(tag);
   }
 
-  public async list(userId: string): Promise<Tag[] | undefined> {
+  public async list(
+    userId: string,
+    perPage: number,
+    currentPage: number
+  ): Promise<IPaginationReturn<Tag[]>> {
     const tags = await this.ormRepository.find({
-      where: { user: { id: userId } },
-      // relations: ['user'],
+      where: { userId: userId },
+      order: { created_at: 'DESC' },
+      take: perPage,
+      skip: (currentPage - 1) * perPage,
     });
-    return tags;
+
+    return {
+      currentPage,
+      perPage,
+      totalRows: tags.length,
+      data: tags,
+    };
   }
 
   public async findByName(name: string, user: IUser): Promise<Tag | undefined> {

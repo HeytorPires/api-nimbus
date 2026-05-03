@@ -21,7 +21,12 @@ export default class TagsController {
   public async list(request: Request, response: Response) {
     const listTags = container.resolve(ListTagService);
     const userId = request.user.id;
-    const tags = await listTags.execute(userId);
+    const { perPage, currentPage } = request.query;
+    const tags = await listTags.execute(
+      userId,
+      Number(perPage),
+      Number(currentPage)
+    );
 
     response.json(instanceToInstance(tags));
     return;
@@ -57,3 +62,4 @@ export default class TagsController {
     return;
   }
 }
+
