@@ -10,7 +10,7 @@ class ShowTagService {
 
   constructor(
     @inject('TagsRepository')
-    private tagRepository: ITagRepository,
+    private tagRepository: ITagRepository
   ) {
     this.tagMapper = new TagMapper();
   }
@@ -31,3 +31,4 @@ class ShowTagService {
 }
 
 export default ShowTagService;
+

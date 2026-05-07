@@ -14,7 +14,7 @@ describe('List Users', () => {
     ListUser = new ListUserService(fakeUsersRepository);
   });
 
-  it('should be able to authenticate', async () => {
+  it('deve ser capaz de listar usuários cadastrados', async () => {
     const user = await fakeUsersRepository.create({
       name: 'joao',
       email: 'João@gmail.com',
@@ -24,8 +24,9 @@ describe('List Users', () => {
     const response = await ListUser.execute();
     expect(response).not.toHaveLength(0);
   });
-  it('should be able to authenticate', async () => {
+  it('deve retornar uma lista vazia quando não existirem usuários', async () => {
     const response = await ListUser.execute();
     expect(response).toHaveLength(0);
   });
 });
+

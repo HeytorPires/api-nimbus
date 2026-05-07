@@ -33,7 +33,7 @@ describe('Create Tag', () => {
     );
   });
 
-  it('should be able to create a new Tag', async () => {
+  it('deve ser capaz de criar uma nova tag', async () => {
     await createUserService.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -53,7 +53,7 @@ describe('Create Tag', () => {
 
     expect(tag).toHaveProperty('id');
   });
-  it('should not be able to create two tags with the same name', async () => {
+  it('não deve ser capaz de criar duas tags com o mesmo nome', async () => {
     const User = await createUserService.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -76,7 +76,7 @@ describe('Create Tag', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  it('should not be able to create tags with invalid userId', async () => {
+  it('não deve ser capaz de criar tags com um userId inválido', async () => {
     expect(
       createTagService.execute({
         name: 'Important',

@@ -36,7 +36,7 @@ describe('Update profile', () => {
     );
   });
 
-  it('should be able to reset a password', async () => {
+  it('deve ser capaz de atualizar o perfil com nova senha', async () => {
     const userCreated = await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -62,7 +62,7 @@ describe('Update profile', () => {
     expect(updatedUser).toHaveProperty('name');
   });
 
-  it('should not be Update with User not exist', async () => {
+  it('não deve atualizar o perfil quando o usuário não existir', async () => {
     await CreateUser.execute({
       name: 'João silva',
       email: 'João1@gmail.com',
@@ -85,7 +85,7 @@ describe('Update profile', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  it('should not be able to create two users with the same email', async () => {
+  it('não deve ser capaz de criar dois usuários com o mesmo email', async () => {
     await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',

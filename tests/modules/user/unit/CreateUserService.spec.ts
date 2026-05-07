@@ -15,7 +15,7 @@ describe('Create User', () => {
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
   });
 
-  it('should be able to create a new User', async () => {
+  it('deve ser capaz de criar um novo usuário', async () => {
     const User = await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -24,7 +24,7 @@ describe('Create User', () => {
 
     expect(User).toHaveProperty('email');
   });
-  it('should not be able to create two users with the same email', async () => {
+  it('não deve ser capaz de criar dois usuários com o mesmo email', async () => {
     await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -39,3 +39,4 @@ describe('Create User', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
+

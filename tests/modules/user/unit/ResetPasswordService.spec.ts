@@ -12,23 +12,29 @@ let fakeUsersTokensRepository: FakeUsersTokensRepository;
 let CreateUser: CreateUserService;
 let ResetPassword: ResetPasswordService;
 let hashProvider: FakeHashProvider;
-let createSession: CreateSessionsService
+let createSession: CreateSessionsService;
 
 describe('Create User', () => {
   beforeEach(() => {
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     fakeUsersTokensRepository = new FakeUsersTokensRepository();
-    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      hashProvider
+    );
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
     ResetPassword = new ResetPasswordService(
       fakeUsersRepository,
       fakeUsersTokensRepository
     );
-    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      hashProvider
+    );
   });
 
-  it('should be able to reset a password', async () => {
+  it('deve ser capaz de redefinir uma senha', async () => {
     const User = await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -38,7 +44,7 @@ describe('Create User', () => {
     const session = await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
-    })
+    });
     const { password, id } = session.user;
 
     const response = await fakeUsersTokensRepository.generate(id);
@@ -47,7 +53,7 @@ describe('Create User', () => {
     await ResetPassword.execute({ token, password });
     expect(User).toHaveProperty('email');
   });
-  it('should not be able to create two users with the same email', async () => {
+  it('não deve ser capaz de criar dois usuários com o mesmo email', async () => {
     await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
@@ -62,3 +68,4 @@ describe('Create User', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
+

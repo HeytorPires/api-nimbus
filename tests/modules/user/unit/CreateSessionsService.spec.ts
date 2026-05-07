@@ -18,7 +18,7 @@ describe('CreateSession', () => {
     );
   });
 
-  it('should be able to authenticate', async () => {
+  it('deve ser capaz de autenticar', async () => {
     const user = await fakeUsersRepository.create({
       name: 'joao',
       email: 'João@gmail.com',
@@ -33,7 +33,7 @@ describe('CreateSession', () => {
     expect(response).toHaveProperty('token');
     expect(response.user).toEqual(user);
   });
-  it('should be able to authenticate with wrong password', async () => {
+  it('não deve ser capaz de autenticar com senha incorreta', async () => {
     await fakeUsersRepository.create({
       name: 'joao',
       email: 'João@gmail.com',
@@ -47,7 +47,7 @@ describe('CreateSession', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  it('should be able to authenticate without user', async () => {
+  it('não deve ser capaz de autenticar sem usuário', async () => {
     await expect(
       CreateSession.execute({
         email: 'João@gmail.com',
@@ -55,7 +55,7 @@ describe('CreateSession', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  // it('should not be able to create two users with the same email', async () => {
+  // it('não deve ser capaz de criar dois usuários com o mesmo email', async () => {
   //   await fakeUsersRepository.create({
   //     name: 'joao',
   //     email: 'João@gmail.com',
@@ -69,3 +69,4 @@ describe('CreateSession', () => {
   //   ).rejects.toBeInstanceOf(AppError);
   // });
 });
+
