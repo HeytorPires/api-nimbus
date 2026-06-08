@@ -1,3 +1,6 @@
+import Project from '@modules/projects/infra/typeorm/entities/Project';
+import { ITag } from '@modules/tags/domain/models/ITag';
+import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Column,
   CreateDateColumn,
@@ -5,13 +8,8 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import User from '@modules/users/infra/typeorm/entities/User';
-import { ITag } from '@modules/tags/domain/models/ITag';
-import Project from '@modules/projects/infra/typeorm/entities/Project';
 @Entity('tags')
 class Tag implements ITag {
   @PrimaryGeneratedColumn('uuid')
@@ -24,7 +22,7 @@ class Tag implements ITag {
   created_at: Date;
 
   @Column()
-  userId: string;
+  user_id: string;
 
   @ManyToOne(() => User, (user) => user.tags)
   @JoinColumn({ name: 'user_id' })
@@ -36,4 +34,3 @@ class Tag implements ITag {
 }
 
 export default Tag;
-

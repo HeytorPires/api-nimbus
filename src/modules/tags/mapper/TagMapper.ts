@@ -7,11 +7,12 @@ export class TagMapper {
       id: tag.id,
       name: tag.name,
       created_at: tag.created_at,
-      userId: tag.user.id,
+      user_id: tag.user.id,
     };
   }
 
   toDTOList(tags: ITag[]): ITagDTO[] {
-    return tags.map(tag => this.toDTO(tag));
+    return tags.map((tag) => this.toDTO(tag));
   }
 }
+

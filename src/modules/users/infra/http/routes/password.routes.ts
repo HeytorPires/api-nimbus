@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
 import ForgotPasswordController from '../controllers/ForgotPasswordController';
 import ResetPasswordController from '../controllers/ResetPasswordController';
 import { requestValidation } from '@shared/infra/http/middleware/requestValidation';
@@ -23,4 +22,3 @@ passwordRouter.put(
 );
 
 export default passwordRouter;
-

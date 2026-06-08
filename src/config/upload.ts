@@ -1,7 +1,11 @@
 import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
+import { mkdirSync } from 'fs';
+
 const uploadFolder = path.resolve(__dirname, '..', '..', 'uploads');
+
+mkdirSync(uploadFolder, { recursive: true });
 
 export default {
   directory: uploadFolder,
@@ -15,3 +19,4 @@ export default {
     },
   }),
 };
+

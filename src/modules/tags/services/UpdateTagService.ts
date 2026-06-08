@@ -11,19 +11,19 @@ class UpdateTagService {
 
   constructor(
     @inject('TagsRepository')
-    private tagRepository: ITagRepository,
+    private tagRepository: ITagRepository
   ) {
     this.tagMapper = new TagMapper();
   }
 
-  public async execute({ id, name, userId }: IUpdateTag): Promise<ITagDTO> {
+  public async execute({ id, name, user_id }: IUpdateTag): Promise<ITagDTO> {
     const tag = await this.tagRepository.findById(id);
 
     if (!tag) {
       throw new AppError('Tag not found.', 404);
     }
 
-    if (tag.user.id !== userId) {
+    if (tag.user.id !== user_id) {
       throw new AppError('Access denied.', 403);
     }
 
@@ -36,3 +36,4 @@ class UpdateTagService {
 }
 
 export default UpdateTagService;
+

@@ -12,10 +12,10 @@ export default class TagsRepository implements ITagRepository {
     this.ormRepository = getRepository(Tag);
   }
 
-  public async create({ name, userId }: ICreateTag): Promise<Tag> {
+  public async create({ name, user_id }: ICreateTag): Promise<Tag> {
     const entity = this.ormRepository.create({
       name,
-      user: { id: userId },
+      user: { id: user_id },
     });
     await this.ormRepository.save(entity);
     return entity;
@@ -31,12 +31,12 @@ export default class TagsRepository implements ITagRepository {
   }
 
   public async list(
-    userId: string,
+    user_id: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<Tag[]>> {
     const tags = await this.ormRepository.find({
-      where: { userId: userId },
+      where: { user_id: user_id },
       order: { created_at: 'DESC' },
       take: perPage,
       skip: (currentPage - 1) * perPage,
@@ -76,4 +76,3 @@ export default class TagsRepository implements ITagRepository {
     return await this.ormRepository.findOne({ where: { id: tag.id } });
   }
 }
-

@@ -3,6 +3,7 @@ export interface ICreateProject {
   description: string;
   variablesEnvironment: string;
   InitializationVector?: string;
-  userId: string;
-  tagId?: string;
+  user_id: string;
+  tag_id?: string;
 }
+

@@ -41,4 +41,3 @@ container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',
   cryptoProvider
 );
-

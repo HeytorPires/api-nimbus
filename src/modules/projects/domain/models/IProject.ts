@@ -10,8 +10,7 @@ export interface IProject {
   repository: string;
   user: IUser;
   tag?: ITag;
-  userid?: string;
-  tagId?: string;
+  user_id?: string;
+  tag_id?: string;
   updated_at: Date;
 }
-

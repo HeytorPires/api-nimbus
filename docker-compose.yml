@@ -1,20 +1,26 @@
 services:
-  db:
-    build: .docker/postgres
+  postgres:
+    image: postgres:17-alpine
     container_name: nimbus-db
-    restart: always
+    restart: unless-stopped
     tty: true
     ports:
       - '5432:5432'
     volumes:
-      - .docker/dbdata:/var/lib/postgresql/data
+      - Postgres_data:/var/lib/postgresql/data
     environment:
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nimbus-api
 
   redis:
-    image: 'bitnami/redis:latest'
-    container_name: nimbus-redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    container_name: redis-nimbus
+    ports:
+      - '6379:6379'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
 
+volumes:
+  Postgres_data:

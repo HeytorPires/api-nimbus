@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
-
 import isAuthenticated from '@shared/infra/http/middleware/isAuthenticated';
 
 import ProfileController from '../controllers/ProfileController';
@@ -20,3 +18,4 @@ ProfileRouter.put(
 );
 
 export default ProfileRouter;
+

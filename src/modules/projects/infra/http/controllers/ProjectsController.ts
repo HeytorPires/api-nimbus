@@ -9,15 +9,15 @@ import UpdateProjectService from '@modules/projects/services/UpdateProjectServic
 
 export default class ProjectsController {
   public async create(request: Request, response: Response) {
-    const { title, description, variablesEnvironment, tagId } = request.body;
-    const userId = request.user.id;
+    const { title, description, variablesEnvironment, tag_id } = request.body;
+    const user_id = request.user.id;
     const createProjects = container.resolve(CreateProjectService);
     const project = await createProjects.execute({
       title,
       description,
       variablesEnvironment,
-      userId,
-      tagId,
+      user_id,
+      tag_id,
     });
 
     response.json(instanceToInstance(project));
@@ -26,7 +26,7 @@ export default class ProjectsController {
 
   public async list(request: Request, response: Response) {
     const listProjects = container.resolve(ListProjectService);
-    const userId = request.user.id;
+    const user_id = request.user.id;
     const { perPage, currentPage } = request.query as {
       perPage: string;
       currentPage: string;
@@ -34,7 +34,7 @@ export default class ProjectsController {
     const projects = await listProjects.execute(
       Number(perPage),
       Number(currentPage),
-      userId
+      user_id
     );
 
     response.json(instanceToInstance(projects));
@@ -44,8 +44,8 @@ export default class ProjectsController {
   public async findById(request: Request, response: Response) {
     const findProject = container.resolve(ShowProjectService);
     const { id } = request.params;
-    const userId = request.user.id;
-    const project = await findProject.execute(id, userId);
+    const user_id = request.user.id;
+    const project = await findProject.execute(id, user_id);
 
     response.json(instanceToInstance(project));
     return;
@@ -63,19 +63,18 @@ export default class ProjectsController {
   public async update(request: Request, response: Response) {
     const updateProject = container.resolve(UpdateProjectService);
     const { id } = request.params;
-    const { title, description, variablesEnvironment, tagId } = request.body;
-    const userId = request.user.id;
+    const { title, description, variablesEnvironment, tag_id } = request.body;
+    const user_id = request.user.id;
     const project = await updateProject.execute({
       id,
       title,
       description,
       variablesEnvironment,
-      userId,
-      tagId,
+      user_id,
+      tag_id,
     });
 
     response.status(200).json(instanceToInstance(project));
     return;
   }
 }
-

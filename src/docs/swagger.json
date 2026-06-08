@@ -323,7 +323,7 @@
                   "variablesEnvironment": {
                     "type": "string"
                   },
-                  "tagId": {
+                  "tag_id": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -414,7 +414,7 @@
                   "variablesEnvironment": {
                     "type": "string"
                   },
-                  "tagId": {
+                  "tag_id": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -649,3 +649,4 @@
     }
   }
 }
+

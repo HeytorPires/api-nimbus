@@ -7,7 +7,7 @@ export interface ITagRepository {
   findByName(name: string, user: User): Promise<ITag | undefined>;
   findById(id: string): Promise<ITag | undefined>;
   list(
-    userId: string,
+    user_id: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<ITag[]>>;

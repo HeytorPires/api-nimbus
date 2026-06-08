@@ -30,25 +30,25 @@ class UpdateProjectService {
     title,
     description,
     variablesEnvironment,
-    userId,
-    tagId
+    user_id,
+    tag_id,
   }: IUpdateProject): Promise<IProjectDTO> {
     const project = await this.projectsRepository.findById(id);
     if (!project) {
       throw new AppError('Project not found.');
     }
 
-    const user = await this.usersRepository.findById(userId);
+    const user = await this.usersRepository.findById(user_id);
     if (project.user.id !== user?.id) {
       throw new AppError('Access denied.');
     }
 
-    if (tagId) {
-      const tag = await this.tagsRepository.findById(tagId);
+    if (tag_id) {
+      const tag = await this.tagsRepository.findById(tag_id);
       if (!tag) {
-        throw new AppError(`Tag not found: ${tagId}`, 400);
+        throw new AppError(`Tag not found: ${tag_id}`, 400);
       }
-      if (tag.user.id !== userId) {
+      if (tag.user.id !== user_id) {
         throw new AppError('Tag belongs to another user', 403);
       }
       project.tag = tag;

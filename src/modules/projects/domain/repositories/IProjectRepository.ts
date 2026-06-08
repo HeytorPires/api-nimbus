@@ -9,7 +9,7 @@ export interface IProjectRepository {
   list(
     perPage: number,
     currentPage: number,
-    userId: string
+    user_id: string
   ): Promise<IPaginationReturn<IProject[]>>;
   create(data: ICreateProject): Promise<IProject>;
   update(project: IProject): Promise<IProject | undefined>;

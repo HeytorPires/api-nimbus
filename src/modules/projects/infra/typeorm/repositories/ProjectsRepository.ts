@@ -18,16 +18,16 @@ export default class ProjectsRepository implements IProjectRepository {
     description,
     variablesEnvironment,
     InitializationVector,
-    userId,
-    tagId,
+    user_id,
+    tag_id,
   }: ICreateProject): Promise<IProject> {
     const project = this.ormRepository.create({
       title,
       description,
       variablesEnvironment,
       InitializationVector,
-      user: { id: userId },
-      tag: tagId ? { id: tagId } : undefined,
+      user: { id: user_id },
+      tag: tag_id ? { id: tag_id } : undefined,
     });
 
     await this.ormRepository.save(project);
@@ -47,11 +47,11 @@ export default class ProjectsRepository implements IProjectRepository {
   public async list(
     perPage: number,
     currentPage: number,
-    userId: string
+    user_id: string
   ): Promise<IPaginationReturn<Project[]>> {
-    console.log(userId);
+    console.log(user_id);
     const projects = await this.ormRepository.find({
-      where: { userId: userId },
+      where: { user_id: user_id },
       order: { created_at: 'DESC' },
       take: perPage,
       skip: (currentPage - 1) * perPage,
@@ -94,4 +94,3 @@ export default class ProjectsRepository implements IProjectRepository {
     return await this.ormRepository.findOne({ where: { id: project.id } });
   }
 }
-

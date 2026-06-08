@@ -4,7 +4,7 @@ export class CreateUserTokens1738429655796 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'user_Tokens',
+        name: 'user_tokens',
         columns: [
           {
             name: 'id',
@@ -52,3 +52,4 @@ export class CreateUserTokens1738429655796 implements MigrationInterface {
     await queryRunner.dropTable('user_Tokens');
   }
 }
+

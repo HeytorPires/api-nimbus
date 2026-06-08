@@ -14,7 +14,7 @@ routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
 routes.use('/profile', ProfileRouter);
-routes.use('/projects', projectsRouter)
+routes.use('/projects', projectsRouter);
 routes.use('/tags', tagsRouter);
 routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -11,8 +11,8 @@ export class ProjectMapper {
       InitializationVector: project.InitializationVector,
       repository: project.repository,
       updated_at: project.updated_at,
-      userId: project.user.id,
-      tagId: project.tag?.id,
+      user_id: project.user.id,
+      tag_id: project.tag?.id,
     };
   }
 
@@ -20,4 +20,3 @@ export class ProjectMapper {
     return projects.map((project) => this.toDTO(project));
   }
 }
-

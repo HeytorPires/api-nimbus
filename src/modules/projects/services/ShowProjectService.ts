@@ -18,14 +18,14 @@ class ShowProjectService {
     this.projectMapper = new ProjectMapper();
   }
 
-  public async execute(id: string, userId: string): Promise<IProjectDTO> {
+  public async execute(id: string, user_id: string): Promise<IProjectDTO> {
     const project = await this.projectRepository.findById(id);
 
     if (!project) {
       throw new AppError('Project not found.', 404);
     }
 
-    if (project.user.id !== userId) {
+    if (project.user.id !== user_id) {
       throw new AppError('Access denied.', 403);
     }
 

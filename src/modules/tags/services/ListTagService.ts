@@ -16,11 +16,11 @@ class ListTagService {
   }
 
   public async execute(
-    userId: string,
+    user_id: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<ITagDTO[]> | undefined> {
-    const tags = await this.tagRepository.list(userId, perPage, currentPage);
+    const tags = await this.tagRepository.list(user_id, perPage, currentPage);
     if (!tags) return undefined;
     return {
       ...tags,
@@ -30,4 +30,3 @@ class ListTagService {
 }
 
 export default ListTagService;
-

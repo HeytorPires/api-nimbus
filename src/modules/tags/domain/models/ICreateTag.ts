@@ -1,4 +1,5 @@
 export interface ICreateTag {
   name: string;
-  userId: string;
+  user_id: string;
 }
+

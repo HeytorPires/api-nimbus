@@ -21,12 +21,12 @@ class ListProjectService {
   public async execute(
     perPage: number,
     currentPage: number,
-    userId: string
+    user_id: string
   ): Promise<IPaginationReturn<IProjectDTO[]>> {
     const projects = await this.projectRepository.list(
       perPage,
       currentPage,
-      userId
+      user_id
     );
 
     const projectsDTO = this.projectMapper.toDTOList(projects.data);

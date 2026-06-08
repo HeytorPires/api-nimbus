@@ -5,8 +5,9 @@ const projectCreateSchema = yup.object({
     title: yup.string().required(),
     description: yup.string().required(),
     variablesEnvironment: yup.string().required(),
-    tagId: yup.string().uuid().optional(),
+    tag_id: yup.string().uuid().optional(),
   }),
 });
 
 export { projectCreateSchema };
+

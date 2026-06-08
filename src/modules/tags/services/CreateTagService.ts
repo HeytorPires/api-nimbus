@@ -19,10 +19,10 @@ class CreateTagService {
     this.tagMapper = new TagMapper();
   }
 
-  public async execute({ name, userId }: ICreateTag): Promise<ITagDTO> {
-    const user = await this.usersRepository.findById(userId);
+  public async execute({ name, user_id }: ICreateTag): Promise<ITagDTO> {
+    const user = await this.usersRepository.findById(user_id);
     if (!user) {
-      throw new AppError(`User not exist: ${userId}`, 400);
+      throw new AppError(`User not exist: ${user_id}`, 400);
     }
 
     const tagExistent = await this.tagsRepository.findByName(name, user);
@@ -32,7 +32,7 @@ class CreateTagService {
     }
     const tagCreated = await this.tagsRepository.create({
       name,
-      userId,
+      user_id,
     });
 
     return this.tagMapper.toDTO(tagCreated);

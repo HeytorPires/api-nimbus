@@ -10,9 +10,9 @@ import DeleteTagService from '@modules/tags/services/DeleteTagService';
 export default class TagsController {
   public async create(request: Request, response: Response) {
     const { name } = request.body;
-    const userId = request.user.id;
+    const user_id = request.user.id;
     const createTags = container.resolve(CreateTagService);
-    const tag = await createTags.execute({ name, userId });
+    const tag = await createTags.execute({ name, user_id });
 
     response.json(instanceToInstance(tag));
     return;
@@ -20,12 +20,12 @@ export default class TagsController {
 
   public async list(request: Request, response: Response) {
     const listTags = container.resolve(ListTagService);
-    const userId = request.user.id;
+    const user_id = request.user.id;
     const { perPage, currentPage } = request.query;
     const tags = await listTags.execute(
-      userId,
-      Number(perPage),
-      Number(currentPage)
+      user_id,
+      Number(perPage) || 10,
+      Number(currentPage) || 1
     );
 
     response.json(instanceToInstance(tags));
@@ -35,8 +35,8 @@ export default class TagsController {
   public async findById(request: Request, response: Response) {
     const showTag = container.resolve(ShowTagService);
     const { id } = request.params;
-    const userId = request.user.id;
-    const tag = await showTag.execute(id, userId);
+    const user_id = request.user.id;
+    const tag = await showTag.execute(id, user_id);
 
     response.json(instanceToInstance(tag));
     return;
@@ -55,11 +55,10 @@ export default class TagsController {
     const updateTag = container.resolve(UpdateTagService);
     const { id } = request.params;
     const { name } = request.body;
-    const userId = request.user.id;
-    const tag = await updateTag.execute({ id, name, userId });
+    const user_id = request.user.id;
+    const tag = await updateTag.execute({ id, name, user_id });
 
     response.json(instanceToInstance(tag));
     return;
   }
 }
-

@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
 import SessionsController from '../controllers/SessionsController';
 import { requestValidation } from '@shared/infra/http/middleware/requestValidation';
 import { createSessionSchema } from '../schemas/ICreateSessionSchema';

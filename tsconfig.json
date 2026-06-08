@@ -2,16 +2,17 @@
   "compilerOptions": {
     /* ================== BASE ================== */
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "node16",
     "moduleResolution": "node16",
 
     /* ================== PATHS ================== */
-    "baseUrl": ".",
     "paths": {
-      "@config/*": ["src/config/*"],
-      "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"],
-      "@docs/*": ["src/docs/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@config/*": ["./src/config/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@tests/*": ["./tests/*"],
+      "@docs/*": ["./src/docs/*"]
     },
 
     /* ================== OUTPUT ================== */
