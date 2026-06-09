@@ -1,15 +1,15 @@
 import 'reflect-metadata';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import ResetPasswordService from '@modules/users/services/ResetPasswordservice';
-import FakeUsersTokensRepository from '../repositories/FakeUsersTokensRepository';
+// import ResetPasswordService from '@modules/users/services/ResetPasswordservice';
+// import FakeUsersTokensRepository from '../repositories/FakeUsersTokensRepository';
 import FakefakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let fakeUsersTokensRepository: FakeUsersTokensRepository;
+// let fakeUsersTokensRepository: FakeUsersTokensRepository;
 let CreateUser: CreateUserService;
 let createSession: CreateSessionsService;
 let fakeHashProvider: FakefakeHashProvider;
@@ -19,8 +19,7 @@ describe('Update profile', () => {
   beforeEach(() => {
     fakeHashProvider = new FakefakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
-    ('');
-    fakeUsersTokensRepository = new FakeUsersTokensRepository();
+    // fakeUsersTokensRepository = new FakeUsersTokensRepository();
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
       fakeHashProvider
@@ -37,7 +36,7 @@ describe('Update profile', () => {
   });
 
   it('should be able to reset a password', async () => {
-    const userCreated = await CreateUser.execute({
+    await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
       password: '123456',
@@ -100,4 +99,3 @@ describe('Update profile', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
-

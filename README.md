@@ -13,7 +13,7 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
 - [x] Utilizar ferramentas modernas para otimizar o ciclo de desenvolvimento e deploy.
 - [x] Criar uma base de código limpa, organizada, testável e escalável.
 - [x] Implementar uma suíte robusta de **testes automatizados**:
-  - [X] Testes Unitários
+  - [x] Testes Unitários
   - [ ] Testes de Integração
   - [ ] Testes End-to-End (E2E)
 
@@ -26,6 +26,7 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
   - Autenticação de usuários utilizando JWT.
   - Processo de recuperação de senha.
   - Upload de avatar de usuário.
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
@@ -153,9 +154,7 @@ Verifique o arquivo `package.json` para a lista completa de scripts. Alguns dos 
 - `typeorm: run`: Acesso as rodar as migrations do TypeORM para operações de banco de dados.
 - `typeorm: generate`: Acesso as geração de migrations do TypeORM para operações de banco de dados.
 - `up`: Sobe os containers Docker definidos no `docker-compose.yml`.
--
-
----
+- ***
 
 ## 🏗️ Estrutura do Projeto
 

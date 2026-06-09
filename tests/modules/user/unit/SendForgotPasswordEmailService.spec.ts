@@ -3,14 +3,14 @@ import AppError from '@shared/errors/AppError';
 import SendForgotPasswordEmailService from '@modules/users/services/SendForgotPasswordEmailService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
-import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+// import CreateUserService from '@modules/users/services/CreateUserService';
+// import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokenRepository;
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
-let createUser: CreateUserService;
-let hashProvider: FakeHashProvider;
+// let createUser: CreateUserService;
+// let hashProvider: FakeHashProvider;
 
 // Mock EtherealMail
 jest.mock('@config/mail/EtherealMail', () => ({
@@ -22,10 +22,10 @@ jest.mock('@config/mail/EtherealMail', () => ({
 
 describe('SendForgotPasswordEmail', () => {
   beforeEach(() => {
-    hashProvider = new FakeHashProvider();
+    // hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     fakeUserTokensRepository = new FakeUserTokenRepository();
-    createUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    // createUser = new CreateUserService(fakeUsersRepository, hashProvider);
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
       fakeUserTokensRepository

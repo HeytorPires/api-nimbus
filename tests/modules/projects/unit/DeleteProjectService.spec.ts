@@ -33,4 +33,3 @@ describe('DeleteProject', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
-

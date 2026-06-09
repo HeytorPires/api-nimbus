@@ -8,7 +8,7 @@ import routes from './routes/index.routes';
 import '@shared/infra/typeorm';
 import '@shared/container';
 import uploadConfig from '@config/upload';
-import rateLimiter from './middleware/rateLimiter';
+// import rateLimiter from './middleware/rateLimiter';
 import { ErrorHandler } from '@shared/errors/ErrorHandler';
 import { pagination } from 'typeorm-pagination';
 

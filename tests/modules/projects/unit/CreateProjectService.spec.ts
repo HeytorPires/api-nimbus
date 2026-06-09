@@ -5,18 +5,18 @@ import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
 import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
 import FakeTagsRepository from '../../tags/repositories/FakeTagsRepository';
 import FakeCryptoProvider from '../../../providers/FakeCryptoProvider';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
-import CreateUserService from '@modules/users/services/CreateUserService';
-import CreateTagService from '@modules/tags/services/CreateTagService';
+// import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+// import CreateUserService from '@modules/users/services/CreateUserService';
+// import CreateTagService from '@modules/tags/services/CreateTagService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeTagsRepository: FakeTagsRepository;
 let fakeCryptoProvider: FakeCryptoProvider;
-let hashProvider: FakeHashProvider;
+// let hashProvider: FakeHashProvider;
 let createProject: CreateProjectService;
-let createUser: CreateUserService;
-let createTag: CreateTagService;
+// let createUser: CreateUserService;
+// let createTag: CreateTagService;
 
 describe('CreateProject', () => {
   beforeEach(() => {
@@ -24,15 +24,15 @@ describe('CreateProject', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeTagsRepository = new FakeTagsRepository();
     fakeCryptoProvider = new FakeCryptoProvider();
-    hashProvider = new FakeHashProvider();
+    // hashProvider = new FakeHashProvider();
     createProject = new CreateProjectService(
       fakeProjectsRepository,
       fakeCryptoProvider,
       fakeUsersRepository,
       fakeTagsRepository
     );
-    createUser = new CreateUserService(fakeUsersRepository, hashProvider);
-    createTag = new CreateTagService(fakeTagsRepository, fakeUsersRepository);
+    // createUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    // createTag = new CreateTagService(fakeTagsRepository, fakeUsersRepository);
   });
 
   it('should be able to create a new project', async () => {

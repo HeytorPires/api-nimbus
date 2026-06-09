@@ -85,4 +85,3 @@ class FakeTagsRepository implements ITagRepository {
 }
 
 export default FakeTagsRepository;
-

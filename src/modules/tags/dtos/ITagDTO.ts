@@ -4,4 +4,3 @@ export interface ITagDTO {
   created_at: Date;
   user_id: string;
 }
-

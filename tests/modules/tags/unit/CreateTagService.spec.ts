@@ -53,7 +53,7 @@ describe('Create Tag', () => {
     expect(tag).toHaveProperty('id');
   });
   it('should not be able to create two tags with the same name', async () => {
-    const User = await createUserService.execute({
+    await createUserService.execute({
       name: 'João silva',
       email: 'João@gmail.com',
       password: '123456',
@@ -64,7 +64,7 @@ describe('Create Tag', () => {
       password: '123456',
     });
 
-    const tag = await createTagService.execute({
+    await createTagService.execute({
       name: 'Important',
       user_id: session.user.id,
     });

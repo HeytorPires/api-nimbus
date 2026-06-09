@@ -1,16 +1,15 @@
+import { IProject } from '@modules/projects/domain/models/IProject';
+import Tag from '@modules/tags/infra/typeorm/entities/Tag';
+import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IProject } from '@modules/projects/domain/models/IProject';
-import User from '@modules/users/infra/typeorm/entities/User';
-import Tag from '@modules/tags/infra/typeorm/entities/Tag';
 @Entity('projects')
 class Project implements IProject {
   @PrimaryGeneratedColumn('uuid')

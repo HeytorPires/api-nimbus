@@ -8,7 +8,7 @@ import CreateSessionsService from '@modules/users/services/CreateSessionsService
 
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
-let createSession: CreateSessionsService
+let createSession: CreateSessionsService;
 let createUser: CreateUserService;
 let hashProvider: FakeHashProvider;
 
@@ -18,7 +18,10 @@ describe('Show Customer', () => {
     fakeUsersRepository = new FakeUsersRepository();
     showProfile = new ShowProfileService(fakeUsersRepository);
     createUser = new CreateUserService(fakeUsersRepository, hashProvider);
-    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      hashProvider
+    );
   });
   it('should not show customer when not exist ', async () => {
     const id = '123456789abcd';
@@ -26,7 +29,7 @@ describe('Show Customer', () => {
     await expect(showProfile.execute(id)).rejects.toBeInstanceOf(AppError);
   });
   it('should be able to show existent user', async () => {
-    const user = await createUser.execute({
+    await createUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
       password: '123456',
@@ -35,7 +38,7 @@ describe('Show Customer', () => {
     const session = await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
-    })
+    });
 
     const customerShow = await showProfile.execute(session.user.id);
     expect(customerShow).toHaveProperty('id');

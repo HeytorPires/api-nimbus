@@ -36,4 +36,3 @@ export default class BcryptHashProvider implements ICryptographyProvider {
     return decrypted.toString('utf8');
   }
 }
-

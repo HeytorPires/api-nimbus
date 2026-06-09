@@ -77,4 +77,3 @@ Evite descrever implementação, foque no resultado -->
 - [ ] Código testado localmente
 - [ ] Sem logs/debug desnecessários
 - [ ] Segue padrões do projeto
-

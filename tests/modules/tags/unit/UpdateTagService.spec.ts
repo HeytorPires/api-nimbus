@@ -73,4 +73,3 @@ describe('UpdateTag', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
-

@@ -16,4 +16,3 @@ export interface ITagRepository {
   save(tag: ITag): Promise<ITag>;
   remove(tag: ITag): Promise<void>;
 }
-

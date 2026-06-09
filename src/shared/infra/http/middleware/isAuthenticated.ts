@@ -33,4 +33,3 @@ export default function isAuthenticated(
     throw new AppError('Invalid Token is missing');
   }
 }
-

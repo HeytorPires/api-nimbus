@@ -19,4 +19,3 @@ export class AddColumnInitializationVector1755555823981
     await queryRunner.dropColumn('projects', 'InitializationVector');
   }
 }
-

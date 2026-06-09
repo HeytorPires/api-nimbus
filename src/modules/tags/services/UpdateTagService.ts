@@ -36,4 +36,3 @@ class UpdateTagService {
 }
 
 export default UpdateTagService;
-

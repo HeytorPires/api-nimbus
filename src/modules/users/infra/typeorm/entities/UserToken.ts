@@ -27,4 +27,3 @@ class UserToken {
 }
 
 export default UserToken;
-

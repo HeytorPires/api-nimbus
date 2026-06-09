@@ -41,4 +41,3 @@ export class AddColumntagIdToTasks1755717077159 implements MigrationInterface {
     await queryRunner.dropColumn('projects', 'tag_id');
   }
 }
-

@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import UserTokensRepository from '../infra/typeorm/repositories/UserTokensRepository';
+// import { getCustomRepository } from 'typeorm';
+// import UserTokensRepository from '../infra/typeorm/repositories/UserTokensRepository';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
 import { IResetPasswordUser } from '../domain/models/IResetPasswordUser';
@@ -13,9 +13,9 @@ import { IUser } from '../domain/models/IUser';
 class ResetPasswordService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUserRepository,
+    private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
-    private usersTokensRepository: IUserTokensRepository
+    private readonly usersTokensRepository: IUserTokensRepository
   ) {}
   public async execute({
     token,

@@ -8,13 +8,13 @@ import { ITagDTO } from '../dtos/ITagDTO';
 
 @injectable()
 class CreateTagService {
-  private tagMapper: TagMapper;
+  private readonly tagMapper: TagMapper;
 
   constructor(
     @inject('TagsRepository')
-    private tagsRepository: ITagRepository,
+    private readonly tagsRepository: ITagRepository,
     @inject('UsersRepository')
-    private usersRepository: IUserRepository
+    private readonly usersRepository: IUserRepository
   ) {
     this.tagMapper = new TagMapper();
   }
@@ -40,4 +40,3 @@ class CreateTagService {
 }
 
 export default CreateTagService;
-

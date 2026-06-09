@@ -31,4 +31,3 @@ class ShowTagService {
 }
 
 export default ShowTagService;
-

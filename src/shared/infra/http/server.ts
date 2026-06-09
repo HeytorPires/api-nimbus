@@ -9,4 +9,3 @@ app.listen(port, () => {
   console.log('************************');
   console.log(`Servidor rodando na porta ${port}`);
 });
-

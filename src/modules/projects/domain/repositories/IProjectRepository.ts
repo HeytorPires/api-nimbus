@@ -16,4 +16,3 @@ export interface IProjectRepository {
   save(project: IProject): Promise<IProject>;
   remove(project: IProject): Promise<void>;
 }
-

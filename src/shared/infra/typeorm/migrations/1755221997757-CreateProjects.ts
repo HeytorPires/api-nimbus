@@ -78,4 +78,3 @@ export class CreateTasks1755221997757 implements MigrationInterface {
     await queryRunner.dropTable('projects');
   }
 }
-

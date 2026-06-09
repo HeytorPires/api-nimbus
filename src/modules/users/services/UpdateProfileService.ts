@@ -9,9 +9,9 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 class UpdateProfileService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUserRepository,
+    private readonly usersRepository: IUserRepository,
     @inject('HashProvider')
-    private hashProvider: IHashProvider
+    private readonly hashProvider: IHashProvider
   ) {}
   public async execute({
     user_id,
@@ -48,7 +48,7 @@ class UpdateProfileService {
         throw new AppError('Old password does not match.');
       }
 
-      const saltRounds = 8;
+      //   const saltRounds = 8;
       user.password = await this.hashProvider.generateHash(password);
     }
     user.email = email;
@@ -61,4 +61,3 @@ class UpdateProfileService {
 }
 
 export default UpdateProfileService;
-

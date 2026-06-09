@@ -4,4 +4,3 @@ export interface IPaginationReturn<T> {
   totalRows: number;
   data: T;
 }
-

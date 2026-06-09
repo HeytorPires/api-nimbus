@@ -1,7 +1,12 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import {
+  //Request, Response, NextFunction,
+  ErrorRequestHandler,
+} from 'express';
+
 import moment from 'moment';
 import AppError from './AppError';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ErrorHandler: ErrorRequestHandler = (error, request, response, _next) => {
   console.log({
     error,

@@ -1,16 +1,15 @@
+import Project from '@modules/projects/infra/typeorm/entities/Project';
+import Tag from '@modules/tags/infra/typeorm/entities/Tag';
+import { IUser } from '@modules/users/domain/models/IUser';
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
   OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Exclude, Expose } from 'class-transformer';
-import { IUser } from '@modules/users/domain/models/IUser';
-import Project from '@modules/projects/infra/typeorm/entities/Project';
-import Tag from '@modules/tags/infra/typeorm/entities/Tag';
 @Entity('users')
 class User implements IUser {
   @PrimaryColumn()
@@ -35,10 +34,10 @@ class User implements IUser {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Project, project => project.user)
+  @OneToMany(() => Project, (project) => project.user)
   projects: Project[];
 
-  @OneToMany(() => Tag, tag => tag.user)
+  @OneToMany(() => Tag, (tag) => tag.user)
   tags: Tag[];
 
   @Expose({ name: 'avatar_url' })

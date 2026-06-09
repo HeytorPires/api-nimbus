@@ -52,4 +52,3 @@ export class CreateUserTokens1738429655796 implements MigrationInterface {
     await queryRunner.dropTable('user_Tokens');
   }
 }
-

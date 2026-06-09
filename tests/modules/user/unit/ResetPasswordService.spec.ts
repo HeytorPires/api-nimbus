@@ -12,20 +12,26 @@ let fakeUsersTokensRepository: FakeUsersTokensRepository;
 let CreateUser: CreateUserService;
 let ResetPassword: ResetPasswordService;
 let hashProvider: FakeHashProvider;
-let createSession: CreateSessionsService
+let createSession: CreateSessionsService;
 
 describe('Create User', () => {
   beforeEach(() => {
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     fakeUsersTokensRepository = new FakeUsersTokensRepository();
-    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      hashProvider
+    );
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
     ResetPassword = new ResetPasswordService(
       fakeUsersRepository,
       fakeUsersTokensRepository
     );
-    createSession = new CreateSessionsService(fakeUsersRepository, hashProvider)
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      hashProvider
+    );
   });
 
   it('should be able to reset a password', async () => {
@@ -38,7 +44,7 @@ describe('Create User', () => {
     const session = await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
-    })
+    });
     const { password, id } = session.user;
 
     const response = await fakeUsersTokensRepository.generate(id);

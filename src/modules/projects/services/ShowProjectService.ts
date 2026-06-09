@@ -7,13 +7,13 @@ import { IProjectDTO } from '../dtos/IProjectDTO';
 
 @injectable()
 class ShowProjectService {
-  private projectMapper: ProjectMapper;
+  private readonly projectMapper: ProjectMapper;
 
   constructor(
     @inject('ProjectsRepository')
-    private projectRepository: IProjectRepository,
+    private readonly projectRepository: IProjectRepository,
     @inject('CryptoProvider')
-    private cryptoProvider: ICryptographyProvider
+    private readonly cryptoProvider: ICryptographyProvider
   ) {
     this.projectMapper = new ProjectMapper();
   }
@@ -40,4 +40,3 @@ class ShowProjectService {
 }
 
 export default ShowProjectService;
-

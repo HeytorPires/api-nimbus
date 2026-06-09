@@ -6,8 +6,8 @@ import AppError from '@shared/errors/AppError';
 class DeleteProjectService {
   constructor(
     @inject('ProjectsRepository')
-    private projectRepository: IProjectRepository,
-  ) { }
+    private readonly projectRepository: IProjectRepository
+  ) {}
 
   public async execute(id: string): Promise<void> {
     const project = await this.projectRepository.findById(id);

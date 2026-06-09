@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreateTableTags1755715171256 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -32,7 +37,7 @@ export class CreateTableTags1755715171256 implements MigrationInterface {
             default: 'now()',
           },
         ],
-      }),
+      })
     );
 
     await queryRunner.createForeignKey(
@@ -44,7 +49,7 @@ export class CreateTableTags1755715171256 implements MigrationInterface {
         referencedTableName: 'users',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
-      }),
+      })
     );
   }
 

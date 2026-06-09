@@ -7,4 +7,3 @@ export interface ITag {
   user: IUser;
   created_at: Date;
 }
-

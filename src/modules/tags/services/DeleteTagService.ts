@@ -6,8 +6,8 @@ import AppError from '@shared/errors/AppError';
 class DeleteTagService {
   constructor(
     @inject('TagsRepository')
-    private tagRepository: ITagRepository,
-  ) { }
+    private readonly tagRepository: ITagRepository
+  ) {}
 
   public async execute(id: string): Promise<void> {
     const tag = await this.tagRepository.findById(id);
