@@ -9,7 +9,7 @@ const sessionsController = new SessionsController();
 sessionsRouter.post(
   '/',
   requestValidation(createSessionSchema),
-  sessionsController.create
+  sessionsController.create as any
 );
 
 export default sessionsRouter;

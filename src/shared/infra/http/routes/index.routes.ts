@@ -16,6 +16,10 @@ routes.use('/password', passwordRouter);
 routes.use('/profile', ProfileRouter);
 routes.use('/projects', projectsRouter);
 routes.use('/tags', tagsRouter);
-routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+routes.use(
+  '/api-docs',
+  swaggerUi.serve as any,
+  swaggerUi.setup(swaggerDocument) as any
+);
 
 export default routes;

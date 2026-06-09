@@ -13,8 +13,8 @@ const usersAvatarController = new UserAvatarController();
 
 const upload = multer({ storage: uploadConfig.Storage });
 
-usersRouter.get('/', isAuthenticated, usersController.index);
-usersRouter.get('/me', isAuthenticated, usersController.getUser);
+usersRouter.get('/', isAuthenticated, usersController.index as any);
+usersRouter.get('/me', isAuthenticated, usersController.getUser as any);
 usersRouter.post(
   '/',
   requestValidation(createUserSchema),
@@ -24,7 +24,7 @@ usersRouter.post(
 usersRouter.patch(
   '/avatar',
   isAuthenticated,
-  upload.single('avatar'),
+  upload.single('avatar') as any,
   usersAvatarController.update
 );
 

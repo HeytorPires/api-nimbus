@@ -18,7 +18,7 @@ passwordRouter.post(
 passwordRouter.put(
   '/reset',
   requestValidation(resetPasswordSchema),
-  resetPasswordController.Reset
+  resetPasswordController.reset
 );
 
 export default passwordRouter;
