@@ -7,7 +7,7 @@ export class TagMapper {
       id: tag.id,
       name: tag.name,
       created_at: tag.created_at,
-      user_id: tag.user.id,
+      user_id: tag.user_id,
     };
   }
 
@@ -15,4 +15,3 @@ export class TagMapper {
     return tags.map((tag) => this.toDTO(tag));
   }
 }
-

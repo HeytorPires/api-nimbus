@@ -6,4 +6,3 @@ export interface ICreateProject {
   user_id: string;
   tag_id?: string;
 }
-

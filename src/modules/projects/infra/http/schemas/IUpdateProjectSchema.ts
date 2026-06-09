@@ -13,4 +13,3 @@ const projectUpdateSchema = yup.object({
 });
 
 export { projectUpdateSchema };
-

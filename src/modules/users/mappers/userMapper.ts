@@ -5,9 +5,10 @@ export default class UserMapper {
   // Converte Entity -> DTO
   static toDTO(user: User): UserDTO {
     return {
+      id: user.id,
       name: user.name,
       email: user.email,
-      avatar: user.avatar,
+      avatar_url: user.getAvatarUrl(),
       created_at: user.created_at,
       updated_at: user.updated_at,
     };
@@ -18,7 +19,6 @@ export default class UserMapper {
     const user = new User();
     user.name = dto.name;
     user.email = dto.email;
-    user.avatar = dto.avatar;
     user.created_at = dto.created_at;
     user.updated_at = dto.updated_at;
     return user;

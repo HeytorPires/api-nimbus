@@ -8,11 +8,10 @@ export class ProjectMapper {
       title: project.title,
       description: project.description,
       variablesEnvironment: project.variablesEnvironment,
-      InitializationVector: project.InitializationVector,
-      repository: project.repository,
+      created_at: project.created_at,
       updated_at: project.updated_at,
-      user_id: project.user.id,
-      tag_id: project.tag?.id,
+      user_id: project.user_id ?? project.user?.id,
+      tag_id: project.tag_id ?? project.tag?.id,
     };
   }
 

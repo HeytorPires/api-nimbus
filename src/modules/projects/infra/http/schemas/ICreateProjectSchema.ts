@@ -10,4 +10,3 @@ const projectCreateSchema = yup.object({
 });
 
 export { projectCreateSchema };
-

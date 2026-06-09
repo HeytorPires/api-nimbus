@@ -2,10 +2,9 @@ export interface IProjectDTO {
   id: string;
   title: string;
   description: string;
-  repository: string;
   variablesEnvironment: string;
-  InitializationVector?: string;
   user_id: string;
   tag_id?: string;
+  created_at: Date;
   updated_at: Date;
 }

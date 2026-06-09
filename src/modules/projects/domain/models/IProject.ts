@@ -12,5 +12,6 @@ export interface IProject {
   tag?: ITag;
   user_id?: string;
   tag_id?: string;
+  created_at: Date;
   updated_at: Date;
 }

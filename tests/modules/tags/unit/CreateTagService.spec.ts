@@ -44,7 +44,6 @@ describe('Create Tag', () => {
       email: 'João@gmail.com',
       password: '123456',
     });
-    console.log();
 
     const tag = await createTagService.execute({
       name: 'Important',
@@ -85,4 +84,3 @@ describe('Create Tag', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 });
-

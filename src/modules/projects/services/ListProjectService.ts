@@ -31,12 +31,15 @@ class ListProjectService {
 
     const projectsDTO = this.projectMapper.toDTOList(projects.data);
 
-    for (const project of projectsDTO) {
-      if (project.variablesEnvironment && project.InitializationVector) {
-        project.variablesEnvironment = await this.cryptoProvider.decrypt({
-          content: project.variablesEnvironment,
-          iv: project.InitializationVector,
-        });
+    for (let i = 0; i < projects.data.length; i++) {
+      const entity = projects.data[i];
+      if (entity.variablesEnvironment && entity.InitializationVector) {
+        projectsDTO[i].variablesEnvironment = await this.cryptoProvider.decrypt(
+          {
+            content: entity.variablesEnvironment,
+            iv: entity.InitializationVector,
+          }
+        );
       }
     }
 
@@ -48,4 +51,3 @@ class ListProjectService {
 }
 
 export default ListProjectService;
-

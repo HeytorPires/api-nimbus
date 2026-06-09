@@ -49,7 +49,6 @@ export default class ProjectsRepository implements IProjectRepository {
     currentPage: number,
     user_id: string
   ): Promise<IPaginationReturn<Project[]>> {
-    console.log(user_id);
     const projects = await this.ormRepository.find({
       where: { user_id: user_id },
       order: { created_at: 'DESC' },
