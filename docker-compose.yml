@@ -12,6 +12,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nimbus-api
+    # ADICIONE ISSO AQUI:
+    networks:
+      - rede-proxy
 
   redis:
     image: redis:7-alpine
@@ -21,6 +24,13 @@ services:
       - '6379:6379'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    # E ADICIONE ISSO AQUI TAMBÉM:
+    networks:
+      - rede-proxy
 
 volumes:
   Postgres_data:
+
+networks:
+  rede-proxy:
+    external: true
