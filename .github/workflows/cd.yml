@@ -39,7 +39,7 @@ jobs:
           port: ${{ secrets.VPS_PORT || 22 }}
           script:
             | # Comandos a serem executados no servidor para realizar o deploy
-            cd /home/ubuntu/nimbus
+            cd /home/ubuntu/nimbus/api-nimbus
 
             # Puxa as últimas mudanças do repositório, garantindo que a branch main esteja atualizada
             git pull origin main
