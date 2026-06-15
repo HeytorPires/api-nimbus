@@ -8,15 +8,19 @@ import routes from './routes/index.routes';
 import '@shared/infra/typeorm';
 import '@shared/container';
 import uploadConfig from '@config/upload';
-// import rateLimiter from './middleware/rateLimiter';
+import rateLimiter from './middleware/rateLimiter';
 import { ErrorHandler } from '@shared/errors/ErrorHandler';
 import { pagination } from 'typeorm-pagination';
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+  })
+);
 app.use(express.json());
-// app.use(rateLimiter);
+app.use(rateLimiter);
 app.use(pagination);
 app.use(routes);
 app.use('/files', express.static(uploadConfig.directory));

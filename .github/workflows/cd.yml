@@ -10,6 +10,7 @@ jobs:
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu-latest
+    environment: production oracle
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
