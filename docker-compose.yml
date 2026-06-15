@@ -1,35 +1,55 @@
 services:
+  node:
+    build:
+      context: ./api-nimbus
+      dockerfile: Dockerfile
+    container_name: nimbus-api
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '${API_PORT}:3333'
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - api_uploads:/usr/src/app/uploads
+    env_file:
+      - .env
+    networks:
+      - rede-proxy
+
   postgres:
     image: postgres:17-alpine
     container_name: nimbus-db
     restart: unless-stopped
     tty: true
     ports:
-      - '5432:5432'
+      - '${DB_PORT}:5432'
     volumes:
       - Postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=nimbus-api
-    # ADICIONE ISSO AQUI:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     networks:
       - rede-proxy
 
   redis:
     image: redis:7-alpine
-    restart: unless-stopped
     container_name: redis-nimbus
+    restart: unless-stopped
     ports:
-      - '6379:6379'
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    # E ADICIONE ISSO AQUI TAMBÉM:
+      - '${REDIS_PORT}:6379'
+    env_file:
+      - .env
     networks:
       - rede-proxy
 
 volumes:
   Postgres_data:
+  api_uploads:
 
 networks:
   rede-proxy:
