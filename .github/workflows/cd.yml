@@ -1,6 +1,6 @@
 name: CD
 
-on:
+on: # Gatilho para disparar o workflow quando o workflow de CI for concluído com sucesso na branch main
   workflow_run:
     workflows: [CI]
     types: [completed]
@@ -10,11 +10,11 @@ jobs:
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu-latest
-    environment: production oracle
+    environment: production oracle # Define o ambiente das variáveis de ambiente para produção
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
-    steps:
-      - name: Validate required secrets
+    steps: # Definição dos passos do job
+      - name: Validate required secrets # Verifica se as variáveis de ambiente necessárias estão configuradas
         run: |
           missing=""
           [ -z "$VPS_HOST" ]    && missing="$missing VPS_HOST"
@@ -25,34 +25,35 @@ jobs:
             echo "Please add them under Settings > Secrets and variables > Actions."
             exit 1
           fi
-        env:
+        env: # Insere as variáveis de ambiente necessárias para a validação
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
 
-      - name: Deploy via SSH
+      - name: Deploy via SSH # Realiza o deploy no servidor via SSH
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
-          script: |
-            cd /home/ubuntu/nimbus/api-nimbus
+          script:
+            | # Comandos a serem executados no servidor para realizar o deploy
+            cd /home/ubuntu/nimbus
 
-            # Pull latest changes
+            # Puxa as últimas mudanças do repositório, garantindo que a branch main esteja atualizada
             git pull origin main
 
-            # Build and restart containers
+            # Construir e iniciar containers usando Docker Compose (usa docker-compose.yml da raiz)
             docker compose up -d --build
 
-            # Run database migrations
+            # Executa migrations no banco de dados, ignorando erros caso não haja migrations pendentes
             docker exec nimbus-api node -e "
               const { execSync } = require('child_process');
               execSync('npx typeorm migration:run', { stdio: 'inherit' });
             " || true
 
-            # Clean up old images
+            # Limpa imagens e containers antigos para liberar espaço
             docker image prune -f
 
             echo "Deploy completed successfully!"
