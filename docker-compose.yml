@@ -1,5 +1,8 @@
 services:
+  # Em dev: docker compose up -d (sobe só postgres + redis)
+  # Em prod: docker compose --profile production up -d --build
   node:
+    profiles: ['production']
     build:
       context: .
       dockerfile: Dockerfile

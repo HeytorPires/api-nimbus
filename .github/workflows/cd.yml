@@ -45,7 +45,7 @@ jobs:
             git pull origin main
 
             # Construir e iniciar containers usando Docker Compose (usa docker-compose.yml da raiz)
-            docker compose up -d --build
+            docker compose --profile production up -d --build
 
             # Executa migrations no banco de dados, ignorando erros caso não haja migrations pendentes
             docker exec nimbus-api node -e "

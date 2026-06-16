@@ -26,10 +26,7 @@ app.use(routes);
 app.use('/files', express.static(uploadConfig.directory));
 app.use(ErrorHandler);
 dotenv.config({
-  path:
-    process.env.NODE_ENV === 'production'
-      ? '.env.production'
-      : '.env.development',
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
 });
 
 export default app;

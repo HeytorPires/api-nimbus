@@ -16,6 +16,9 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
   - [x] Testes Unitários
   - [ ] Testes de Integração
   - [ ] Testes End-to-End (E2E)
+- [ ] Upload de avatar de usuário.
+- [ ] Processo de recuperação de senha.
+- 🔒 Veja o [Roadmap de Segurança](#-roadmap-de-segurança) para os próximos passos de segurança e infraestrutura.
 
 ---
 
@@ -24,8 +27,6 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
 - 👤 **Gerenciamento de Usuários:**
   - CRUD (Criar, Ler, Atualizar, Deletar) completo de usuários.
   - Autenticação de usuários utilizando JWT.
-  - Processo de recuperação de senha.
-  - Upload de avatar de usuário.
 
 ---
 
@@ -190,6 +191,12 @@ Verifique o arquivo `package.json` para a lista completa de scripts. Alguns dos 
 ├── tsconfig.json             # Configuração do compilador TypeScript
 └── yarn.lock                 # Lockfile do Yarn
 ```
+
+---
+
+## 🔒 Roadmap de Segurança
+
+Veja o roadmap completo de evolução de segurança do Nimbus em **[ROADMAP.md](ROADMAP.md)** — desde o MVP até um Secrets Manager completo, dividido em 6 etapas progressivas.
 
 ---
 
