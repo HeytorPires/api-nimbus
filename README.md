@@ -88,7 +88,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
       - Chaves secretas para JWT (ex: `APP_SECRET`).
       - Configurações do serviço de e-mail (host, porta, usuário, senha do Nodemailer).
       - Configurações do Redis.
-      - Porta da aplicação (ex: `APP_PORT=3333`).
+      - Porta da aplicação (ex: `API_PORT=3333`).
       - URL da aplicação (ex: `APP_API_URL=http://localhost:3333`).
       - Outras variáveis específicas do seu projeto.
     - **Atenção:** Se você **não** for utilizar o Docker para o banco de dados, certifique-se de que as variáveis no `.env` apontam para uma instância de banco de dados acessível manualmente.
