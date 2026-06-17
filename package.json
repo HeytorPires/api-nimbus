@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "build": "tsc && tsc-alias && cp .env.production ./build/.env.production",
+    "build": "tsc && tsc-alias && cp .env ./build/.env",
     "build-local": "tsc && tsc-alias",
     "start": "node build/src/shared/infra/http/server.js",
     "test": "jest",

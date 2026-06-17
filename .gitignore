@@ -5,7 +5,6 @@ build/
 temp/
 .env
 .env.development
-.env.production
 coverage
 dist
 .docker/dbdata
