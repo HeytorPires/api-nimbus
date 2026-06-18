@@ -8,14 +8,16 @@ import { IUserTokensRepository } from '../domain/repositories/IUserTokensReposit
 
 @injectable()
 class SendForgotPasswordEmailService {
+  private readonly appWebUrl: string;
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUserRepository,
+    private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
-    private userTokensRepository: IUserTokensRepository
-  ) {}
+    private readonly userTokensRepository: IUserTokensRepository
+  ) {
+    this.appWebUrl = process.env.APP_WEB_URL || 'http://localhost:3000';
+  }
   public async execute({ email }: ISendForgotPasswordEmailUser) {
-    const appWebUrl = process.env.APP_WEB_URL;
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
       throw new AppError('User does not exists.');
@@ -39,7 +41,7 @@ class SendForgotPasswordEmailService {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `${appWebUrl}/reset_password?token=${token}`,
+          link: `${this.appWebUrl}/reset_password?token=${token}`,
         },
       },
     });

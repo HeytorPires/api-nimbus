@@ -7,7 +7,7 @@ const resetPasswordSchema = yup.object({
       .string()
       .required('A confirmação de senha é obrigatória')
       .oneOf([yup.ref('password')], 'As senhas devem coincidir'),
-    token: yup.string().uuid().required(),
+    token: yup.string().required(),
   }),
 });
 
