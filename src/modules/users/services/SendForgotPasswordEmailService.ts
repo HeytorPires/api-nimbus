@@ -38,6 +38,10 @@ class SendForgotPasswordEmailService {
         name: user.name,
         email: user.email,
       },
+      from: {
+        name: 'Nimbus',
+        email: 'no-reply@heytor.com.br',
+      },
       subject: '[ Nimbus ] Recuperação de Senha',
       templateData: {
         file: forgotPasswordTemplate,
