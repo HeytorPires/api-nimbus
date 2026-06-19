@@ -9,14 +9,15 @@ export default {
   database: process.env.DB_NAME || 'nimbus-api',
   entities: [
     process.env.NODE_ENV === 'production'
-      ? './build/src/modules/**/infra/typeorm/entities/*.js'
-      : './src/modules/**/infra/typeorm/entities/*.ts',
+      ? 'build/src/modules/**/infra/typeorm/entities/*.js'
+      : 'src/modules/**/infra/typeorm/entities/*.ts',
   ],
   migrations: [
     process.env.NODE_ENV === 'production'
-      ? './build/src/shared/infra/typeorm/migrations/*.js'
-      : './src/shared/infra/typeorm/migrations/*.ts',
+      ? 'build/src/shared/infra/typeorm/migrations/*.js'
+      : 'src/shared/infra/typeorm/migrations/*.ts',
   ],
+  migrationsRun: false,
   cli: {
     migrationsDir: './src/shared/infra/typeorm/migrations',
   },
