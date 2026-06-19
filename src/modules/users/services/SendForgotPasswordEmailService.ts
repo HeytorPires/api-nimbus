@@ -15,7 +15,8 @@ class SendForgotPasswordEmailService {
     @inject('UsersTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository
   ) {
-    this.appWebUrl = process.env.APP_WEB_URL || 'http://localhost:3000';
+    this.appWebUrl =
+      process.env.APP_WEB_URL || `http://localhost:${process.env.PORT || 3333}`;
   }
   public async execute({ email }: ISendForgotPasswordEmailUser) {
     const user = await this.usersRepository.findByEmail(email);

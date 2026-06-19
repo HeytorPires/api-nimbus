@@ -1,4 +1,4 @@
-import { ICacheProvider } from '@shared/providers/cache/models/IRedisProvider';
+import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
 
 export default class FakeCacheProvider implements ICacheProvider {
   private cache: Record<string, string> = {};
