@@ -43,4 +43,4 @@ container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',
   cryptoProvider
 );
-container.registerSingleton<ISmtpProvider>('emailProvider', NodeMailerProvider);
+container.registerSingleton<ISmtpProvider>('EmailProvider', NodeMailerProvider);
