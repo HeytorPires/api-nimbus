@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import ShowProjectService from '@modules/projects/services/ShowProjectService';
 import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
-import FakeCryptoProvider from '../../../providers/FakeCryptoProvider';
+import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeCryptoProvider: FakeCryptoProvider;

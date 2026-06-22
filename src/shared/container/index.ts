@@ -13,11 +13,13 @@ import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsReposit
 //Dominios
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
-import { ICacheProvider } from '@shared/providers/cache/models/IRedisProvider';
+import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
+import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
+import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
 
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
@@ -41,3 +43,4 @@ container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',
   cryptoProvider
 );
+container.registerSingleton<ISmtpProvider>('EmailProvider', NodeMailerProvider);

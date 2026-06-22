@@ -1,10 +1,10 @@
 import AppError from '@shared/errors/AppError';
-import path from 'path';
-import EtherealMail from '@config/mail/EtherealMail';
+import path from 'node:path';
 import { ISendForgotPasswordEmailUser } from '../domain/models/ISendForgotPasswordEmailUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
+import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
 
 @injectable()
 class SendForgotPasswordEmailService {
@@ -13,9 +13,11 @@ class SendForgotPasswordEmailService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
-    private readonly userTokensRepository: IUserTokensRepository
+    private readonly userTokensRepository: IUserTokensRepository,
+    @inject('EmailProvider') private readonly emailProvider: ISmtpProvider
   ) {
-    this.appWebUrl = process.env.APP_WEB_URL || 'http://localhost:3000';
+    this.appWebUrl =
+      process.env.APP_WEB_URL || `http://localhost:${process.env.PORT || 3333}`;
   }
   public async execute({ email }: ISendForgotPasswordEmailUser) {
     const user = await this.usersRepository.findByEmail(email);
@@ -31,13 +33,17 @@ class SendForgotPasswordEmailService {
       'forgot_password.hbs'
     );
 
-    await EtherealMail.sendMail({
+    await this.emailProvider.sendMail({
       to: {
         name: user.name,
         email: user.email,
       },
+      from: {
+        name: 'Nimbus',
+        email: 'no-reply@heytor.com.br',
+      },
       subject: '[ Nimbus ] Recuperação de Senha',
-      templateDate: {
+      templateData: {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,

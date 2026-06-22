@@ -35,15 +35,11 @@ class UpdateProfileService {
     if (password && !old_password) {
       throw new AppError('Old password is required');
     }
-    console.log('Password:', password, 'Old password:', old_password);
     if (password && old_password) {
-      console.log('Old password input:', old_password);
-      console.log('User password hash:', user.password);
       const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
         user.password
       );
-      console.log('Password match:', checkOldPassword);
       if (!checkOldPassword) {
         throw new AppError('Old password does not match.');
       }
