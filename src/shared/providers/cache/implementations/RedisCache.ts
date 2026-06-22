@@ -1,11 +1,14 @@
 import Redis, { Redis as RedisClient } from 'ioredis';
-import cacheConfig from '@config/cache';
 
 export default class RedisCache {
   private readonly client: RedisClient;
 
   constructor() {
-    this.client = new Redis(cacheConfig.config.redis);
+    this.client = new Redis({
+      host: process.env.REDIS_HOST || 'localhost',
+      port: Number(process.env.REDIS_PORT) || 6379,
+      password: process.env.REDIS_PASSWORD || undefined,
+    });
   }
 
   public getClient(): RedisClient {

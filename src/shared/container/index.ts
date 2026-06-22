@@ -38,7 +38,7 @@ container.registerSingleton<IProjectRepository>(
 container.registerSingleton<ITagRepository>('TagsRepository', TagsRepository);
 
 // providers
-container.registerSingleton<ICacheProvider>('cacheProvider', RedisCache);
+container.registerSingleton<ICacheProvider>('CacheProvider', RedisCache);
 container.registerSingleton<IHashProvider>('HashProvider', BcryptHashProvider);
 container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',

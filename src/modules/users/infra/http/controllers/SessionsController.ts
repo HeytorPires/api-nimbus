@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import CreateSessionsService from '../../../services/CreateSessionsService';
+import LogoutService from '../../../services/LogoutService';
 import { container } from 'tsyringe';
 
 class SessionsController {
@@ -9,6 +10,12 @@ class SessionsController {
 
     const user = await createSessionsService.execute({ email, password });
     return response.json(user);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const logoutService = container.resolve(LogoutService);
+    await logoutService.execute(request.user.id);
+    return response.status(204).json();
   }
 }
 

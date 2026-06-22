@@ -4,7 +4,7 @@ import { RateLimiterRedis } from 'rate-limiter-flexible';
 import AppError from '@shared/errors/AppError';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 
-const redisCache = container.resolve<RedisCache>('cacheProvider');
+const redisCache = container.resolve<RedisCache>('CacheProvider');
 
 const limiter = new RateLimiterRedis({
   storeClient: redisCache.getClient(),

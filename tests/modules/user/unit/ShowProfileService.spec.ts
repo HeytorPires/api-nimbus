@@ -6,6 +6,8 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
@@ -21,8 +23,10 @@ describe('Show Customer', () => {
     createUser = new CreateUserService(fakeUsersRepository, hashProvider);
     createSession = new CreateSessionsService(
       fakeUsersRepository,
+      new FakeUserTokenRepository(),
       hashProvider,
-      new FakeLogProvider()
+      new FakeLogProvider(),
+      new FakeCacheProvider()
     );
   });
   it('should not show customer when not exist ', async () => {

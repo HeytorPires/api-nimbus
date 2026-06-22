@@ -10,7 +10,7 @@ const profileController = new ProfileController();
 
 ProfileRouter.use(isAuthenticated);
 
-ProfileRouter.get('/', profileController.show as any);
+ProfileRouter.get('/', profileController.show);
 ProfileRouter.put(
   '/',
   requestValidation(updateProfileSchema),

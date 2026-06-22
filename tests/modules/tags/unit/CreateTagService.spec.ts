@@ -7,19 +7,25 @@ import CreateTagService from '@modules/tags/services/CreateTagService';
 import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import FakeUserTokenRepository from '../../../modules/user/repositories/FakeUsersTokensRepository';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeUserTokensRepository: FakeUserTokenRepository;
 let createTagService: CreateTagService;
 let createUserService: CreateUserService;
 let createSession: CreateSessionsService;
 let hashProvider: FakeHashProvider;
+let cacheProvider: FakeCacheProvider;
 
 describe('Create Tag', () => {
   beforeEach(() => {
     hashProvider = new FakeHashProvider();
     fakeTagsRepository = new FakeTagsRepository();
     fakeUsersRepository = new FakeUsersRepository();
+    fakeUserTokensRepository = new FakeUserTokenRepository();
+    cacheProvider = new FakeCacheProvider();
     createTagService = new CreateTagService(
       fakeTagsRepository,
       fakeUsersRepository
@@ -30,8 +36,10 @@ describe('Create Tag', () => {
     );
     createSession = new CreateSessionsService(
       fakeUsersRepository,
+      fakeUserTokensRepository,
       hashProvider,
-      new FakeLogProvider()
+      new FakeLogProvider(),
+      cacheProvider
     );
   });
 

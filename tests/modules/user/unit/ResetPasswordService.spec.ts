@@ -7,6 +7,8 @@ import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvi
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUsersTokensRepository: FakeUsersTokensRepository;
@@ -22,8 +24,10 @@ describe('Create User', () => {
     fakeUsersTokensRepository = new FakeUsersTokensRepository();
     createSession = new CreateSessionsService(
       fakeUsersRepository,
+      new FakeUserTokenRepository(),
       hashProvider,
-      new FakeLogProvider()
+      new FakeLogProvider(),
+      new FakeCacheProvider()
     );
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
     ResetPassword = new ResetPasswordService(
@@ -32,8 +36,10 @@ describe('Create User', () => {
     );
     createSession = new CreateSessionsService(
       fakeUsersRepository,
+      new FakeUserTokenRepository(),
       hashProvider,
-      new FakeLogProvider()
+      new FakeLogProvider(),
+      new FakeCacheProvider()
     );
   });
 

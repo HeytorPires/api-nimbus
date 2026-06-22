@@ -8,6 +8,8 @@ import CreateSessionsService from '@modules/users/services/CreateSessionsService
 import AppError from '@shared/errors/AppError';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
 // let fakeUsersTokensRepository: FakeUsersTokensRepository;
@@ -28,8 +30,10 @@ describe('Update profile', () => {
     CreateUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
     createSession = new CreateSessionsService(
       fakeUsersRepository,
+      new FakeUserTokenRepository(),
       fakeHashProvider,
-      new FakeLogProvider()
+      new FakeLogProvider(),
+      new FakeCacheProvider()
     );
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
