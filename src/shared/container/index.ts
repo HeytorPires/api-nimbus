@@ -1,14 +1,15 @@
-// import '@modules/users/providers';
 import { container } from 'tsyringe';
-import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 
-//repositories
+//providers
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import BcryptHashProvider from '@shared/providers/cryptography/implementations/BcryptHashProvider';
 import cryptoProvider from '@shared/providers/cryptography/implementations/CryptoProvider';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
+import PinoProvider from '@shared/providers/logs/implementations/PinoProvider';
+import RedisCache from '@shared/providers/cache/implementations/RedisCache';
+import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
 
 //Dominios
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
@@ -18,8 +19,8 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
-import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
 import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
@@ -44,3 +45,5 @@ container.registerSingleton<ICryptographyProvider>(
   cryptoProvider
 );
 container.registerSingleton<ISmtpProvider>('EmailProvider', NodeMailerProvider);
+
+container.registerSingleton<ILogProvider>('LogProvider', PinoProvider);

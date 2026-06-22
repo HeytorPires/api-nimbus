@@ -22,13 +22,13 @@ class CreateTagService {
   public async execute({ name, user_id }: ICreateTag): Promise<ITagDTO> {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
-      throw new AppError(`User not exist: ${user_id}`, 400);
+      throw new AppError(`User not exist: ${user_id}`, 'CreateTagService', 400);
     }
 
     const tagExistent = await this.tagsRepository.findByName(name, user);
 
     if (tagExistent) {
-      throw new AppError('Tag name already in use', 400);
+      throw new AppError('Tag name already in use', 'CreateTagService', 400);
     }
     const tagCreated = await this.tagsRepository.create({
       name,

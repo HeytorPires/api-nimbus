@@ -35,21 +35,29 @@ class UpdateProjectService {
   }: IUpdateProject): Promise<IProjectDTO> {
     const project = await this.projectsRepository.findById(id);
     if (!project) {
-      throw new AppError('Project not found.');
+      throw new AppError('Project not found.', 'UpdateProjectService');
     }
 
     const user = await this.usersRepository.findById(user_id);
     if (project.user.id !== user?.id) {
-      throw new AppError('Access denied.');
+      throw new AppError('Access denied.', 'UpdateProjectService');
     }
 
     if (tag_id) {
       const tag = await this.tagsRepository.findById(tag_id);
       if (!tag) {
-        throw new AppError(`Tag not found: ${tag_id}`, 400);
+        throw new AppError(
+          `Tag not found: ${tag_id}`,
+          'UpdateProjectService',
+          400
+        );
       }
       if (tag.user.id !== user_id) {
-        throw new AppError('Tag belongs to another user', 403);
+        throw new AppError(
+          'Tag belongs to another user',
+          'UpdateProjectService',
+          403
+        );
       }
       project.tag = tag;
     }

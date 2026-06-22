@@ -5,6 +5,7 @@ import ShowProfileService from '@modules/users/services/ShowProfileService';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
@@ -20,7 +21,8 @@ describe('Show Customer', () => {
     createUser = new CreateUserService(fakeUsersRepository, hashProvider);
     createSession = new CreateSessionsService(
       fakeUsersRepository,
-      hashProvider
+      hashProvider,
+      new FakeLogProvider()
     );
   });
   it('should not show customer when not exist ', async () => {

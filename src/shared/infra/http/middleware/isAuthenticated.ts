@@ -15,7 +15,7 @@ export default function isAuthenticated(
 ): void {
   const authHeader = request.headers.authorization;
   if (!authHeader) {
-    throw new AppError('JWT toker is missing');
+    throw new AppError('JWT toker is missing', 'isAuthenticated', 401);
   }
   //bearer dsadadadlskadihdih43248hahdsadhasda
   const [, token] = authHeader.split(' ');
@@ -30,6 +30,6 @@ export default function isAuthenticated(
 
     return next();
   } catch {
-    throw new AppError('Invalid Token is missing');
+    throw new AppError('Invalid Token is missing', 'isAuthenticated', 401);
   }
 }

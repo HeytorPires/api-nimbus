@@ -15,7 +15,7 @@ class UpdateUserAvatarService {
   public async execute({ user_id, avatarFileName }: IUpdateUserAvatar) {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
-      throw new AppError('User not found!');
+      throw new AppError('User not found!', 'UpdateUserAvatarService');
     }
     if (user.avatar) {
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);

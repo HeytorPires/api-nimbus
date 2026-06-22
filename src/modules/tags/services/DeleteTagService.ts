@@ -13,7 +13,7 @@ class DeleteTagService {
     const tag = await this.tagRepository.findById(id);
 
     if (!tag) {
-      throw new AppError('Tag not found.', 404);
+      throw new AppError('Tag not found.', 'DeleteTagService', 404);
     }
 
     await this.tagRepository.remove(tag);

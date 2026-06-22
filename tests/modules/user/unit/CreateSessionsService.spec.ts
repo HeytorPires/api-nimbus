@@ -3,18 +3,22 @@ import AppError from '../../../../src/shared/errors/AppError';
 import CreateSessionsService from '../../../../src/modules/users/services/CreateSessionsService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateSession: CreateSessionsService;
 let hashProvider: FakeHashProvider;
+let fakeLogProvider: FakeLogProvider;
 
 describe('CreateSession', () => {
   beforeEach(() => {
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
+    fakeLogProvider = new FakeLogProvider();
     CreateSession = new CreateSessionsService(
       fakeUsersRepository,
-      hashProvider
+      hashProvider,
+      fakeLogProvider
     );
   });
 

@@ -13,7 +13,7 @@ class DeleteProjectService {
     const project = await this.projectRepository.findById(id);
 
     if (!project) {
-      throw new AppError('Project not found.', 404);
+      throw new AppError('Project not found.', 'DeleteProjectService', 404);
     }
 
     await this.projectRepository.remove(project);

@@ -23,17 +23,20 @@ class UpdateProfileService {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError('User not found.');
+      throw new AppError('User not found.', 'UpdateProfileService');
     }
 
     const userUpdateEmail = await this.usersRepository.findByEmail(email);
 
     if (userUpdateEmail && userUpdateEmail.id !== user_id) {
-      throw new AppError('there is already one user with this email');
+      throw new AppError(
+        'there is already one user with this email',
+        'UpdateProfileService'
+      );
     }
 
     if (password && !old_password) {
-      throw new AppError('Old password is required');
+      throw new AppError('Old password is required', 'UpdateProfileService');
     }
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
@@ -41,7 +44,10 @@ class UpdateProfileService {
         user.password
       );
       if (!checkOldPassword) {
-        throw new AppError('Old password does not match.');
+        throw new AppError(
+          'Old password does not match.',
+          'UpdateProfileService'
+        );
       }
 
       //   const saltRounds = 8;

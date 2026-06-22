@@ -7,6 +7,7 @@ import FakefakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashP
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 // let fakeUsersTokensRepository: FakeUsersTokensRepository;
@@ -27,7 +28,8 @@ describe('Update profile', () => {
     CreateUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
     createSession = new CreateSessionsService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      new FakeLogProvider()
     );
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,

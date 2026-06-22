@@ -22,11 +22,11 @@ class ShowProjectService {
     const project = await this.projectRepository.findById(id);
 
     if (!project) {
-      throw new AppError('Project not found.', 404);
+      throw new AppError('Project not found.', 'ShowProjectService', 404);
     }
 
     if (project.user.id !== user_id) {
-      throw new AppError('Access denied.', 403);
+      throw new AppError('Access denied.', 'ShowProjectService', 403);
     }
 
     const projectDTO = this.projectMapper.toDTO(project);

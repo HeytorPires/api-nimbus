@@ -19,11 +19,11 @@ class ShowTagService {
     const tag = await this.tagRepository.findById(id);
 
     if (!tag) {
-      throw new AppError('Tag not found.', 404);
+      throw new AppError('Tag not found.', 'ShowTagService', 404);
     }
 
     if (tag.user.id !== user_id) {
-      throw new AppError('Access denied.', 403);
+      throw new AppError('Access denied.', 'ShowTagService', 403);
     }
 
     return this.tagMapper.toDTO(tag);

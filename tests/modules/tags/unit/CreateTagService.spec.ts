@@ -6,6 +6,7 @@ import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvi
 import CreateTagService from '@modules/tags/services/CreateTagService';
 import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;
@@ -29,7 +30,8 @@ describe('Create Tag', () => {
     );
     createSession = new CreateSessionsService(
       fakeUsersRepository,
-      hashProvider
+      hashProvider,
+      new FakeLogProvider()
     );
   });
 

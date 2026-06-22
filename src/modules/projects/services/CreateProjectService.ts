@@ -35,16 +35,28 @@ class CreateProjectService {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError(`User not exist: ${user_id}`, 400);
+      throw new AppError(
+        `User not exist: ${user_id}`,
+        'CreateProjectService',
+        400
+      );
     }
 
     if (tag_id) {
       const tag = await this.tagsRepository.findById(tag_id);
       if (!tag) {
-        throw new AppError(`Tag not found: ${tag_id}`, 400);
+        throw new AppError(
+          `Tag not found: ${tag_id}`,
+          'CreateProjectService',
+          400
+        );
       }
       if (tag.user.id !== user_id) {
-        throw new AppError('Tag belongs to another user', 403);
+        throw new AppError(
+          'Tag belongs to another user',
+          'CreateProjectService',
+          403
+        );
       }
     }
 
@@ -53,7 +65,11 @@ class CreateProjectService {
       user
     );
     if (projectExistent) {
-      throw new AppError('Project title already in use', 400);
+      throw new AppError(
+        'Project title already in use',
+        'CreateProjectService',
+        400
+      );
     }
 
     const encrypted = await this.cryptoProvider.encrypt(variablesEnvironment);
