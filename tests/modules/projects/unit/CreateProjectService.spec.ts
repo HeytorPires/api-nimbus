@@ -4,7 +4,7 @@ import CreateProjectService from '@modules/projects/services/CreateProjectServic
 import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
 import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
 import FakeTagsRepository from '../../tags/repositories/FakeTagsRepository';
-import FakeCryptoProvider from '../../../providers/FakeCryptoProvider';
+import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
 // import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 // import CreateUserService from '@modules/users/services/CreateUserService';
 // import CreateTagService from '@modules/tags/services/CreateTagService';
