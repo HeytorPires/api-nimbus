@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import NodeMailerProvider from '../../../src/shared/providers/email/implementations/NodeMailerProvider';
-import path from 'path';
+import path from 'node:path';
 
 jest.mock('nodemailer');
 
