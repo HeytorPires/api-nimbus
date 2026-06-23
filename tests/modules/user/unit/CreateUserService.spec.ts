@@ -1,8 +1,10 @@
 import 'reflect-metadata';
+import { container } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;
@@ -10,6 +12,7 @@ let hashProvider: FakeHashProvider;
 
 describe('Create User', () => {
   beforeEach(() => {
+    container.registerInstance('StorageProvider', new FakeStorageProvider());
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);

@@ -1,8 +1,7 @@
 import 'reflect-metadata';
+import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-// import ResetPasswordService from '@modules/users/services/ResetPasswordservice';
-// import FakeUsersTokensRepository from '../repositories/FakeUsersTokensRepository';
 import FakefakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
@@ -10,9 +9,9 @@ import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
+import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
-// let fakeUsersTokensRepository: FakeUsersTokensRepository;
 let CreateUser: CreateUserService;
 let createSession: CreateSessionsService;
 let fakeHashProvider: FakefakeHashProvider;
@@ -20,9 +19,9 @@ let updateProfile: UpdateProfileService;
 
 describe('Update profile', () => {
   beforeEach(() => {
+    container.registerInstance('StorageProvider', new FakeStorageProvider());
     fakeHashProvider = new FakefakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
-    // fakeUsersTokensRepository = new FakeUsersTokensRepository();
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
       fakeHashProvider
@@ -34,10 +33,6 @@ describe('Update profile', () => {
       fakeHashProvider,
       new FakeLogProvider(),
       new FakeCacheProvider()
-    );
-    updateProfile = new UpdateProfileService(
-      fakeUsersRepository,
-      fakeHashProvider
     );
   });
 

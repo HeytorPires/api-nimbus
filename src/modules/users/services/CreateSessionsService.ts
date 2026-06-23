@@ -30,6 +30,8 @@ class CreateSessionsService {
     @inject('CacheProvider')
     private readonly cacheProvider: ICacheProvider
   ) {}
+
+  private readonly userMapper = new UserMapper();
   public async execute({
     email,
     password,
@@ -73,7 +75,7 @@ class CreateSessionsService {
       metadata: { email: user.email, userId: user.id },
       requestIp: 'N/A',
     });
-    return { user: UserMapper.toDTO(user), token };
+    return { user: await this.userMapper.toDTO(user), token };
   }
 }
 

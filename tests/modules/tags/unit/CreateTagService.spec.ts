@@ -1,14 +1,14 @@
-import 'reflect-metadata';
-import AppError from '@shared/errors/AppError';
-import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeTagsRepository from '../repositories/FakeTagsRepository';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import CreateTagService from '@modules/tags/services/CreateTagService';
-import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
-import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import CreateUserService from '@modules/users/services/CreateUserService';
+import AppError from '@shared/errors/AppError';
+import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import 'reflect-metadata';
+import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
 import FakeUserTokenRepository from '../../../modules/user/repositories/FakeUsersTokensRepository';
+import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeTagsRepository from '../repositories/FakeTagsRepository';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;

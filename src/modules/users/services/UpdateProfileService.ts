@@ -14,6 +14,8 @@ class UpdateProfileService {
     @inject('HashProvider')
     private readonly hashProvider: IHashProvider
   ) {}
+
+  private readonly userMapper = new UserMapper();
   public async execute({
     user_id,
     name,
@@ -59,7 +61,7 @@ class UpdateProfileService {
 
     await this.usersRepository.save(user);
 
-    return UserMapper.toDTO(user);
+    return this.userMapper.toDTO(user);
   }
 }
 

@@ -10,6 +10,8 @@ import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsReposit
 import PinoProvider from '@shared/providers/logs/implementations/PinoProvider';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
+import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
+import MinioStorageProvider from '@shared/providers/storage/implementations/MinioStorageProvider';
 
 //Dominios
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
@@ -21,6 +23,7 @@ import { IProjectRepository } from '@modules/projects/domain/repositories/IProje
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
 import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
+import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
@@ -45,5 +48,12 @@ container.registerSingleton<ICryptographyProvider>(
   cryptoProvider
 );
 container.registerSingleton<ISmtpProvider>('EmailProvider', NodeMailerProvider);
+
+container.registerSingleton<IStorageProvider>(
+  'StorageProvider',
+  process.env.STORAGE_DISK === 'minio'
+    ? MinioStorageProvider
+    : LocalStorageProvider
+);
 
 container.registerSingleton<ILogProvider>('LogProvider', PinoProvider);

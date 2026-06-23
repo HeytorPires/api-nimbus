@@ -1,30 +1,23 @@
 import 'reflect-metadata';
+import { container } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-// import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
-// import CreateUserService from '@modules/users/services/CreateUserService';
+import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeStorageProvider: FakeStorageProvider;
 let updateUserAvatar: UpdateUserAvatarService;
-// let createUser: CreateUserService;
-// let hashProvider: FakeHashProvider;
-
-// Mock fs module
-jest.mock('fs', () => ({
-  mkdirSync: jest.fn(),
-  promises: {
-    stat: jest.fn().mockResolvedValue(true),
-    unlink: jest.fn().mockResolvedValue(undefined),
-  },
-}));
 
 describe('UpdateUserAvatar', () => {
   beforeEach(() => {
-    // hashProvider = new FakeHashProvider();
+    fakeStorageProvider = new FakeStorageProvider();
+    container.registerInstance('StorageProvider', fakeStorageProvider);
     fakeUsersRepository = new FakeUsersRepository();
-    updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository);
-    // createUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    updateUserAvatar = new UpdateUserAvatarService(
+      fakeUsersRepository,
+      fakeStorageProvider
+    );
   });
 
   it('should be able to update user avatar', async () => {

@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { container } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
@@ -8,6 +9,7 @@ import CreateSessionsService from '@modules/users/services/CreateSessionsService
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
+import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
@@ -17,6 +19,7 @@ let hashProvider: FakeHashProvider;
 
 describe('Show Customer', () => {
   beforeEach(() => {
+    container.registerInstance('StorageProvider', new FakeStorageProvider());
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     showProfile = new ShowProfileService(fakeUsersRepository);

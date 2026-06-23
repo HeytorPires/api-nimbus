@@ -1,10 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import path from 'path';
-import uploadConfig from '@config/upload';
-import fs from 'fs';
 import { IUpdateUserAvatar } from '../domain/models/IUpdateUserAvatar';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
+import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 import { UserDTO } from '../domain/dtos/UserDTO';
 import UserMapper from '../mappers/userMapper';
 
@@ -12,8 +10,12 @@ import UserMapper from '../mappers/userMapper';
 class UpdateUserAvatarService {
   constructor(
     @inject('UsersRepository')
-    private readonly usersRepository: IUserRepository
+    private readonly usersRepository: IUserRepository,
+    @inject('StorageProvider')
+    private readonly storageProvider: IStorageProvider
   ) {}
+
+  private readonly userMapper = new UserMapper();
   public async execute({
     user_id,
     avatarFileName,
@@ -23,17 +25,15 @@ class UpdateUserAvatarService {
       throw new AppError('User not found!', 'UpdateUserAvatarService');
     }
     if (user.avatar) {
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
-    user.avatar = avatarFileName;
+
+    const savedFile = await this.storageProvider.saveFile(avatarFileName);
+    user.avatar = savedFile;
 
     await this.usersRepository.save(user);
 
-    return UserMapper.toDTO(user);
+    return this.userMapper.toDTO(user);
   }
 }
 

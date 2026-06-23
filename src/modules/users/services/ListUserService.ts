@@ -9,10 +9,13 @@ class ListUserService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository
   ) {}
+
+  private readonly userMapper = new UserMapper();
   public async execute(): Promise<UserDTO[]> {
     const users = await this.usersRepository.list();
+    if (!users) return [];
 
-    return users ? UserMapper.toDTOList(users) : [];
+    return this.userMapper.toDTOList(users);
   }
 }
 

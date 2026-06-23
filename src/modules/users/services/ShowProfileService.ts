@@ -10,6 +10,8 @@ class ShowProfileService {
     @inject('UsersRepository')
     private usersRepository: IUserRepository
   ) {}
+
+  private readonly userMapper = new UserMapper();
   public async execute(user_id: string): Promise<UserDTO> {
     const user = await this.usersRepository.findById(user_id);
 
@@ -17,7 +19,7 @@ class ShowProfileService {
       throw new AppError('User not found.', 'ShowProfileService');
     }
 
-    return UserMapper.toDTO(user);
+    return this.userMapper.toDTO(user);
   }
 }
 

@@ -3,16 +3,18 @@ import { ICreateUser } from '../domain/models/ICreateUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
-import UserMapper from '../mappers/userMapper'; // importe o mapper
+import UserMapper from '../mappers/userMapper';
 
 @injectable()
 class CreateUserService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUserRepository,
+    private readonly usersRepository: IUserRepository,
     @inject('HashProvider')
-    private hashProvider: IHashProvider
+    private readonly hashProvider: IHashProvider
   ) {}
+
+  private readonly userMapper = new UserMapper();
 
   public async execute({ name, email, password }: ICreateUser) {
     const emailExists = await this.usersRepository.findByEmail(email);
@@ -28,8 +30,7 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    // Aplica o mapper antes de retornar
-    return UserMapper.toDTO(user);
+    return this.userMapper.toDTO(user);
   }
 }
 
