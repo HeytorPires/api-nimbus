@@ -14,7 +14,10 @@ class UpdateUserAvatarService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository
   ) {}
-  public async execute({ user_id, avatarFileName }: IUpdateUserAvatar): Promise<UserDTO> {
+  public async execute({
+    user_id,
+    avatarFileName,
+  }: IUpdateUserAvatar): Promise<UserDTO> {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
       throw new AppError('User not found!', 'UpdateUserAvatarService');
