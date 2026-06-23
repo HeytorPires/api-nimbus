@@ -54,12 +54,12 @@ describe('Create User', () => {
       email: 'João@gmail.com',
       password: '123456',
     });
-    const { password, id } = session.user;
+    const { id } = session.user;
 
     const response = await fakeUsersTokensRepository.generate(id);
     const { token } = response;
 
-    await ResetPassword.execute({ token, password });
+    await ResetPassword.execute({ token, password: '123456' });
     expect(User).toHaveProperty('email');
   });
   it('should not be able to create two users with the same email', async () => {

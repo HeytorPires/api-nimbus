@@ -39,7 +39,7 @@ describe('UpdateUserAvatar', () => {
       avatarFileName: 'avatar.jpg',
     });
 
-    expect(updatedUser.avatar).toBe('avatar.jpg');
+    expect(updatedUser.avatar_url).toContain('avatar.jpg');
   });
 
   it('should delete old avatar when updating new one', async () => {
@@ -57,7 +57,7 @@ describe('UpdateUserAvatar', () => {
       avatarFileName: 'new-avatar.jpg',
     });
 
-    expect(updatedUser.avatar).toBe('new-avatar.jpg');
+    expect(updatedUser.avatar_url).toContain('new-avatar.jpg');
   });
 
   it('should not be able to update avatar of non-existing user', async () => {

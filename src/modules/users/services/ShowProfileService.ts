@@ -1,7 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import { IUser } from '../domain/models/IUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
+import { UserDTO } from '../domain/dtos/UserDTO';
+import UserMapper from '../mappers/userMapper';
 
 @injectable()
 class ShowProfileService {
@@ -9,14 +10,14 @@ class ShowProfileService {
     @inject('UsersRepository')
     private usersRepository: IUserRepository
   ) {}
-  public async execute(user_id: string): Promise<IUser> {
+  public async execute(user_id: string): Promise<UserDTO> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User not found.', 'ShowProfileService');
     }
 
-    return user;
+    return UserMapper.toDTO(user);
   }
 }
 

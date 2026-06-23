@@ -12,6 +12,7 @@ import { IUserTokensRepository } from '../domain/repositories/IUserTokensReposit
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
+import UserMapper from '../mappers/userMapper';
 
 const SESSION_TTL = 86400; // 1 day in seconds
 
@@ -72,7 +73,7 @@ class CreateSessionsService {
       metadata: { email: user.email, userId: user.id },
       requestIp: 'N/A',
     });
-    return { user, token };
+    return { user: UserMapper.toDTO(user), token };
   }
 }
 

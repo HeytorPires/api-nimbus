@@ -8,8 +8,8 @@ class SessionsController {
     const { email, password } = request.body;
     const createSessionsService = container.resolve(CreateSessionsService);
 
-    const user = await createSessionsService.execute({ email, password });
-    return response.json(user);
+    const result = await createSessionsService.execute({ email, password });
+    return response.json(result);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

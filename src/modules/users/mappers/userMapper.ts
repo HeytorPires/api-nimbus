@@ -1,26 +1,24 @@
-import User from '@modules/users/infra/typeorm/entities/User';
+import { IUser } from '@modules/users/domain/models/IUser';
 import { UserDTO } from '@modules/users/domain/dtos/UserDTO';
 
 export default class UserMapper {
-  // Converte Entity -> DTO
-  static toDTO(user: User): UserDTO {
+  private static buildAvatarUrl(avatar: string | null): string | null {
+    if (!avatar) return null;
+    return `${process.env.APP_API_URL}/files/${avatar}`;
+  }
+
+  static toDTO(user: IUser): UserDTO {
     return {
       id: user.id,
       name: user.name,
       email: user.email,
-      avatar_url: user.getAvatarUrl(),
+      avatar_url: UserMapper.buildAvatarUrl(user.avatar),
       created_at: user.created_at,
       updated_at: user.updated_at,
     };
   }
 
-  // Converte DTO -> Entity
-  static toEntity(dto: UserDTO): User {
-    const user = new User();
-    user.name = dto.name;
-    user.email = dto.email;
-    user.created_at = dto.created_at;
-    user.updated_at = dto.updated_at;
-    return user;
+  static toDTOList(users: IUser[]): UserDTO[] {
+    return users.map(UserMapper.toDTO);
   }
 }

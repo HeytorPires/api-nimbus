@@ -20,13 +20,10 @@ Este roadmap define a evolução de segurança do Nimbus em etapas progressivas,
 - ✅ CORS
 - ✅ Validação por Schema
 - ✅ Isolamento por usuário
-
-### Adicionar
-
-- [ ] JWT com expiração
-- [ ] Revisão dos logs para garantir que nenhum segredo apareça
-- [ ] Tratamento padronizado de erros
-- [ ] Página 404
+- ✅ JWT com expiração
+- ✅ Revisão dos logs para garantir que nenhum segredo apareça
+- ✅ Tratamento padronizado de erros
+- ✅ Página 404
 
 **Valor agregado:** ⭐⭐⭐⭐⭐ — Pouco esforço e muito ganho de segurança.
 

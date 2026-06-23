@@ -1,7 +1,6 @@
 import Project from '@modules/projects/infra/typeorm/entities/Project';
 import Tag from '@modules/tags/infra/typeorm/entities/Tag';
 import { IUser } from '@modules/users/domain/models/IUser';
-import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -22,7 +21,6 @@ class User implements IUser {
   email: string;
 
   @Column()
-  @Exclude()
   password: string;
 
   @Column()
@@ -39,14 +37,6 @@ class User implements IUser {
 
   @OneToMany(() => Tag, (tag) => tag.user)
   tags: Tag[];
-
-  @Expose({ name: 'avatar_url' })
-  getAvatarUrl(): string | null {
-    if (!this.avatar) {
-      return null;
-    }
-    return `${process.env.APP_API_URL}/files/${this.avatar}`;
-  }
 }
 
 export default User;

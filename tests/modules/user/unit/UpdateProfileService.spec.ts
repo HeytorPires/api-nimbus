@@ -78,14 +78,14 @@ describe('Update profile', () => {
       email: 'João1@gmail.com',
       password: '123456',
     });
-    const { name, email, password } = session.user;
+    const { name, email } = session.user;
     const newPassword = '654321';
     expect(
       updateProfile.execute({
         user_id: '1',
         name,
         email,
-        old_password: password,
+        old_password: '123456',
         password: newPassword,
       })
     ).rejects.toBeInstanceOf(AppError);

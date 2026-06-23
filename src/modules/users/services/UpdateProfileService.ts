@@ -1,9 +1,10 @@
 import AppError from '@shared/errors/AppError';
 import { IUpdateProfileUser } from '../domain/models/IUpdateProfileUser';
-import { IUser } from '../domain/models/IUser';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
+import { UserDTO } from '../domain/dtos/UserDTO';
+import UserMapper from '../mappers/userMapper';
 
 @injectable()
 class UpdateProfileService {
@@ -19,7 +20,7 @@ class UpdateProfileService {
     email,
     password,
     old_password,
-  }: IUpdateProfileUser): Promise<IUser> {
+  }: IUpdateProfileUser): Promise<UserDTO> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -58,7 +59,7 @@ class UpdateProfileService {
 
     await this.usersRepository.save(user);
 
-    return user;
+    return UserMapper.toDTO(user);
   }
 }
 

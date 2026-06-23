@@ -5,6 +5,8 @@ import fs from 'fs';
 import { IUpdateUserAvatar } from '../domain/models/IUpdateUserAvatar';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
+import { UserDTO } from '../domain/dtos/UserDTO';
+import UserMapper from '../mappers/userMapper';
 
 @injectable()
 class UpdateUserAvatarService {
@@ -12,7 +14,7 @@ class UpdateUserAvatarService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository
   ) {}
-  public async execute({ user_id, avatarFileName }: IUpdateUserAvatar) {
+  public async execute({ user_id, avatarFileName }: IUpdateUserAvatar): Promise<UserDTO> {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
       throw new AppError('User not found!', 'UpdateUserAvatarService');
@@ -28,7 +30,7 @@ class UpdateUserAvatarService {
 
     await this.usersRepository.save(user);
 
-    return user;
+    return UserMapper.toDTO(user);
   }
 }
 

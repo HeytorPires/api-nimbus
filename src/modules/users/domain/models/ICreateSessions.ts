@@ -1,4 +1,4 @@
-import { IUser } from './IUser';
+import { UserDTO } from '../dtos/UserDTO';
 
 export interface IRequestCreateSession {
   email: string;
@@ -6,6 +6,6 @@ export interface IRequestCreateSession {
 }
 
 export interface IResponseCreateSession {
-  user: IUser;
+  user: UserDTO;
   token: string;
 }
