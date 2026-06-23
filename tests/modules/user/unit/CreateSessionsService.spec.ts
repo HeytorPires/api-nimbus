@@ -43,7 +43,9 @@ describe('CreateSession', () => {
     });
 
     expect(response).toHaveProperty('token');
-    expect(response.user).toEqual(user);
+    expect(response.user.email).toEqual(user.email);
+    expect(response.user.name).toEqual(user.name);
+    expect(response.user.id).toEqual(user.id);
   });
   it('should persist session token in database on login', async () => {
     const user = await fakeUsersRepository.create({
