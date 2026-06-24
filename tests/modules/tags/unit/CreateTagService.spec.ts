@@ -1,87 +1,51 @@
 import CreateTagService from '@modules/tags/services/CreateTagService';
-import CreateSessionsService from '@modules/users/services/CreateSessionsService';
-import CreateUserService from '@modules/users/services/CreateUserService';
 import AppError from '@shared/errors/AppError';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
-import 'reflect-metadata';
 import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
-import FakeUserTokenRepository from '../../../modules/user/repositories/FakeUsersTokensRepository';
-import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeTagsRepository from '../repositories/FakeTagsRepository';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;
-let fakeUserTokensRepository: FakeUserTokenRepository;
 let createTagService: CreateTagService;
-let createUserService: CreateUserService;
-let createSession: CreateSessionsService;
-let hashProvider: FakeHashProvider;
-let cacheProvider: FakeCacheProvider;
 
 describe('Create Tag', () => {
   beforeEach(() => {
-    hashProvider = new FakeHashProvider();
     fakeTagsRepository = new FakeTagsRepository();
     fakeUsersRepository = new FakeUsersRepository();
-    fakeUserTokensRepository = new FakeUserTokenRepository();
-    cacheProvider = new FakeCacheProvider();
     createTagService = new CreateTagService(
       fakeTagsRepository,
       fakeUsersRepository
     );
-    createUserService = new CreateUserService(
-      fakeUsersRepository,
-      hashProvider
-    );
-    createSession = new CreateSessionsService(
-      fakeUsersRepository,
-      fakeUserTokensRepository,
-      hashProvider,
-      new FakeLogProvider(),
-      cacheProvider
-    );
   });
 
   it('should be able to create a new Tag', async () => {
-    await createUserService.execute({
+    const user = await fakeUsersRepository.create({
       name: 'João silva',
-      email: 'João@gmail.com',
-      password: '123456',
-    });
-
-    const session = await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
     });
 
     const tag = await createTagService.execute({
       name: 'Important',
-      user_id: session.user.id,
+      user_id: user.id,
     });
 
     expect(tag).toHaveProperty('id');
   });
   it('should not be able to create two tags with the same name', async () => {
-    await createUserService.execute({
+    const user = await fakeUsersRepository.create({
       name: 'João silva',
-      email: 'João@gmail.com',
-      password: '123456',
-    });
-
-    const session = await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
     });
 
     await createTagService.execute({
       name: 'Important',
-      user_id: session.user.id,
+      user_id: user.id,
     });
     expect(
       createTagService.execute({
         name: 'Important',
-        user_id: session.user.id,
+        user_id: user.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });
