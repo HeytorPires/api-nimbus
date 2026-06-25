@@ -4,9 +4,11 @@ import AppError from '@shared/errors/AppError';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeStorageProvider: FakeStorageProvider;
+let fakeLogProvider: FakeLogProvider;
 let updateUserAvatar: UpdateUserAvatarService;
 
 describe('UpdateUserAvatar', () => {
@@ -14,9 +16,11 @@ describe('UpdateUserAvatar', () => {
     fakeStorageProvider = new FakeStorageProvider();
     container.registerInstance('StorageProvider', fakeStorageProvider);
     fakeUsersRepository = new FakeUsersRepository();
+    fakeLogProvider = new FakeLogProvider();
     updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
-      fakeStorageProvider
+      fakeStorageProvider,
+      fakeLogProvider
     );
   });
 

@@ -8,6 +8,7 @@ import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
 import { IUser } from '../domain/models/IUser';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class ResetPasswordService {
@@ -15,7 +16,9 @@ class ResetPasswordService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
-    private readonly usersTokensRepository: IUserTokensRepository
+    private readonly usersTokensRepository: IUserTokensRepository,
+    @inject('LogProvider')
+    private readonly logger: ILogProvider
   ) {}
   public async execute({
     token,
@@ -44,6 +47,12 @@ class ResetPasswordService {
 
     user.password = hashedPassword;
     await this.usersRepository.save(user);
+
+    this.logger.info({
+      message: 'Password reset successfully',
+      context: 'ResetPasswordService',
+      metadata: { userId: user.id },
+    });
 
     return user;
   }

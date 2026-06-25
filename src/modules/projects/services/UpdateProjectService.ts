@@ -7,6 +7,7 @@ import { ProjectMapper } from '../mapper/ProjectMapper';
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class UpdateProjectService {
@@ -20,7 +21,9 @@ class UpdateProjectService {
     @inject('UsersRepository')
     private usersRepository: IUserRepository,
     @inject('TagsRepository')
-    private tagsRepository: ITagRepository
+    private tagsRepository: ITagRepository,
+    @inject('LogProvider')
+    private logger: ILogProvider
   ) {
     this.projectMapper = new ProjectMapper();
   }
@@ -70,6 +73,12 @@ class UpdateProjectService {
     project.InitializationVector = encrypted.iv;
 
     await this.projectsRepository.save(project);
+
+    this.logger.info({
+      message: 'Project updated',
+      context: 'UpdateProjectService',
+      metadata: { projectId: id, userId: user_id },
+    });
 
     const projectDTO = this.projectMapper.toDTO(project);
     projectDTO.variablesEnvironment = variablesEnvironment;

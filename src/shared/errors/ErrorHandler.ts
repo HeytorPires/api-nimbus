@@ -3,7 +3,7 @@ import { ErrorRequestHandler } from 'express';
 import moment from 'moment';
 import AppError from './AppError';
 import { container } from 'tsyringe';
-import PinoProvider from '@shared/providers/logs/implementations/PinoProvider';
+import PinoProvider from '@shared/providers/logs/implementations/LogProvider';
 import { randomUUID } from 'node:crypto';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

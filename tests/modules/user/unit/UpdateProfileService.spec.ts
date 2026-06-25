@@ -24,7 +24,8 @@ describe('Update profile', () => {
     fakeUsersRepository = new FakeUsersRepository();
     updateProfile = new UpdateProfileService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      new FakeLogProvider()
     );
     CreateUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
     createSession = new CreateSessionsService(

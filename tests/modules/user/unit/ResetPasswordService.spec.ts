@@ -35,7 +35,8 @@ describe('Create User', () => {
     CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
     ResetPassword = new ResetPasswordService(
       fakeUsersRepository,
-      fakeUsersTokensRepository
+      fakeUsersTokensRepository,
+      new FakeLogProvider()
     );
   });
 

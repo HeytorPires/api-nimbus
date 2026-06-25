@@ -3,16 +3,19 @@ import AppError from '@shared/errors/AppError';
 import UpdateTagService from '@modules/tags/services/UpdateTagService';
 import FakeTagsRepository from '../repositories/FakeTagsRepository';
 import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeLogProvider: FakeLogProvider;
 let updateTag: UpdateTagService;
 
 describe('UpdateTag', () => {
   beforeEach(() => {
     fakeTagsRepository = new FakeTagsRepository();
     fakeUsersRepository = new FakeUsersRepository();
-    updateTag = new UpdateTagService(fakeTagsRepository);
+    fakeLogProvider = new FakeLogProvider();
+    updateTag = new UpdateTagService(fakeTagsRepository, fakeLogProvider);
   });
 
   it('should be able to update a tag', async () => {

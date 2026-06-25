@@ -5,6 +5,7 @@ import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { UserDTO } from '../domain/dtos/UserDTO';
 import UserMapper from '../mappers/userMapper';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class UpdateProfileService {
@@ -12,7 +13,9 @@ class UpdateProfileService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository,
     @inject('HashProvider')
-    private readonly hashProvider: IHashProvider
+    private readonly hashProvider: IHashProvider,
+    @inject('LogProvider')
+    private readonly logger: ILogProvider
   ) {}
 
   private readonly userMapper = new UserMapper();
@@ -60,6 +63,12 @@ class UpdateProfileService {
     user.name = name;
 
     await this.usersRepository.save(user);
+
+    this.logger.info({
+      message: 'Profile updated',
+      context: 'UpdateProfileService',
+      metadata: { userId: user_id },
+    });
 
     return this.userMapper.toDTO(user);
   }

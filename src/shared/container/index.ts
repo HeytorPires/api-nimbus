@@ -7,7 +7,7 @@ import cryptoProvider from '@shared/providers/cryptography/implementations/Crypt
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
-import PinoProvider from '@shared/providers/logs/implementations/PinoProvider';
+import LogProvider from '@shared/providers/logs/implementations/LogProvider';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
 import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
@@ -56,4 +56,4 @@ container.registerSingleton<IStorageProvider>(
     : LocalStorageProvider
 );
 
-container.registerSingleton<ILogProvider>('LogProvider', PinoProvider);
+container.registerSingleton<ILogProvider>('LogProvider', LogProvider);

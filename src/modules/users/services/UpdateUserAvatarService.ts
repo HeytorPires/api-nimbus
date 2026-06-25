@@ -5,6 +5,7 @@ import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 import { UserDTO } from '../domain/dtos/UserDTO';
 import UserMapper from '../mappers/userMapper';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class UpdateUserAvatarService {
@@ -12,7 +13,9 @@ class UpdateUserAvatarService {
     @inject('UsersRepository')
     private readonly usersRepository: IUserRepository,
     @inject('StorageProvider')
-    private readonly storageProvider: IStorageProvider
+    private readonly storageProvider: IStorageProvider,
+    @inject('LogProvider')
+    private readonly logger: ILogProvider
   ) {}
 
   private readonly userMapper = new UserMapper();
@@ -32,6 +35,12 @@ class UpdateUserAvatarService {
     user.avatar = savedFile;
 
     await this.usersRepository.save(user);
+
+    this.logger.info({
+      message: 'User avatar updated',
+      context: 'UpdateUserAvatarService',
+      metadata: { userId: user_id },
+    });
 
     return this.userMapper.toDTO(user);
   }

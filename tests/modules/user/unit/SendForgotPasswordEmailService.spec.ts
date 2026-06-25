@@ -4,10 +4,12 @@ import SendForgotPasswordEmailService from '@modules/users/services/SendForgotPa
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 import FakeEmailProvider from '../../../providers/fakes/FakeEmailProvider';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokenRepository;
 let fakeEmailProvider: FakeEmailProvider;
+let fakeLogProvider: FakeLogProvider;
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
 
 describe('SendForgotPasswordEmail', () => {
@@ -15,11 +17,13 @@ describe('SendForgotPasswordEmail', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeUserTokensRepository = new FakeUserTokenRepository();
     fakeEmailProvider = new FakeEmailProvider();
+    fakeLogProvider = new FakeLogProvider();
 
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
       fakeUserTokensRepository,
-      fakeEmailProvider
+      fakeEmailProvider,
+      fakeLogProvider
     );
   });
 

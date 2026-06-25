@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
 import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class SendForgotPasswordEmailService {
@@ -14,7 +15,9 @@ class SendForgotPasswordEmailService {
     private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository,
-    @inject('EmailProvider') private readonly emailProvider: ISmtpProvider
+    @inject('EmailProvider') private readonly emailProvider: ISmtpProvider,
+    @inject('LogProvider')
+    private readonly logger: ILogProvider
   ) {
     this.appWebUrl =
       process.env.APP_WEB_URL || `http://localhost:${process.env.PORT}`;
@@ -35,6 +38,12 @@ class SendForgotPasswordEmailService {
       'views',
       'forgot_password.hbs'
     );
+
+    this.logger.info({
+      message: 'Forgot password email requested',
+      context: 'SendForgotPasswordEmailService',
+      metadata: { email: user.email, userId: user.id },
+    });
 
     if (process.env.NODE_ENV === 'development') {
       console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
@@ -61,6 +70,12 @@ class SendForgotPasswordEmailService {
             link: `${this.appWebUrl}/reset-password?token=${token}`,
           },
         },
+      });
+
+      this.logger.info({
+        message: 'Forgot password email sent',
+        context: 'SendForgotPasswordEmailService',
+        metadata: { email: user.email, userId: user.id },
       });
     }
   }

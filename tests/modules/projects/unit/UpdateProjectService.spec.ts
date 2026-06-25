@@ -5,11 +5,13 @@ import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
 import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
 import FakeTagsRepository from '../../tags/repositories/FakeTagsRepository';
 import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
+import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeTagsRepository: FakeTagsRepository;
 let fakeCryptoProvider: FakeCryptoProvider;
+let fakeLogProvider: FakeLogProvider;
 let updateProject: UpdateProjectService;
 
 describe('UpdateProject', () => {
@@ -18,11 +20,13 @@ describe('UpdateProject', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeTagsRepository = new FakeTagsRepository();
     fakeCryptoProvider = new FakeCryptoProvider();
+    fakeLogProvider = new FakeLogProvider();
     updateProject = new UpdateProjectService(
       fakeProjectsRepository,
       fakeCryptoProvider,
       fakeUsersRepository,
-      fakeTagsRepository
+      fakeTagsRepository,
+      fakeLogProvider
     );
   });
 

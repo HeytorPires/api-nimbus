@@ -4,14 +4,17 @@ import AppError from '@shared/errors/AppError';
 import { TagMapper } from '../mapper/TagMapper';
 import { ITagDTO } from '../dtos/ITagDTO';
 import { IUpdateTag } from '../domain/models/IUpdateTag';
+import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 
 @injectable()
 class UpdateTagService {
-  private tagMapper: TagMapper;
+  private readonly tagMapper: TagMapper;
 
   constructor(
     @inject('TagsRepository')
-    private tagRepository: ITagRepository
+    private readonly tagRepository: ITagRepository,
+    @inject('LogProvider')
+    private readonly logger: ILogProvider
   ) {
     this.tagMapper = new TagMapper();
   }
@@ -30,6 +33,12 @@ class UpdateTagService {
     tag.name = name;
 
     await this.tagRepository.save(tag);
+
+    this.logger.info({
+      message: 'Tag updated',
+      context: 'UpdateTagService',
+      metadata: { tagId: id, userId: user_id },
+    });
 
     return this.tagMapper.toDTO(tag);
   }
