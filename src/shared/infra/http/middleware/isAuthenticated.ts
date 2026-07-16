@@ -18,11 +18,9 @@ export default async function isAuthenticated(
   next: NextFunction
 ): Promise<void> {
   const token = request.cookies?.access_token;
-  console.log('isAuthenticated middleware - request.cookies:', request.cookies);
   if (!token) {
     throw new AppError('JWT token is missing', 'isAuthenticated', 401);
   }
-  console.log('isAuthenticated middleware - token:', token);
 
   const { secret } = authConfig.jwt;
 
