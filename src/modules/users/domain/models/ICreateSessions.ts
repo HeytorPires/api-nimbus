@@ -1,11 +1,17 @@
-import { UserDTO } from '../dtos/UserDTO';
-
 export interface IRequestCreateSession {
   email: string;
   password: string;
 }
-
+interface IUserResponse {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string | null;
+  created_at: Date;
+  updated_at: Date;
+}
 export interface IResponseCreateSession {
-  user: UserDTO;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
+  user: IUserResponse;
 }

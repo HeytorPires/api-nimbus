@@ -15,29 +15,28 @@ class SendForgotPasswordEmailService {
     private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository,
-    @inject('EmailProvider') private readonly emailProvider: ISmtpProvider,
+    @inject('EmailProvider')
+    private readonly emailProvider: ISmtpProvider,
     @inject('LogProvider')
     private readonly logger: ILogProvider
   ) {
     this.appWebUrl =
       process.env.APP_WEB_URL || `http://localhost:${process.env.PORT}`;
   }
+
   public async execute({ email }: ISendForgotPasswordEmailUser) {
     const user = await this.usersRepository.findByEmail(email);
+
     if (!user) {
       throw new AppError(
         'User does not exists.',
         'SendForgotPasswordEmailService'
       );
     }
+
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    const forgotPasswordTemplate = path.resolve(
-      __dirname,
-      '..',
-      'views',
-      'forgot_password.hbs'
-    );
+    const resetLink = `${this.appWebUrl}/reset-password?token=${token}`;
 
     this.logger.info({
       message: 'Forgot password email requested',
@@ -46,38 +45,43 @@ class SendForgotPasswordEmailService {
     });
 
     if (process.env.NODE_ENV === 'development') {
-      console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
-      console.log(`\n[ Nimbus ] Recuperação de Senha`);
-      console.log(`\nLink: ${this.appWebUrl}/reset-password?token=${token}`);
-      console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
-    }
+      this.logger.info({
+        message: `[DEV] Reset password link for ${user.email}`,
+        context: 'SendForgotPasswordEmailService',
+        metadata: { resetLink },
+      });
+    } else {
+      const templatePath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'views',
+        'emails',
+        'forgot_password.hbs'
+      );
 
-    if (process.env.NODE_ENV === 'production') {
       await this.emailProvider.sendMail({
         to: {
           name: user.name,
           email: user.email,
         },
-        from: {
-          name: 'Nimbus',
-          email: 'no-reply@heytor.com.br',
-        },
-        subject: '[ Nimbus ] Recuperação de Senha',
+        subject: '[Nimbus] Resetar Senha',
         templateData: {
-          file: forgotPasswordTemplate,
+          file: templatePath,
           variables: {
             name: user.name,
-            link: `${this.appWebUrl}/reset-password?token=${token}`,
+            link: resetLink,
           },
         },
       });
-
-      this.logger.info({
-        message: 'Forgot password email sent',
-        context: 'SendForgotPasswordEmailService',
-        metadata: { email: user.email, userId: user.id },
-      });
     }
+
+    this.logger.info({
+      message: 'Forgot password email sent',
+      context: 'SendForgotPasswordEmailService',
+      metadata: { email: user.email, userId: user.id },
+    });
   }
 }
 
