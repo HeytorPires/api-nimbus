@@ -13,7 +13,7 @@ function initializeLimiter(): void {
   limiter = new RateLimiterRedis({
     storeClient: redisCache.getClient(),
     keyPrefix: 'ratelimit:refresh',
-    points: 5, // máximo 5 requisições
+    points: 10, // máximo 10 requisições
     duration: 15 * 60, // a cada 15 minutos
   });
 }
