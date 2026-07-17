@@ -24,7 +24,7 @@ export default {
       maxAge: 15 * 60,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax' as const,
+      sameSite: 'strict' as const,
       path: '/',
     },
   },
