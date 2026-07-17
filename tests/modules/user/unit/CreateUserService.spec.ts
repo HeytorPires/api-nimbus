@@ -3,8 +3,8 @@ import { container } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeHashProvider from '../../../providers/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;

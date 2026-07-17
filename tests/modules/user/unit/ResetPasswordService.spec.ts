@@ -4,13 +4,14 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import ResetPasswordService from '@modules/users/services/ResetPasswordservice';
 import FakeUsersTokensRepository from '../repositories/FakeUsersTokensRepository';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import FakeHashProvider from '../../../providers/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeJWTProvider from '../../../providers/fakes/FakeJWTProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUsersTokensRepository: FakeUsersTokensRepository;
@@ -28,6 +29,7 @@ describe('Create User', () => {
     createSession = new CreateSessionsService(
       fakeUsersRepository,
       new FakeUserTokenRepository(),
+      new FakeJWTProvider(),
       hashProvider,
       new FakeLogProvider(),
       new FakeCacheProvider()
@@ -47,13 +49,12 @@ describe('Create User', () => {
       password: '123456',
     });
 
-    const session = await createSession.execute({
+    await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
     });
-    const { id } = session.user;
 
-    const response = await fakeUsersTokensRepository.generate(id);
+    const response = await fakeUsersTokensRepository.generate(User.id);
     const { token } = response;
 
     await ResetPassword.execute({ token, password: '123456' });

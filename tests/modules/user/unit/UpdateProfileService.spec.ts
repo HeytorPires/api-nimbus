@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakefakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
+import FakefakeHashProvider from '../../../providers/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
@@ -10,6 +10,7 @@ import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
 import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeJWTProvider from '../../../providers/fakes/FakeJWTProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;
@@ -31,6 +32,7 @@ describe('Update profile', () => {
     createSession = new CreateSessionsService(
       fakeUsersRepository,
       new FakeUserTokenRepository(),
+      new FakeJWTProvider(),
       fakeHashProvider,
       new FakeLogProvider(),
       new FakeCacheProvider()
@@ -38,18 +40,18 @@ describe('Update profile', () => {
   });
 
   it('should be able to reset a password', async () => {
-    await CreateUser.execute({
+    const createdUser = await CreateUser.execute({
       name: 'João silva',
       email: 'João@gmail.com',
       password: '123456',
     });
 
-    const session = await createSession.execute({
+    await createSession.execute({
       email: 'João@gmail.com',
       password: '123456',
     });
 
-    const { id, name, email } = session.user;
+    const { id, name, email } = createdUser;
 
     const newPassword = '654321';
     const updatedUser = await updateProfile.execute({
@@ -64,17 +66,17 @@ describe('Update profile', () => {
   });
 
   it('should not be Update with User not exist', async () => {
-    await CreateUser.execute({
+    const createdUser = await CreateUser.execute({
       name: 'João silva',
       email: 'João1@gmail.com',
       password: '123456',
     });
 
-    const session = await createSession.execute({
+    await createSession.execute({
       email: 'João1@gmail.com',
       password: '123456',
     });
-    const { name, email } = session.user;
+    const { name, email } = createdUser;
     const newPassword = '654321';
     expect(
       updateProfile.execute({

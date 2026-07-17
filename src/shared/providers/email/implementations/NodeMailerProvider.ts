@@ -7,6 +7,7 @@ export default class NodeMailerProvider implements ISmtpProvider {
   private readonly transporter: Transporter;
 
   constructor() {
+    // Use configured SMTP for production (e.g., Resend)
     this.transporter = nodemail.createTransport({
       host: process.env.MAIL_HOST,
       port: Number(process.env.MAIL_PORT),
