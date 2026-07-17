@@ -17,7 +17,7 @@ RUN yarn install --frozen-lockfile --production
 COPY --from=builder /usr/src/app/build ./build
 
 # Copia o ormconfig para o TypeORM encontrar
-COPY ormconfig.json ./
+COPY ormconfig.ts ./
 
 # Copia uploads (pasta para arquivos estáticos)
 RUN mkdir -p uploads
