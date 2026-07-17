@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import { sign } from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import authConfig from '@config/auth';
 import {
@@ -12,9 +11,7 @@ import { IUserTokensRepository } from '../domain/repositories/IUserTokensReposit
 import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
-import UserMapper from '../mappers/userMapper';
-
-const SESSION_TTL = 86400; // 1 day in seconds
+import { IJWTProvider } from '@shared/providers/jwt/models/IJWTProvider';
 
 @injectable()
 class CreateSessionsService {
@@ -23,6 +20,8 @@ class CreateSessionsService {
     private readonly usersRepository: IUserRepository,
     @inject('UsersTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository,
+    @inject('JWTProvider')
+    private readonly jwtProvider: IJWTProvider,
     @inject('HashProvider')
     private readonly hashProvider: IHashProvider,
     @inject('LogProvider')
@@ -31,7 +30,6 @@ class CreateSessionsService {
     private readonly cacheProvider: ICacheProvider
   ) {}
 
-  private readonly userMapper = new UserMapper();
   public async execute({
     email,
     password,
@@ -58,15 +56,27 @@ class CreateSessionsService {
         401
       );
     }
-    const { secret, expiresIn } = authConfig.jwt;
     const jti = uuidv4();
 
-    const token = sign({ jti }, secret, {
+    const accessToken = this.jwtProvider.sign({ jti }, authConfig.jwt.secret, {
       subject: user.id,
-      expiresIn,
+      expiresIn: authConfig.jwt.expiresIn,
     });
 
-    await this.cacheProvider.save(`session:${user.id}`, jti, SESSION_TTL);
+    const refreshToken = this.jwtProvider.sign(
+      { jti },
+      authConfig.refreshToken.secret,
+      {
+        subject: user.id,
+        expiresIn: authConfig.refreshToken.expiresIn,
+      }
+    );
+
+    await this.cacheProvider.save(
+      `session:${user.id}`,
+      jti,
+      authConfig.refreshToken.expiresInSeconds
+    );
     await this.userTokensRepository.save({ user_id: user.id, token: jti });
 
     this.logger.info({
@@ -75,7 +85,18 @@ class CreateSessionsService {
       metadata: { email: user.email, userId: user.id },
       requestIp: 'N/A',
     });
-    return { user: await this.userMapper.toDTO(user), token };
+    return {
+      accessToken,
+      refreshToken,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      },
+    };
   }
 }
 

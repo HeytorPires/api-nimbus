@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import routes from './routes/index.routes';
 import '@shared/infra/typeorm';
 import '@shared/container';
@@ -20,9 +21,11 @@ const app = express();
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
+    credentials: true,
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 app.use(rateLimiter);
 app.use(pagination);
 app.use(routes);

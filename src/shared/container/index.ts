@@ -10,8 +10,10 @@ import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsReposit
 import LogProvider from '@shared/providers/logs/implementations/LogProvider';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
+import EtherealEmailProvider from '@shared/providers/email/implementations/EtherealEmailProvider';
 import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
 import MinioStorageProvider from '@shared/providers/storage/implementations/MinioStorageProvider';
+import CookieProvider from '@shared/providers/cookie/implementations/CookieProvider';
 
 //Dominios
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
@@ -24,6 +26,10 @@ import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository
 import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
+import { ICookieProvider } from '@shared/providers/cookie/models/ICookieProvider';
+import JsonWebTokenProvider from '@shared/providers/jwt/implementations/JsonWebTokenProvider';
+import { IJWTProvider } from '@shared/providers/jwt/models/IJWTProvider';
+import RefreshTokenService from '@modules/users/services/RefreshTokenService';
 
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
@@ -47,7 +53,13 @@ container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',
   cryptoProvider
 );
-container.registerSingleton<ISmtpProvider>('EmailProvider', NodeMailerProvider);
+
+const emailProvider =
+  process.env.NODE_ENV === 'development'
+    ? EtherealEmailProvider
+    : NodeMailerProvider;
+
+container.registerSingleton<ISmtpProvider>('EmailProvider', emailProvider);
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
@@ -56,4 +68,12 @@ container.registerSingleton<IStorageProvider>(
     : LocalStorageProvider
 );
 
+container.registerSingleton<IJWTProvider>('JWTProvider', JsonWebTokenProvider);
 container.registerSingleton<ILogProvider>('LogProvider', LogProvider);
+container.registerSingleton<ICookieProvider>('CookieProvider', CookieProvider);
+
+// Services
+//transient, criando uma instancia a cada injeção
+container.register<RefreshTokenService>(RefreshTokenService, {
+  useClass: RefreshTokenService,
+});

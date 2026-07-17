@@ -4,10 +4,11 @@ import AppError from '../../../../src/shared/errors/AppError';
 import CreateSessionsService from '../../../../src/modules/users/services/CreateSessionsService';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
-import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
 import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
 import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeJWTProvider from '../../../providers/fakes/FakeJWTProvider';
+import FakeHashProvider from '../../../providers/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokenRepository;
@@ -15,6 +16,7 @@ let CreateSession: CreateSessionsService;
 let hashProvider: FakeHashProvider;
 let fakeLogProvider: FakeLogProvider;
 let fakeCacheProvider: FakeCacheProvider;
+let fakeJWTProvider: FakeJWTProvider;
 
 describe('CreateSession', () => {
   beforeEach(() => {
@@ -24,9 +26,11 @@ describe('CreateSession', () => {
     fakeUserTokensRepository = new FakeUserTokenRepository();
     fakeLogProvider = new FakeLogProvider();
     fakeCacheProvider = new FakeCacheProvider();
+    fakeJWTProvider = new FakeJWTProvider();
     CreateSession = new CreateSessionsService(
       fakeUsersRepository,
       fakeUserTokensRepository,
+      fakeJWTProvider,
       hashProvider,
       fakeLogProvider,
       fakeCacheProvider
@@ -45,10 +49,10 @@ describe('CreateSession', () => {
       password: '123456',
     });
 
-    expect(response).toHaveProperty('token');
-    expect(response.user.email).toEqual(user.email);
-    expect(response.user.name).toEqual(user.name);
-    expect(response.user.id).toEqual(user.id);
+    expect(response).toHaveProperty('accessToken');
+    expect(response).toHaveProperty('refreshToken');
+    expect(user.email).toEqual('João@gmail.com');
+    expect(user.name).toEqual('joao');
   });
   it('should persist session token in database on login', async () => {
     const user = await fakeUsersRepository.create({

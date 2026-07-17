@@ -7,7 +7,7 @@ import {
 import UserToken from '../entities/UserToken';
 
 class UserTokensRepository implements IUserTokensRepository {
-  private ormRepository: Repository<UserToken>;
+  private readonly ormRepository: Repository<UserToken>;
   constructor() {
     this.ormRepository = getRepository(UserToken);
   }
@@ -31,7 +31,7 @@ class UserTokensRepository implements IUserTokensRepository {
     await this.ormRepository.delete({ token });
   }
   public async generate(user_id: string): Promise<IUserToken> {
-    const userToken = await this.ormRepository.create({ user_id });
+    const userToken = this.ormRepository.create({ user_id });
 
     await this.ormRepository.save(userToken);
     return userToken;

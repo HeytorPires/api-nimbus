@@ -17,13 +17,13 @@ export default async function isAuthenticated(
   response: Response,
   next: NextFunction
 ): Promise<void> {
-  const authHeader = request.headers.authorization;
-  if (!authHeader) {
-    throw new AppError('JWT toker is missing', 'isAuthenticated', 401);
+  const token = request.cookies?.access_token;
+  if (!token) {
+    throw new AppError('JWT token is missing', 'isAuthenticated', 401);
   }
-  //bearer dsadadadlskadihdih43248hahdsadhasda
-  const [, token] = authHeader.split(' ');
+
   const { secret } = authConfig.jwt;
+
   try {
     const decodedToken = verify(token, secret);
     const { sub, jti } = decodedToken as ITokenPayload;
@@ -54,6 +54,6 @@ export default async function isAuthenticated(
     if (error instanceof AppError) {
       throw error;
     }
-    throw new AppError('Invalid Token is missing', 'isAuthenticated', 401);
+    throw new AppError('Invalid token', 'isAuthenticated', 401);
   }
 }

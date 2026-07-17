@@ -6,23 +6,17 @@ export default class LogProvider implements ILogProvider {
     level: string,
     { message, context, requestId, requestIp, metadata }: IWriteLog
   ): void {
-    const logLevel = process.env.LOG_LEVEL
-      ? process.env.LOG_LEVEL.split(',')
-      : [];
-
-    if (logLevel.includes(level)) {
-      console.log(
-        JSON.stringify({
-          timestamp: new Date().toISOString(),
-          level,
-          message,
-          context,
-          requestId,
-          requestIp,
-          metadata,
-        })
-      );
-    }
+    console.log(
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        level,
+        message,
+        context,
+        requestId,
+        requestIp,
+        metadata,
+      })
+    );
   }
 
   error(log: IWriteLog): void {
