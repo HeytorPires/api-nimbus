@@ -1,0 +1,1897 @@
+{
+  "version": 1,
+  "meta": {
+    "lastScanned": "2026-08-11T18:00:03.508Z",
+    "fileCount": 186,
+    "hits": 0,
+    "misses": 0,
+    "renderedHash": "abc3fc15fe0c21ec49d89f3fea2b4408f46ca6a5f67a6f3c22306d3080b6f0e2",
+    "storeUpdatedAt": "2026-08-11T18:00:03.508Z"
+  },
+  "files": {
+    ".claude/commands/reframe.md": {
+      "description": "Mode: migrate [framework]",
+      "tokens": 551,
+      "hash": "17a75695be5d4629",
+      "size": 2221,
+      "mtimeMs": 1786471203458.8843,
+      "updatedAt": "2026-08-11T18:00:03.473Z",
+      "source": "scan"
+    },
+    ".claude/commands/security-audit.md": {
+      "description": "Layer 1 — Dependencies",
+      "tokens": 510,
+      "hash": "e6f7e0b7337c9c86",
+      "size": 2060,
+      "mtimeMs": 1786471203458.8843,
+      "updatedAt": "2026-08-11T18:00:03.473Z",
+      "source": "scan"
+    },
+    ".claude/rules/openwolf.md": {
+      "description": "",
+      "tokens": 328,
+      "hash": "6d735b2c1c54a916",
+      "size": 1323,
+      "mtimeMs": 1786471203274.8682,
+      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "source": "scan"
+    },
+    ".claude/settings.json": {
+      "description": "",
+      "tokens": 514,
+      "hash": "f68759bb50af5ee4",
+      "size": 1799,
+      "mtimeMs": 1786471203274.8682,
+      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "source": "scan"
+    },
+    ".editorconfig": {
+      "description": "Editor configuration",
+      "tokens": 62,
+      "hash": "954f15e36d8ee0ec",
+      "size": 232,
+      "mtimeMs": 1778988836074.754,
+      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "source": "scan"
+    },
+    ".github/pull_request_template.md": {
+      "description": "Pull Request Template",
+      "tokens": 347,
+      "hash": "a79010913b09a01d",
+      "size": 1425,
+      "mtimeMs": 1781010940458.497,
+      "updatedAt": "2026-08-11T18:00:03.475Z",
+      "source": "scan"
+    },
+    ".github/workflows/cd.yml": {
+      "description": "CI: CD",
+      "tokens": 719,
+      "hash": "2272e4025972cdaa",
+      "size": 2533,
+      "mtimeMs": 1786453309413.2668,
+      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "source": "scan"
+    },
+    ".github/workflows/ci.yml": {
+      "description": "CI: CI",
+      "tokens": 495,
+      "hash": "cfd9eb0e74f7e0cd",
+      "size": 1740,
+      "mtimeMs": 1786453252313.5588,
+      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "source": "scan"
+    },
+    ".gitignore": {
+      "description": "Git ignore rules",
+      "tokens": 40,
+      "hash": "51622cc5463a221e",
+      "size": 149,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "source": "scan"
+    },
+    ".prettierrc": {
+      "description": "Prettier configuration",
+      "tokens": 37,
+      "hash": "29c569d9bdf89fd3",
+      "size": 136,
+      "mtimeMs": 1781009183628.2124,
+      "updatedAt": "2026-08-11T18:00:03.477Z",
+      "source": "scan"
+    },
+    "CHECKLIST.md": {
+      "description": "🚀 Checklist de Profissionalização — Backend",
+      "tokens": 1466,
+      "hash": "5de99768a6cf10a8",
+      "size": 6075,
+      "mtimeMs": 1786455759363.9058,
+      "updatedAt": "2026-08-11T18:00:03.478Z",
+      "source": "scan"
+    },
+    "CLAUDE.md": {
+      "description": "OpenWolf",
+      "tokens": 1563,
+      "hash": "6e5aed9c63b0eb92",
+      "size": 6291,
+      "mtimeMs": 1786471203274.8682,
+      "updatedAt": "2026-08-11T18:00:03.479Z",
+      "source": "scan"
+    },
+    "docker/prometheus/prometheus.yml": {
+      "description": "",
+      "tokens": 49,
+      "hash": "20987a4c1ddd2b0a",
+      "size": 169,
+      "mtimeMs": 1786454749472.1086,
+      "updatedAt": "2026-08-11T18:00:03.479Z",
+      "source": "scan"
+    },
+    "docker-compose.yml": {
+      "description": "Docker Compose services",
+      "tokens": 655,
+      "hash": "d8cb2f3f871ede52",
+      "size": 2293,
+      "mtimeMs": 1786454763852.1377,
+      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "source": "scan"
+    },
+    "Dockerfile": {
+      "description": "Docker container definition",
+      "tokens": 181,
+      "hash": "b857def3a7347123",
+      "size": 683,
+      "mtimeMs": 1786371364518.7026,
+      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "source": "scan"
+    },
+    "eslint.config.mjs": {
+      "description": "ESLint flat configuration",
+      "tokens": 127,
+      "hash": "b0d4c67e4cac16e6",
+      "size": 474,
+      "mtimeMs": 1781009475626.112,
+      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "source": "scan"
+    },
+    "jest.config.ts": {
+      "description": "Jest test configuration",
+      "tokens": 2023,
+      "hash": "eccbab4efda788f9",
+      "size": 7080,
+      "mtimeMs": 1786454955781.446,
+      "updatedAt": "2026-08-11T18:00:03.482Z",
+      "source": "scan"
+    },
+    "LICENSE": {
+      "description": "Project license",
+      "tokens": 284,
+      "hash": "95b775d25f30fe04",
+      "size": 1062,
+      "mtimeMs": 1778988836078.7542,
+      "updatedAt": "2026-08-11T18:00:03.482Z",
+      "source": "scan"
+    },
+    "logger.ts": {
+      "description": "",
+      "tokens": 16,
+      "hash": "a8325d9ce9274083",
+      "size": 54,
+      "mtimeMs": 1782326229464.659,
+      "updatedAt": "2026-08-11T18:00:03.483Z",
+      "source": "scan"
+    },
+    "ormconfig.ts": {
+      "description": "/infra/typeorm/entities/*.js'",
+      "tokens": 220,
+      "hash": "5a4ae8131641cab2",
+      "size": 767,
+      "mtimeMs": 1782137687682.4402,
+      "updatedAt": "2026-08-11T18:00:03.483Z",
+      "source": "scan"
+    },
+    "package-lock.json": {
+      "description": "npm lock file",
+      "tokens": 114050,
+      "hash": "badccc93f7fd1eea",
+      "size": 399175,
+      "mtimeMs": 1786371387760.3606,
+      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "source": "scan"
+    },
+    "package.json": {
+      "description": "Node.js package manifest",
+      "tokens": 880,
+      "hash": "425ed6995d6a63ff",
+      "size": 3077,
+      "mtimeMs": 1786454696407.18,
+      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "source": "scan"
+    },
+    "README.md": {
+      "description": "Project documentation",
+      "tokens": 2434,
+      "hash": "c52dfa94c80ddeb6",
+      "size": 10254,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "source": "scan"
+    },
+    "ROADMAP.md": {
+      "description": "🔒 Roadmap de Segurança",
+      "tokens": 1145,
+      "hash": "7f3f3429029bd3b6",
+      "size": 4825,
+      "mtimeMs": 1782326229464.659,
+      "updatedAt": "2026-08-11T18:00:03.485Z",
+      "source": "scan"
+    },
+    "src/@types/express/index.d.ts": {
+      "description": "Exports Request",
+      "tokens": 29,
+      "hash": "2f3f38650a9b493d",
+      "size": 100,
+      "mtimeMs": 1778988836078.7542,
+      "updatedAt": "2026-08-11T18:00:03.486Z",
+      "source": "scan"
+    },
+    "src/config/auth.ts": {
+      "description": "",
+      "tokens": 273,
+      "hash": "a5aa1cda7d2630a3",
+      "size": 953,
+      "mtimeMs": 1786371387760.3606,
+      "updatedAt": "2026-08-11T18:00:03.487Z",
+      "source": "scan"
+    },
+    "src/config/upload.ts": {
+      "description": "Declares uploadFolder",
+      "tokens": 165,
+      "hash": "cc0805573292710a",
+      "size": 576,
+      "mtimeMs": 1781008853173.4446,
+      "updatedAt": "2026-08-11T18:00:03.488Z",
+      "source": "scan"
+    },
+    "src/docs/swagger.json": {
+      "description": "",
+      "tokens": 4745,
+      "hash": "f48c5d38ed970df4",
+      "size": 16605,
+      "mtimeMs": 1781010940794.5156,
+      "updatedAt": "2026-08-11T18:00:03.489Z",
+      "source": "scan"
+    },
+    "src/modules/projects/domain/models/ICreateProject.ts": {
+      "description": "Exports ICreateProject",
+      "tokens": 54,
+      "hash": "901841dc97dde7b0",
+      "size": 187,
+      "mtimeMs": 1780953857520.6418,
+      "updatedAt": "2026-08-11T18:00:03.490Z",
+      "source": "scan"
+    },
+    "src/modules/projects/domain/models/IProject.ts": {
+      "description": "Exports IProject",
+      "tokens": 118,
+      "hash": "f9962e273f774f4b",
+      "size": 413,
+      "mtimeMs": 1781006033907.8704,
+      "updatedAt": "2026-08-11T18:00:03.490Z",
+      "source": "scan"
+    },
+    "src/modules/projects/domain/models/IUpdateProject.ts": {
+      "description": "Exports IUpdateProject",
+      "tokens": 48,
+      "hash": "6c3e0277dbce14f8",
+      "size": 168,
+      "mtimeMs": 1780953857552.6462,
+      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "source": "scan"
+    },
+    "src/modules/projects/domain/repositories/IProjectRepository.ts": {
+      "description": "Exports IProjectRepository",
+      "tokens": 214,
+      "hash": "2d04ddb63122b7d7",
+      "size": 746,
+      "mtimeMs": 1781008857061.7495,
+      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "source": "scan"
+    },
+    "src/modules/projects/dtos/IProjectDTO.ts": {
+      "description": "Exports IProjectDTO",
+      "tokens": 60,
+      "hash": "29ded8b60328ddf8",
+      "size": 207,
+      "mtimeMs": 1781006033827.865,
+      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/controllers/ProjectsController.ts": {
+      "description": "Exports ProjectsController",
+      "tokens": 756,
+      "hash": "37129820aaf56127",
+      "size": 2645,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ProjectsController",
+          "kind": "class",
+          "startLine": 9,
+          "endLine": 79,
+          "tokens": 592
+        }
+      ]
+    },
+    "src/modules/projects/infra/http/routes/projects.routes.ts": {
+      "description": "API routes: GET, POST, PUT, DELETE (5 endpoints)",
+      "tokens": 376,
+      "hash": "52f5dc1c03b1d7aa",
+      "size": 1314,
+      "mtimeMs": 1781022483978.6917,
+      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/schemas/ICreateProjectSchema.ts": {
+      "description": "Declares projectCreateSchema",
+      "tokens": 92,
+      "hash": "b919e0e678d8592b",
+      "size": 319,
+      "mtimeMs": 1780953859332.8828,
+      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/schemas/IDeleteProjectSchema.ts": {
+      "description": "Declares projectDeleteSchema",
+      "tokens": 53,
+      "hash": "53aa29306f265cd1",
+      "size": 185,
+      "mtimeMs": 1780949796454.2437,
+      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/schemas/IListProjectSchema.ts": {
+      "description": "Declares projectListSchema",
+      "tokens": 76,
+      "hash": "93e05bb4c5d44fb9",
+      "size": 263,
+      "mtimeMs": 1780949796454.2437,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/schemas/IShowProjectSchema.ts": {
+      "description": "Declares projectShowSchema",
+      "tokens": 52,
+      "hash": "6e6f5d8287561286",
+      "size": 181,
+      "mtimeMs": 1780949796454.2437,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/http/schemas/IUpdateProjectSchema.ts": {
+      "description": "Declares projectUpdateSchema",
+      "tokens": 112,
+      "hash": "f988679c54946e18",
+      "size": 391,
+      "mtimeMs": 1780953857552.6462,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/typeorm/entities/Project.ts": {
+      "description": "Declares Project",
+      "tokens": 313,
+      "hash": "25f26b5d8a73a020",
+      "size": 1094,
+      "mtimeMs": 1781008862534.1758,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan"
+    },
+    "src/modules/projects/infra/typeorm/repositories/ProjectsRepository.ts": {
+      "description": "Zustand store",
+      "tokens": 753,
+      "hash": "fa7fdd8e80da60dc",
+      "size": 2634,
+      "mtimeMs": 1781006547231.469,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ProjectsRepository",
+          "kind": "class",
+          "startLine": 9,
+          "endLine": 96,
+          "tokens": 595
+        }
+      ]
+    },
+    "src/modules/projects/mapper/ProjectMapper.ts": {
+      "description": "Exports ProjectMapper",
+      "tokens": 190,
+      "hash": "5025f43770378e7f",
+      "size": 664,
+      "mtimeMs": 1781006033787.862,
+      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "source": "scan"
+    },
+    "src/modules/projects/services/CreateProjectService.ts": {
+      "description": "Declares CreateProjectService",
+      "tokens": 773,
+      "hash": "fcc4fa4ef2ecbb06",
+      "size": 2703,
+      "mtimeMs": 1782326229476.6604,
+      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CreateProjectService",
+          "kind": "class",
+          "startLine": 12,
+          "endLine": 94,
+          "tokens": 565
+        }
+      ]
+    },
+    "src/modules/projects/services/DeleteProjectService.ts": {
+      "description": "Declares DeleteProjectService",
+      "tokens": 192,
+      "hash": "ba0d12e3ebc8db9b",
+      "size": 672,
+      "mtimeMs": 1782326229480.6606,
+      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "source": "scan"
+    },
+    "src/modules/projects/services/ListProjectService.ts": {
+      "description": "Declares ListProjectService",
+      "tokens": 458,
+      "hash": "9f93a4a7c52fd6fa",
+      "size": 1600,
+      "mtimeMs": 1782130111767.2048,
+      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "source": "scan"
+    },
+    "src/modules/projects/services/ShowProjectService.ts": {
+      "description": "Declares ShowProjectService",
+      "tokens": 407,
+      "hash": "90bf8ce59e7e929d",
+      "size": 1423,
+      "mtimeMs": 1782326229480.6606,
+      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "source": "scan"
+    },
+    "src/modules/projects/services/UpdateProjectService.ts": {
+      "description": "Declares UpdateProjectService",
+      "tokens": 828,
+      "hash": "c31fecd88d3bdca0",
+      "size": 2896,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "UpdateProjectService",
+          "kind": "class",
+          "startLine": 13,
+          "endLine": 91,
+          "tokens": 600
+        }
+      ]
+    },
+    "src/modules/tags/domain/models/ICreateTag.ts": {
+      "description": "Exports ICreateTag",
+      "tokens": 21,
+      "hash": "b9ba2a2c05060812",
+      "size": 71,
+      "mtimeMs": 1781008893044.5945,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/domain/models/ITag.ts": {
+      "description": "Exports ITag",
+      "tokens": 52,
+      "hash": "a9c1c87229cd0eaa",
+      "size": 180,
+      "mtimeMs": 1781008897140.0793,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/domain/models/IUpdateTag.ts": {
+      "description": "Exports IUpdateTag",
+      "tokens": 25,
+      "hash": "2fc8437ed10e6356",
+      "size": 86,
+      "mtimeMs": 1781008905708.7424,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/domain/repositories/ITagRepository.ts": {
+      "description": "Exports ITagRepository",
+      "tokens": 194,
+      "hash": "12327a13283690ed",
+      "size": 676,
+      "mtimeMs": 1782128270978.3438,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/dtos/ITagDTO.ts": {
+      "description": "Exports ITagDTO",
+      "tokens": 30,
+      "hash": "84492b81fac14dcb",
+      "size": 104,
+      "mtimeMs": 1781008933328.9705,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/controllers/TagsController.ts": {
+      "description": "Exports TagsController",
+      "tokens": 614,
+      "hash": "75c0e329d86563b2",
+      "size": 2147,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "TagsController",
+          "kind": "class",
+          "startLine": 9,
+          "endLine": 63,
+          "tokens": 472
+        }
+      ]
+    },
+    "src/modules/tags/infra/http/routes/tags.routes.ts": {
+      "description": "API routes: GET, POST, PUT, DELETE (5 endpoints)",
+      "tokens": 335,
+      "hash": "9e849cfb323c3456",
+      "size": 1170,
+      "mtimeMs": 1781021770314.3755,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/schemas/ICreateTagSchema.ts": {
+      "description": "Declares tagCreateSchema",
+      "tokens": 46,
+      "hash": "31954aab5f8b435d",
+      "size": 161,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/schemas/IDeleteTagSchema.ts": {
+      "description": "Declares tagDeleteSchema",
+      "tokens": 51,
+      "hash": "9b69917a978ec394",
+      "size": 177,
+      "mtimeMs": 1780949796466.2446,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/schemas/IListTagSchema.ts": {
+      "description": "Declares tagListSchema",
+      "tokens": 73,
+      "hash": "8b3629130f421ae4",
+      "size": 255,
+      "mtimeMs": 1780949796386.2378,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/schemas/IShowTagSchema.ts": {
+      "description": "Declares tagShowSchema",
+      "tokens": 50,
+      "hash": "4b5b80f1583c6f58",
+      "size": 173,
+      "mtimeMs": 1780949796466.2446,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/http/schemas/IUpdateTagSchema.ts": {
+      "description": "Declares tagUpdateSchema",
+      "tokens": 66,
+      "hash": "94bbadc217a81c80",
+      "size": 230,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/typeorm/entities/Tag.ts": {
+      "description": "Declares Tag",
+      "tokens": 226,
+      "hash": "2bed966dabaac1fe",
+      "size": 789,
+      "mtimeMs": 1780945939072.9822,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/infra/typeorm/repositories/TagsRepository.ts": {
+      "description": "Zustand store",
+      "tokens": 622,
+      "hash": "789dda3b3d2bc70d",
+      "size": 2175,
+      "mtimeMs": 1780939135031.9521,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "TagsRepository",
+          "kind": "class",
+          "startLine": 8,
+          "endLine": 79,
+          "tokens": 495
+        }
+      ]
+    },
+    "src/modules/tags/mapper/TagMapper.ts": {
+      "description": "Exports TagMapper",
+      "tokens": 109,
+      "hash": "1171e9606e944370",
+      "size": 381,
+      "mtimeMs": 1781004832430.0889,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/services/CreateTagService.ts": {
+      "description": "Declares CreateTagService",
+      "tokens": 390,
+      "hash": "09ff93e4ed1e2291",
+      "size": 1362,
+      "mtimeMs": 1782326229480.6606,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/services/DeleteTagService.ts": {
+      "description": "Declares DeleteTagService",
+      "tokens": 176,
+      "hash": "8392ecc9fa18bf79",
+      "size": 616,
+      "mtimeMs": 1782326229484.6611,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/services/ListTagService.ts": {
+      "description": "Declares ListTagService",
+      "tokens": 252,
+      "hash": "5ba307b66513834d",
+      "size": 879,
+      "mtimeMs": 1781004886106.8296,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/services/ShowTagService.ts": {
+      "description": "Declares ShowTagService",
+      "tokens": 258,
+      "hash": "75219bf60041ad72",
+      "size": 902,
+      "mtimeMs": 1782326229484.6611,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/tags/services/UpdateTagService.ts": {
+      "description": "Declares UpdateTagService",
+      "tokens": 389,
+      "hash": "90c1150237cd63c9",
+      "size": 1359,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/dtos/UserDTO.ts": {
+      "description": "Exports UserDTO",
+      "tokens": 44,
+      "hash": "978dde7ef2663e03",
+      "size": 153,
+      "mtimeMs": 1781010941150.5354,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/ICreateSessions.ts": {
+      "description": "Exports IRequestCreateSession, IResponseCreateSession",
+      "tokens": 101,
+      "hash": "89e660b2dd04ed36",
+      "size": 351,
+      "mtimeMs": 1786371387764.361,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/ICreateUser.ts": {
+      "description": "Exports ICreateUser",
+      "tokens": 25,
+      "hash": "b5297658f60c79f7",
+      "size": 86,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/ICreateUserToken.ts": {
+      "description": "Exports ICreateUserToken",
+      "tokens": 26,
+      "hash": "2f8126fb3352fceb",
+      "size": 91,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/IResetPasswordUser.ts": {
+      "description": "Exports IResetPasswordUser",
+      "tokens": 22,
+      "hash": "83b989faca38969b",
+      "size": 77,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/ISendForgotPasswordEmailUser.ts": {
+      "description": "Exports ISendForgotPasswordEmailUser",
+      "tokens": 20,
+      "hash": "9500f730de42cdfe",
+      "size": 67,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/IUpdateProfileUser.ts": {
+      "description": "Exports IUpdateProfileUser",
+      "tokens": 39,
+      "hash": "14b83979998ccaa5",
+      "size": 136,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/IUpdateUserAvatar.ts": {
+      "description": "Exports IUpdateUserAvatar",
+      "tokens": 24,
+      "hash": "b55ead3aa932acc8",
+      "size": 84,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/IUser.ts": {
+      "description": "Exports IUser",
+      "tokens": 46,
+      "hash": "1a3102fe3caca36c",
+      "size": 161,
+      "mtimeMs": 1781008943053.7273,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/models/IUserToken.ts": {
+      "description": "Exports IUserToken",
+      "tokens": 35,
+      "hash": "19c6f18061dea123",
+      "size": 122,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/repositories/IUserRepository.ts": {
+      "description": "Exports IUserRepository",
+      "tokens": 138,
+      "hash": "617f4e2612c43018",
+      "size": 480,
+      "mtimeMs": 1778988836082.7544,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/domain/repositories/IUserTokensRepository.ts": {
+      "description": "Exports ICreateUserToken, IUserTokensRepository",
+      "tokens": 147,
+      "hash": "e13b56ba2fea11a2",
+      "size": 514,
+      "mtimeMs": 1783109636223.4365,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/controllers/ForgotPasswordController.ts": {
+      "description": "Exports ForgotPasswordController",
+      "tokens": 161,
+      "hash": "e0dadc12316ebff9",
+      "size": 561,
+      "mtimeMs": 1781880707712.8914,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/controllers/ProfileController.ts": {
+      "description": "Exports ProfileController",
+      "tokens": 281,
+      "hash": "2f339736fd4e96ef",
+      "size": 981,
+      "mtimeMs": 1783023014287.33,
+      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/controllers/ResetPasswordController.ts": {
+      "description": "Exports ResetPasswordController",
+      "tokens": 156,
+      "hash": "10a503be38e48435",
+      "size": 546,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/controllers/SessionsController.ts": {
+      "description": "Declares SessionsController",
+      "tokens": 689,
+      "hash": "79bfd7a2110f3a8e",
+      "size": 2411,
+      "mtimeMs": 1786371387768.3616,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SessionsController",
+          "kind": "class",
+          "startLine": 10,
+          "endLine": 68,
+          "tokens": 537
+        }
+      ]
+    },
+    "src/modules/users/infra/http/controllers/UserAvatarController.ts": {
+      "description": "Exports UserAvatarController",
+      "tokens": 160,
+      "hash": "1c57d5a9648f3b5a",
+      "size": 557,
+      "mtimeMs": 1782326229488.6616,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/controllers/UsersController.ts": {
+      "description": "Exports UsersController",
+      "tokens": 254,
+      "hash": "6c791bbd89c8cb95",
+      "size": 888,
+      "mtimeMs": 1782326229492.6619,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/routes/password.routes.ts": {
+      "description": "API routes: POST, PUT (2 endpoints)",
+      "tokens": 247,
+      "hash": "13ac404a934b2e24",
+      "size": 864,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/routes/profile.routes.ts": {
+      "description": "API routes: GET, PUT (2 endpoints)",
+      "tokens": 187,
+      "hash": "c46c15bf077cd34f",
+      "size": 653,
+      "mtimeMs": 1782326229492.6619,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/routes/sessions.routes.ts": {
+      "description": "API routes: POST, DELETE (3 endpoints)",
+      "tokens": 241,
+      "hash": "3b4aa3199ada2a54",
+      "size": 842,
+      "mtimeMs": 1786371387772.362,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/routes/users.routes.ts": {
+      "description": "API routes: GET, POST, PATCH (3 endpoints)",
+      "tokens": 286,
+      "hash": "c2fbc8a36f2a5c92",
+      "size": 1000,
+      "mtimeMs": 1782326229496.6624,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/schemas/ICreateSessionSchema.ts": {
+      "description": "Declares createSessionSchema",
+      "tokens": 60,
+      "hash": "f055887222514b8c",
+      "size": 209,
+      "mtimeMs": 1778988836086.7546,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/schemas/ICreateUserSchema.ts": {
+      "description": "Declares createUserSchema",
+      "tokens": 68,
+      "hash": "b14789424579b0dd",
+      "size": 238,
+      "mtimeMs": 1778988836086.7546,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/schemas/IForgotPasswordSchema.ts": {
+      "description": "Declares forgotPasswordSchema",
+      "tokens": 52,
+      "hash": "a2964524108be740",
+      "size": 180,
+      "mtimeMs": 1778988836086.7546,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/schemas/IResetPasswordSchema.ts": {
+      "description": "Declares resetPasswordSchema",
+      "tokens": 112,
+      "hash": "e5cd311ead54a914",
+      "size": 396,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/http/schemas/IUpdateProfileSchema.ts": {
+      "description": "Declares updateProfileSchema",
+      "tokens": 173,
+      "hash": "c87bd9304dec946b",
+      "size": 607,
+      "mtimeMs": 1778988836086.7546,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/typeorm/entities/User.ts": {
+      "description": "Declares User",
+      "tokens": 230,
+      "hash": "5db98c0cfa5330d8",
+      "size": 802,
+      "mtimeMs": 1782326229496.6624,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/typeorm/entities/UserToken.ts": {
+      "description": "Declares UserToken",
+      "tokens": 127,
+      "hash": "94ed724b9b12f432",
+      "size": 443,
+      "mtimeMs": 1781010941298.5437,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/typeorm/repositories/UsersRepository.ts": {
+      "description": "Declares UsersRepository",
+      "tokens": 420,
+      "hash": "8428b570e2eef0ee",
+      "size": 1468,
+      "mtimeMs": 1778988836086.7546,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/infra/typeorm/repositories/UserTokensRepository.ts": {
+      "description": "Declares UserTokensRepository",
+      "tokens": 456,
+      "hash": "e691e7966229211b",
+      "size": 1595,
+      "mtimeMs": 1786371387772.362,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/mappers/userMapper.ts": {
+      "description": "Exports UserMapper",
+      "tokens": 272,
+      "hash": "cc60db4538bc78e4",
+      "size": 951,
+      "mtimeMs": 1782326229496.6624,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/services/CreateSessionsService.ts": {
+      "description": "Declares CreateSessionsService",
+      "tokens": 898,
+      "hash": "105e801812c8e74a",
+      "size": 3141,
+      "mtimeMs": 1786371387776.3625,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CreateSessionsService",
+          "kind": "class",
+          "startLine": 17,
+          "endLine": 104,
+          "tokens": 650
+        }
+      ]
+    },
+    "src/modules/users/services/CreateUserService.ts": {
+      "description": "Declares CreateUserService",
+      "tokens": 342,
+      "hash": "4fffc8159008d55c",
+      "size": 1197,
+      "mtimeMs": 1782326229500.6628,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/services/ListUserService.ts": {
+      "description": "Declares ListUserService",
+      "tokens": 186,
+      "hash": "d45009bc019e5cb5",
+      "size": 650,
+      "mtimeMs": 1782326229500.6628,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/services/LogoutService.ts": {
+      "description": "Declares LogoutService",
+      "tokens": 319,
+      "hash": "a144a1db2b50771d",
+      "size": 1115,
+      "mtimeMs": 1782326229500.6628,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan"
+    },
+    "src/modules/users/services/RefreshTokenService.ts": {
+      "description": "Declares ITokenPayload",
+      "tokens": 1005,
+      "hash": "c1b9e7b6458896a2",
+      "size": 3524,
+      "mtimeMs": 1786371387776.3625,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ITokenPayload",
+          "kind": "section",
+          "startLine": 12,
+          "endLine": 16,
+          "tokens": 17
+        },
+        {
+          "name": "IRefreshTokenResponse",
+          "kind": "section",
+          "startLine": 17,
+          "endLine": 22,
+          "tokens": 28
+        },
+        {
+          "name": "RefreshTokenService",
+          "kind": "class",
+          "startLine": 23,
+          "endLine": 116,
+          "tokens": 759
+        }
+      ]
+    },
+    "src/modules/users/services/ResetPasswordservice.ts": {
+      "description": "import { getCustomRepository } from 'typeorm';",
+      "tokens": 608,
+      "hash": "47fd944fa2cd77c9",
+      "size": 2127,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ResetPasswordService",
+          "kind": "class",
+          "startLine": 14,
+          "endLine": 62,
+          "tokens": 395
+        }
+      ]
+    },
+    "src/modules/users/services/SendForgotPasswordEmailService.ts": {
+      "description": "Declares SendForgotPasswordEmailService",
+      "tokens": 792,
+      "hash": "66a36b48af27ae8d",
+      "size": 2769,
+      "mtimeMs": 1786371387776.3625,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SendForgotPasswordEmailService",
+          "kind": "class",
+          "startLine": 11,
+          "endLine": 89,
+          "tokens": 610
+        }
+      ]
+    },
+    "src/modules/users/services/ShowProfileService.ts": {
+      "description": "Declares ShowProfileService",
+      "tokens": 224,
+      "hash": "fa550ae47cbff782",
+      "size": 781,
+      "mtimeMs": 1782326229500.6628,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/modules/users/services/UpdateProfileService.ts": {
+      "description": "Declares UpdateProfileService",
+      "tokens": 670,
+      "hash": "709dc99bd19f47b8",
+      "size": 2342,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "UpdateProfileService",
+          "kind": "class",
+          "startLine": 11,
+          "endLine": 78,
+          "tokens": 500
+        }
+      ]
+    },
+    "src/modules/users/services/UpdateUserAvatarService.ts": {
+      "description": "Declares UpdateUserAvatarService",
+      "tokens": 470,
+      "hash": "88b65c658745aea0",
+      "size": 1644,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/modules/users/views/forgot_password.hbs": {
+      "description": "",
+      "tokens": 160,
+      "hash": "c114d4f687af8ba0",
+      "size": 607,
+      "mtimeMs": 1781814200811.2878,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/container/index.ts": {
+      "description": "providers",
+      "tokens": 1121,
+      "hash": "5111f13031221ca1",
+      "size": 3923,
+      "mtimeMs": 1786371387776.3625,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/errors/AppError.ts": {
+      "description": "Exports AppError",
+      "tokens": 91,
+      "hash": "2982be3093cd34f4",
+      "size": 316,
+      "mtimeMs": 1782326229504.6633,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/errors/ErrorHandler.ts": {
+      "description": "Declares ErrorHandler",
+      "tokens": 398,
+      "hash": "6e8a9e307ea124e2",
+      "size": 1393,
+      "mtimeMs": 1786459716787.5918,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/app.ts": {
+      "description": "API routes: GET (4 endpoints)",
+      "tokens": 533,
+      "hash": "b78b5f800f4e2834",
+      "size": 1864,
+      "mtimeMs": 1786459841692.1172,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/health/healthcheck.ts": {
+      "description": "Exports healthHandler, readyHandler",
+      "tokens": 316,
+      "hash": "46c4d8f20b04b41a",
+      "size": 1105,
+      "mtimeMs": 1786454663795.9226,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/middleware/isAuthenticated.ts": {
+      "description": "ITokenPayload: isAuthenticated",
+      "tokens": 504,
+      "hash": "c13e0ce1d1a45731",
+      "size": 1761,
+      "mtimeMs": 1786371387780.3633,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ITokenPayload",
+          "kind": "section",
+          "startLine": 9,
+          "endLine": 14,
+          "tokens": 26
+        },
+        {
+          "name": "isAuthenticated",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 60,
+          "tokens": 346
+        }
+      ]
+    },
+    "src/shared/infra/http/middleware/metrics.ts": {
+      "description": "Exports httpRequestDuration, metricsMiddleware, metricsHandler",
+      "tokens": 301,
+      "hash": "2d2d52997e112c79",
+      "size": 1051,
+      "mtimeMs": 1786455801933.5771,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/middleware/rateLimiter.ts": {
+      "description": "redisCache: rateLimiter",
+      "tokens": 236,
+      "hash": "3ac26161fb38b1ce",
+      "size": 826,
+      "mtimeMs": 1782326229508.6636,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/middleware/refreshTokenRateLimiter.ts": {
+      "description": "initializeLimiter: refreshTokenRateLimiter",
+      "tokens": 307,
+      "hash": "517fbeca07183276",
+      "size": 1077,
+      "mtimeMs": 1786371387784.3638,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/middleware/requestValidation.ts": {
+      "description": "Adicionamos o tipo de retorno explícito: Promise<void>",
+      "tokens": 221,
+      "hash": "e3fda71384ade943",
+      "size": 778,
+      "mtimeMs": 1781010941462.5527,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/routes/index.routes.ts": {
+      "description": "Declares routes",
+      "tokens": 284,
+      "hash": "969fecb87e346094",
+      "size": 992,
+      "mtimeMs": 1782425832812.848,
+      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/routes/index.ts": {
+      "description": "Declares routes",
+      "tokens": 222,
+      "hash": "d01c41c517d4eedd",
+      "size": 775,
+      "mtimeMs": 1778988836090.755,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/server.ts": {
+      "description": "Declares port",
+      "tokens": 85,
+      "hash": "580def2175fedcae",
+      "size": 296,
+      "mtimeMs": 1782869242790.909,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/index.ts": {
+      "description": "",
+      "tokens": 48,
+      "hash": "73d00d935a9d8fca",
+      "size": 167,
+      "mtimeMs": 1782137687682.4402,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1737498474377-CreateUsers.ts": {
+      "description": "Exports CreateUsers1737498474377",
+      "tokens": 373,
+      "hash": "773dab2312e65f39",
+      "size": 1304,
+      "mtimeMs": 1778988836090.755,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1738429655796-CreateUserTokens.ts": {
+      "description": "Exports CreateUserTokens1738429655796",
+      "tokens": 432,
+      "hash": "38a55a83e18e6ad8",
+      "size": 1510,
+      "mtimeMs": 1781010941506.5552,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1755221997757-CreateProjects.ts": {
+      "description": "Exports CreateTasks1755221997757",
+      "tokens": 584,
+      "hash": "f5b185da7018f8d7",
+      "size": 2041,
+      "mtimeMs": 1781010941518.556,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CreateTasks1755221997757",
+          "kind": "class",
+          "startLine": 8,
+          "endLine": 81,
+          "tokens": 534
+        }
+      ]
+    },
+    "src/shared/infra/typeorm/migrations/1755555823981-AddCollumnInitializationVector.ts": {
+      "description": "Exports AddColumnInitializationVector1755555823981",
+      "tokens": 163,
+      "hash": "4f8e3bc432df9ebc",
+      "size": 570,
+      "mtimeMs": 1781010941534.557,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1755715171256-CreateTableTags.ts": {
+      "description": "Exports CreateTableTags1755715171256",
+      "tokens": 400,
+      "hash": "66a42aba4a147939",
+      "size": 1399,
+      "mtimeMs": 1781010941554.5579,
+      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1755717077159-AddColumntagIdToProjects.ts": {
+      "description": "Exports AddColumntagIdToTasks1755717077159",
+      "tokens": 308,
+      "hash": "6bf08ac2e9f62b1e",
+      "size": 1078,
+      "mtimeMs": 1781010941566.5586,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan"
+    },
+    "src/shared/interfaces/IPaginationReturn.ts": {
+      "description": "Exports IPaginationReturn",
+      "tokens": 35,
+      "hash": "0c9e27b2d0cfc750",
+      "size": 122,
+      "mtimeMs": 1781814200815.2883,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cache/implementations/RedisCache.ts": {
+      "description": "Exports RedisCache",
+      "tokens": 262,
+      "hash": "852b098400ee61c4",
+      "size": 914,
+      "mtimeMs": 1782326229508.6636,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cache/models/ICacheProvider.ts": {
+      "description": "Exports ICacheProvider",
+      "tokens": 71,
+      "hash": "6dc7871d244873c7",
+      "size": 248,
+      "mtimeMs": 1782326229512.664,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cookie/implementations/CookieProvider.ts": {
+      "description": "Define o cookie de Refresh Token na resposta HTTP.",
+      "tokens": 706,
+      "hash": "a06b2e3550cb378f",
+      "size": 2469,
+      "mtimeMs": 1786371387784.3638,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CookieProvider",
+          "kind": "class",
+          "startLine": 5,
+          "endLine": 80,
+          "tokens": 640
+        }
+      ]
+    },
+    "src/shared/providers/cookie/models/ICookieProvider.ts": {
+      "description": "Define o cookie de Refresh Token na resposta HTTP.",
+      "tokens": 229,
+      "hash": "3fc555dae3bd05f0",
+      "size": 800,
+      "mtimeMs": 1786371387784.3638,
+      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cryptography/implementations/BcryptHashProvider.ts": {
+      "description": "Exports BcryptHashProvider",
+      "tokens": 119,
+      "hash": "bb89b135001c3e18",
+      "size": 415,
+      "mtimeMs": 1778988836090.755,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cryptography/implementations/CryptoProvider.ts": {
+      "description": "Exports BcryptHashProvider",
+      "tokens": 331,
+      "hash": "7346432a3757b0e9",
+      "size": 1157,
+      "mtimeMs": 1781700070022.01,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cryptography/models/ICryptographyProvider.ts": {
+      "description": "Exports ICryptographyProvider",
+      "tokens": 53,
+      "hash": "b4267fdbdb977c32",
+      "size": 183,
+      "mtimeMs": 1781010941618.5615,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/cryptography/models/IHashProvider.ts": {
+      "description": "Exports IHashProvider",
+      "tokens": 44,
+      "hash": "87de17bee5ee35a0",
+      "size": 151,
+      "mtimeMs": 1781010941626.562,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/email/implementations/EtherealEmailProvider.ts": {
+      "description": "Factory method to create EtherealEmailProvider with dynamic test account credentials.",
+      "tokens": 614,
+      "hash": "c02fafe1472a5974",
+      "size": 2157,
+      "mtimeMs": 1786371387784.3638,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "EtherealEmailProvider",
+          "kind": "class",
+          "startLine": 6,
+          "endLine": 72,
+          "tokens": 530
+        }
+      ]
+    },
+    "src/shared/providers/email/implementations/HandlebarsMailTemplate.ts": {
+      "description": "Exports HandlebarsMailTemplate",
+      "tokens": 133,
+      "hash": "467b29bb4b7c72fc",
+      "size": 464,
+      "mtimeMs": 1782326229512.664,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/email/implementations/NodeMailerProvider.ts": {
+      "description": "Exports NodeMailerProvider",
+      "tokens": 344,
+      "hash": "26e207b0e61a2a77",
+      "size": 1202,
+      "mtimeMs": 1786371387788.3643,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/email/models/ISendMail.ts": {
+      "description": "Exports IParseMailTemplate, ISendMail",
+      "tokens": 105,
+      "hash": "14d8e9624ec50dd3",
+      "size": 366,
+      "mtimeMs": 1782326229512.664,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/email/models/ISmtpProvider.ts": {
+      "description": "Exports ISmtpProvider",
+      "tokens": 45,
+      "hash": "345b504c7eb7d89e",
+      "size": 157,
+      "mtimeMs": 1782326229516.6646,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/jwt/implementations/JsonWebTokenProvider.ts": {
+      "description": "Exports JsonWebTokenProvider",
+      "tokens": 134,
+      "hash": "4cade6103010f0c6",
+      "size": 469,
+      "mtimeMs": 1786371387788.3643,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/jwt/models/IJWTProvider.ts": {
+      "description": "Exports IJWTProvider",
+      "tokens": 61,
+      "hash": "6c5f84d154265725",
+      "size": 213,
+      "mtimeMs": 1786371387792.3647,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/logs/implementations/LogProvider.ts": {
+      "description": "Exports LogProvider",
+      "tokens": 231,
+      "hash": "d016e0eb86b8bfff",
+      "size": 808,
+      "mtimeMs": 1786459646752.6328,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/logs/models/ILogProvider.ts": {
+      "description": "Exports ILogProvider",
+      "tokens": 64,
+      "hash": "841f315d680b3101",
+      "size": 222,
+      "mtimeMs": 1782326229516.6646,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/logs/models/IWriteLog.ts": {
+      "description": "Exports IWriteLog",
+      "tokens": 46,
+      "hash": "1a0835c33b0325d4",
+      "size": 159,
+      "mtimeMs": 1782326229516.6646,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/storage/implementations/LocalStorageProvider.ts": {
+      "description": "Exports LocalStorageProvider",
+      "tokens": 412,
+      "hash": "0f4208240580f64f",
+      "size": 1441,
+      "mtimeMs": 1782326229524.6653,
+      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "source": "scan"
+    },
+    "src/shared/providers/storage/implementations/MinioStorageProvider.ts": {
+      "description": "Exports MinioStorageProvider",
+      "tokens": 568,
+      "hash": "0d38b1e251d5fc85",
+      "size": 1987,
+      "mtimeMs": 1782326229524.6653,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "MinioStorageProvider",
+          "kind": "class",
+          "startLine": 8,
+          "endLine": 68,
+          "tokens": 494
+        }
+      ]
+    },
+    "src/shared/providers/storage/models/IStorageProvider.ts": {
+      "description": "Exports IStorageProvider",
+      "tokens": 87,
+      "hash": "a64ffb4e1e01f24b",
+      "size": 302,
+      "mtimeMs": 1782326229524.6653,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan"
+    },
+    "tests/modules/projects/repositories/FakeProjectsRepository.ts": {
+      "description": "Declares FakeProjectsRepository",
+      "tokens": 890,
+      "hash": "2579db997f2ad6d1",
+      "size": 3112,
+      "mtimeMs": 1780946787644.284,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "FakeProjectsRepository",
+          "kind": "class",
+          "startLine": 11,
+          "endLine": 101,
+          "tokens": 686
+        }
+      ]
+    },
+    "tests/modules/projects/unit/CreateProjectService.spec.ts": {
+      "description": "import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';",
+      "tokens": 1509,
+      "hash": "59290714ad690856",
+      "size": 5283,
+      "mtimeMs": 1782326229524.6653,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan"
+    },
+    "tests/modules/projects/unit/DeleteProjectService.spec.ts": {
+      "description": "Declares project",
+      "tokens": 355,
+      "hash": "b669e29a8298f276",
+      "size": 1240,
+      "mtimeMs": 1781010941674.5647,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan"
+    },
+    "tests/modules/projects/unit/ListProjectService.spec.ts": {
+      "description": "Declares user_id",
+      "tokens": 833,
+      "hash": "dfef69fc87e8709e",
+      "size": 2915,
+      "mtimeMs": 1782326229524.6653,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan"
+    },
+    "tests/modules/projects/unit/ShowProjectService.spec.ts": {
+      "description": "Declares user_id",
+      "tokens": 563,
+      "hash": "4ad0a8baab0bbc0e",
+      "size": 1968,
+      "mtimeMs": 1782326229528.6658,
+      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "source": "scan"
+    },
+    "tests/modules/projects/unit/UpdateProjectService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 1806,
+      "hash": "7da607c310a3492b",
+      "size": 6325,
+      "mtimeMs": 1782419838024.488,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/tags/repositories/FakeTagsRepository.ts": {
+      "description": "Declares FakeTagsRepository",
+      "tokens": 674,
+      "hash": "1e6ece9db6a7a7e1",
+      "size": 2358,
+      "mtimeMs": 1781010941746.5686,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "FakeTagsRepository",
+          "kind": "class",
+          "startLine": 8,
+          "endLine": 88,
+          "tokens": 539
+        }
+      ]
+    },
+    "tests/modules/tags/unit/CreateTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 513,
+      "hash": "1cbd2d4a6387070c",
+      "size": 1797,
+      "mtimeMs": 1782326229528.6658,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/tags/unit/DeleteTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 383,
+      "hash": "9aea83579ec60141",
+      "size": 1340,
+      "mtimeMs": 1781010941758.5693,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/tags/unit/ListTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 809,
+      "hash": "69f7322168c3d851",
+      "size": 2832,
+      "mtimeMs": 1781010941766.5696,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/tags/unit/ShowTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 555,
+      "hash": "a6d9df1b36aa1979",
+      "size": 1943,
+      "mtimeMs": 1781010941782.5706,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/tags/unit/UpdateTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 653,
+      "hash": "069c42155ae6f79b",
+      "size": 2284,
+      "mtimeMs": 1782419838028.4888,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan"
+    },
+    "tests/modules/user/repositories/FakeUsersRepository.ts": {
+      "description": "Declares FakeUsersRepository",
+      "tokens": 513,
+      "hash": "6277238ca3d5c045",
+      "size": 1795,
+      "mtimeMs": 1781010015695.462,
+      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "FakeUsersRepository",
+          "kind": "class",
+          "startLine": 6,
+          "endLine": 67,
+          "tokens": 408
+        }
+      ]
+    },
+    "tests/modules/user/repositories/FakeUsersTokensRepository.ts": {
+      "description": "Declares FakeUserTokenRepository",
+      "tokens": 515,
+      "hash": "a37347a8b66a1057",
+      "size": 1800,
+      "mtimeMs": 1783109445156.5676,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "FakeUserTokenRepository",
+          "kind": "class",
+          "startLine": 9,
+          "endLine": 60,
+          "tokens": 412
+        }
+      ]
+    },
+    "tests/modules/user/unit/CreateSessionsService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 1082,
+      "hash": "7e7717c501f9cfef",
+      "size": 3796,
+      "mtimeMs": 1786371387792.3647,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/CreateUserService.spec.ts": {
+      "description": "Declares User",
+      "tokens": 434,
+      "hash": "a491abc8eeb5430c",
+      "size": 1523,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/ListUserService.spec.ts": {
+      "description": "Declares response",
+      "tokens": 305,
+      "hash": "b289ce2b4de3d82f",
+      "size": 1066,
+      "mtimeMs": 1782326229532.6663,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/LogoutService.spec.ts": {
+      "description": "Declares userId",
+      "tokens": 614,
+      "hash": "3dc696457e5eabe6",
+      "size": 2148,
+      "mtimeMs": 1782326229532.6663,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/ResetPasswordService.spec.ts": {
+      "description": "Declares User",
+      "tokens": 840,
+      "hash": "ce51c3b5c353357e",
+      "size": 2946,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/SendForgotPasswordEmailService.spec.ts": {
+      "description": "Declares generateSpy",
+      "tokens": 633,
+      "hash": "4ba2c92b334cbd75",
+      "size": 2217,
+      "mtimeMs": 1783109201984.7087,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/ShowProfileService.spec.ts": {
+      "description": "Declares id",
+      "tokens": 667,
+      "hash": "c6c5d32c36312230",
+      "size": 2336,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/UpdateProfileService.spec.ts": {
+      "description": "Declares createdUser",
+      "tokens": 991,
+      "hash": "98615e0d03dcf1c1",
+      "size": 3477,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/modules/user/unit/UpdateUserAvatarService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 642,
+      "hash": "336522518aa67065",
+      "size": 2247,
+      "mtimeMs": 1782419838028.4888,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeCacheProvider.ts": {
+      "description": "Exports FakeCacheProvider",
+      "tokens": 171,
+      "hash": "f43f240ccceab876",
+      "size": 597,
+      "mtimeMs": 1782326229540.667,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeCryptoProvider.ts": {
+      "description": "Exports FakeCryptoProvider",
+      "tokens": 151,
+      "hash": "faa5632edb13758a",
+      "size": 528,
+      "mtimeMs": 1782326229540.667,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeEmailProvider.ts": {
+      "description": "Exports FakeEmailProvider",
+      "tokens": 66,
+      "hash": "9c96fce48fa4c686",
+      "size": 231,
+      "mtimeMs": 1782326229540.667,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeHashProvider.ts": {
+      "description": "Exports FakeHashProvider",
+      "tokens": 108,
+      "hash": "75760ba61a144fe9",
+      "size": 378,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeJWTProvider.ts": {
+      "description": "Exports FakeJWTProvider",
+      "tokens": 431,
+      "hash": "c612dbf702aaee73",
+      "size": 1507,
+      "mtimeMs": 1786371387796.3655,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeLogProvider.ts": {
+      "description": "Exports FakeLogProvider",
+      "tokens": 116,
+      "hash": "0220a5683ab92c95",
+      "size": 405,
+      "mtimeMs": 1782326229544.6675,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/fakes/FakeStorageProvider.ts": {
+      "description": "Exports FakeStorageProvider",
+      "tokens": 215,
+      "hash": "5bc16ca33f2a1b5e",
+      "size": 752,
+      "mtimeMs": 1782326229544.6675,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/providers/unit/EmailProvider.spec.ts": {
+      "description": "Declares sendMailMock",
+      "tokens": 706,
+      "hash": "fc378d78dba4e255",
+      "size": 2470,
+      "mtimeMs": 1782326229544.6675,
+      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "source": "scan"
+    },
+    "tests/shared/http/health.spec.ts": {
+      "description": "API routes: GET (3 endpoints)",
+      "tokens": 561,
+      "hash": "b97083c84705ef5a",
+      "size": 1961,
+      "mtimeMs": 1786455802545.5793,
+      "updatedAt": "2026-08-11T18:00:03.507Z",
+      "source": "scan"
+    },
+    "tsconfig.json": {
+      "description": "TypeScript configuration",
+      "tokens": 420,
+      "hash": "5ea0d87d87a99321",
+      "size": 1468,
+      "mtimeMs": 1780930142038.5107,
+      "updatedAt": "2026-08-11T18:00:03.507Z",
+      "source": "scan"
+    }
+  }
+}
