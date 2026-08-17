@@ -4,7 +4,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['build', 'coverage', 'node_modules'],
+    ignores: ['build', 'coverage', 'node_modules', '.claude', '.wolf'],
   },
 
   js.configs.recommended,
