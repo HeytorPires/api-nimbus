@@ -1,0 +1,38 @@
+# Arquivos que NÃO devem ser enviados ao contexto de build da imagem.
+# Sem este arquivo, o `COPY . .` do Dockerfile empacota tudo que estiver na pasta.
+
+# Segredos: nunca entram na imagem. As variáveis chegam em runtime,
+# pelo env_file do docker-compose. Esta é a rede de segurança contra
+# qualquer passo do build que tente copiar um .env.
+.env
+.env.*
+!.env.example
+
+# Reinstalados dentro da imagem pelo yarn install; copiar os locais traria
+# binário nativo compilado para outra arquitetura/SO.
+node_modules
+
+# Gerados: o build acontece dentro da imagem, artefato local só atrapalha
+build
+coverage
+
+# Histórico do git: inútil em runtime e pesa no contexto
+.git
+.gitignore
+
+# Configuração de ferramenta e documentação: não afetam a execução
+.github
+.claude
+.wolf
+.editorconfig
+.prettierrc
+eslint.config.mjs
+*.md
+
+# Testes não são executados na imagem de produção
+tests
+jest.config.ts
+
+# Logs e arquivos de usuário
+*.log
+uploads

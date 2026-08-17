@@ -1,0 +1,27 @@
+name: Setup Node & dependencies
+description: Configura o Node 20, restaura node_modules do cache e instala as dependências apenas em cache miss
+# intuito de otimizar o tempo de execução dos jobs do workflow, evitando reinstalar dependências em cada job
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: yarn
+
+    # A chave inclui o SO e a versão do Node porque node_modules carrega binário
+    # nativo compilado (bcrypt, pg). Restaurar em outro runner quebraria em runtime.
+    - name: Restore node_modules
+      id: cache-modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node20-modules-${{ hashFiles('yarn.lock') }}
+
+    # Sem restore-keys de propósito: um fallback parcial traria node_modules de
+    # outro yarn.lock e o install seria pulado, rodando com dependência errada.
+    - name: Install dependencies
+      if: steps.cache-modules.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn install --frozen-lockfile

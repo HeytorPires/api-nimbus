@@ -12,6 +12,8 @@ import { ErrorHandler } from '@shared/errors/ErrorHandler';
 import { pagination } from 'typeorm-pagination';
 import { container } from 'tsyringe';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
+import { healthHandler, readyHandler } from './healthcheck';
+import { metricsHandler, metricsMiddleware } from './metrics';
 
 dotenv.config({
   path: '.env',
@@ -28,7 +30,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(rateLimiter);
 app.use(pagination);
+app.use(metricsMiddleware);
 app.use(routes);
+
+app.get('/health', healthHandler);
+app.get('/ready', readyHandler);
+app.get('/metrics', metricsHandler);
 
 app.get('/files/:filename', async (req, res) => {
   const { filename } = req.params;

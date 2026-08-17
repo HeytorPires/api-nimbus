@@ -11,6 +11,7 @@ const compilerOptions = {
     '@shared/*': ['src/shared/*'],
     '@modules/*': ['src/modules/*'],
     '@config/*': ['src/config/*'],
+    '@docs/*': ['src/docs/*'],
   },
 };
 

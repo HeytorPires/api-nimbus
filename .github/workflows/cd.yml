@@ -39,21 +39,65 @@ jobs:
           port: ${{ secrets.VPS_PORT || 22 }}
           script:
             | # Comandos a serem executados no servidor para realizar o deploy
+            set -e
             cd /home/ubuntu/nimbus/api-nimbus
 
-            # Puxa as últimas mudanças do repositório, garantindo que a branch main esteja atualizada
+            # Atualiza o repositório apenas para obter o docker-compose.yml mais recente.
+            # O código da aplicação agora chega pela imagem, não por este pull.
             git pull origin main
 
-            # Construir e iniciar containers usando Docker Compose (usa docker-compose.yml da raiz)
-            docker compose --profile production up -d --build
+            # Tag hoje em produção, gravada pelo deploy anterior bem-sucedido. Usada como alvo do rollback.
+            PREVIOUS_TAG=$(cat .last_deploy_tag 2>/dev/null || echo "latest")
+
+            # SHA do commit que passou no CI: seleciona exatamente a imagem que foi testada
+            export IMAGE_TAG=${{ github.event.workflow_run.head_sha }}
+
+            # Baixa do GHCR a imagem já construída pelo CI (sem --build: a VPS não compila nada)
+            docker compose --profile production pull
+
+            # Recria os containers usando a imagem baixada
+            docker compose --profile production up -d
 
             # Executa migrations no banco de dados, ignorando erros caso não haja migrations pendentes
             docker exec nimbus-api node -e "
               const { execSync } = require('child_process');
               execSync('npx typeorm migration:run', { stdio: 'inherit' });
-            " || true
+            "
 
-            # Limpa imagens e containers antigos para liberar espaço
+            # Healthcheck: função reaproveitada tanto pro deploy novo quanto pra confirmar o rollback.
+            # API_PORT vem do .env do próprio container (mesmo env_file do docker-compose.yml) — server.ts escuta nele.
+            check_health() {
+              for i in $(seq 1 10); do
+                if docker exec nimbus-api node -e "
+                  const http = require('http');
+                  const port = process.env.API_PORT || 3333;
+                  http.get('http://localhost:' + port + '/ready', res => process.exit(res.statusCode === 200 ? 0 : 1))
+                    .on('error', () => process.exit(1));
+                "; then
+                  return 0
+                fi
+                echo "Healthcheck falhou (tentativa $i/10), tentando de novo em 3s..."
+                sleep 3
+              done
+              return 1
+            }
+
+            if ! check_health; then
+              echo "::error::Deploy da imagem $IMAGE_TAG falhou no healthcheck. Revertendo para $PREVIOUS_TAG..."
+              export IMAGE_TAG=$PREVIOUS_TAG
+              docker compose --profile production up -d
+
+              if ! check_health; then
+                echo "::error::Rollback para $PREVIOUS_TAG também falhou no healthcheck. Intervenção manual necessária."
+                exit 1
+              fi
+
+              echo "Rollback concluído. Aplicação voltou para a versão $PREVIOUS_TAG."
+              exit 1
+            fi
+
+            # Só grava a tag e limpa imagens antigas se o deploy novo passou no healthcheck
+            echo "$IMAGE_TAG" > .last_deploy_tag
             docker image prune -f
 
             echo "Deploy completed successfully!"
