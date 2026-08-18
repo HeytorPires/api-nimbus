@@ -8,6 +8,7 @@ import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICr
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
+import { requestContext } from '@config/context';
 
 @injectable()
 class UpdateProjectService {
@@ -74,10 +75,14 @@ class UpdateProjectService {
 
     await this.projectsRepository.save(project);
 
+    const context = requestContext.getStore();
+
     this.logger.info({
       message: 'Project updated',
       context: 'UpdateProjectService',
       metadata: { projectId: id, userId: user_id },
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
 
     const projectDTO = this.projectMapper.toDTO(project);

@@ -5,6 +5,7 @@ import { TagMapper } from '../mapper/TagMapper';
 import { ITagDTO } from '../dtos/ITagDTO';
 import { IUpdateTag } from '../domain/models/IUpdateTag';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
+import { requestContext } from '@config/context';
 
 @injectable()
 class UpdateTagService {
@@ -34,10 +35,14 @@ class UpdateTagService {
 
     await this.tagRepository.save(tag);
 
+    const context = requestContext.getStore();
+
     this.logger.info({
       message: 'Tag updated',
       context: 'UpdateTagService',
       metadata: { tagId: id, userId: user_id },
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
 
     return this.tagMapper.toDTO(tag);

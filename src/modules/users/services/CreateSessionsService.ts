@@ -12,6 +12,7 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
 import { IJWTProvider } from '@shared/providers/jwt/models/IJWTProvider';
+import { requestContext } from '@config/context';
 
 @injectable()
 class CreateSessionsService {
@@ -79,11 +80,14 @@ class CreateSessionsService {
     );
     await this.userTokensRepository.save({ user_id: user.id, token: jti });
 
+    const context = requestContext.getStore();
+
     this.logger.info({
       message: 'Session created',
       context: 'CreateSessionsService',
       metadata: { email: user.email, userId: user.id },
-      requestIp: 'N/A',
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
     return {
       accessToken,

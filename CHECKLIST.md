@@ -33,10 +33,10 @@ Este checklist complementa o `ROADMAP.md` (foco em segurança). Cada item foi ch
 > **Objetivo:** o log já é estruturado, mas `requestId` fica vazio na prática. `ErrorHandler.ts:33` gera um `errorId` isolado só no erro 500 — chamadas normais (`LogoutService.ts:25`, `SendForgotPasswordEmailService.ts:41/48/80`, `UpdateProfileService.ts:67`, `UpdateTagService.ts:37`, `UpdateProjectService.ts:77`, etc.) não passam `requestId`, e `CreateSessionsService.ts:82-86` manda `requestIp: 'N/A'` fixo.
 > **Custo:** Baixo, sem dependência nova (`crypto.randomUUID()` é nativo) · **Valor agregado:** ⭐⭐⭐⭐⭐
 
-- [ ] Middleware gerando UUID por requisição, capturando IP real
-- [ ] Propagar via `AsyncLocalStorage` (contexto por request, sem precisar passar parâmetro em toda cadeia de chamada)
-- [ ] Atualizar todos os pontos de log listados acima pra herdar o `requestId` do contexto
-- [~] Unificar `errorId` do `ErrorHandler.ts` com o `requestId` de correlação — nomenclatura já unificada (`errorId` virou `requestId`, usado nos dois ramos: `AppError` e 500). Falta a correlação real: o UUID ainda é gerado dentro do próprio handler, não herdado de um middleware/contexto de request
+- [x] Middleware gerando UUID por requisição, capturando IP real — `requestContext.ts` gera `randomUUID()`, seta `request.id`; `app.ts` liga `app.set('trust proxy', 1)` (há proxy reverso na VPS) antes do middleware, então `request.ip` resolve o `X-Forwarded-For` corretamente
+- [x] Propagar via `AsyncLocalStorage` — `src/config/context.ts` (`requestContext: AsyncLocalStorage<IRequestContext>`), `requestContextMiddleware` envolve `next()` inteiro em `requestContext.run(...)`, disponível em qualquer ponto da cadeia async da requisição
+- [~] Atualizar todos os pontos de log listados acima pra herdar o `requestId` do contexto — `LogoutService.ts` migrado e corrigido: lê `requestContext.getStore()` dentro do `execute()` com `?.` (não guarda em propriedade de instância no construtor), 3 testes de `LogoutService.spec.ts` passando. Pendente: `SendForgotPasswordEmailService.ts`, `UpdateProfileService.ts`, `UpdateTagService.ts`, `UpdateProjectService.ts` e `CreateSessionsService.ts` (`requestIp: 'N/A'` fixo) ainda não migrados
+- [x] Unificar `errorId` do `ErrorHandler.ts` com o `requestId` de correlação — `ErrorHandler.ts` agora lê `requestContext.getStore()` (com `?.`, sem crash se vazio) em vez de gerar `randomUUID()` isolado; `requestId` correlacionado aparece no log e na resposta JSON de erro (400 e 500)
 
 ---
 

@@ -14,6 +14,7 @@ import { container } from 'tsyringe';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 import { healthHandler, readyHandler } from './healthcheck';
 import { metricsHandler, metricsMiddleware } from './metrics';
+import requestContextMiddleware from './middleware/requestContext';
 
 dotenv.config({
   path: '.env',
@@ -26,8 +27,10 @@ app.use(
     credentials: true,
   })
 );
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(cookieParser());
+app.use(requestContextMiddleware);
 app.use(rateLimiter);
 app.use(pagination);
 app.use(metricsMiddleware);

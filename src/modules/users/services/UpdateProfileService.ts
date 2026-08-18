@@ -6,6 +6,7 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 import { UserDTO } from '../domain/dtos/UserDTO';
 import UserMapper from '../mappers/userMapper';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
+import { requestContext } from '@config/context';
 
 @injectable()
 class UpdateProfileService {
@@ -64,10 +65,14 @@ class UpdateProfileService {
 
     await this.usersRepository.save(user);
 
+    const context = requestContext.getStore();
+
     this.logger.info({
       message: 'Profile updated',
       context: 'UpdateProfileService',
       metadata: { userId: user_id },
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
 
     return this.userMapper.toDTO(user);

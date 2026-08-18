@@ -6,6 +6,7 @@ import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
 import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
+import { requestContext } from '@config/context';
 
 @injectable()
 class SendForgotPasswordEmailService {
@@ -38,10 +39,14 @@ class SendForgotPasswordEmailService {
 
     const resetLink = `${this.appWebUrl}/reset-password?token=${token}`;
 
+    const context = requestContext.getStore();
+
     this.logger.info({
       message: 'Forgot password email requested',
       context: 'SendForgotPasswordEmailService',
       metadata: { email: user.email, userId: user.id },
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
 
     if (process.env.NODE_ENV === 'development') {
@@ -49,6 +54,8 @@ class SendForgotPasswordEmailService {
         message: `[DEV] Reset password link for ${user.email}`,
         context: 'SendForgotPasswordEmailService',
         metadata: { resetLink },
+        requestId: context?.requestId,
+        requestIp: context?.requestIp,
       });
     } else {
       const templatePath = path.resolve(
@@ -81,6 +88,8 @@ class SendForgotPasswordEmailService {
       message: 'Forgot password email sent',
       context: 'SendForgotPasswordEmailService',
       metadata: { email: user.email, userId: user.id },
+      requestId: context?.requestId,
+      requestIp: context?.requestIp,
     });
   }
 }
