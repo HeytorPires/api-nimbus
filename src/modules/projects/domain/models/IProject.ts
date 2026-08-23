@@ -6,12 +6,12 @@ export interface IProject {
   title: string;
   description: string;
   variablesEnvironment: string;
-  InitializationVector: string;
+  initializationVector: string;
   repository: string;
   user: IUser;
   tag?: ITag;
-  user_id?: string;
-  tag_id?: string;
-  created_at: Date;
-  updated_at: Date;
+  userId?: string;
+  tagId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

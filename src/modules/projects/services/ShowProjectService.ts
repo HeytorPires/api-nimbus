@@ -18,21 +18,21 @@ class ShowProjectService {
     this.projectMapper = new ProjectMapper();
   }
 
-  public async execute(id: string, user_id: string): Promise<IProjectDTO> {
+  public async execute(id: string, userId: string): Promise<IProjectDTO> {
     const project = await this.projectRepository.findById(id);
 
     if (!project) {
       throw new AppError('Project not found.', 'ShowProjectService', 404);
     }
 
-    if (project.user.id !== user_id) {
+    if (project.user.id !== userId) {
       throw new AppError('Access denied.', 'ShowProjectService', 403);
     }
 
     const projectDTO = this.projectMapper.toDTO(project);
     projectDTO.variablesEnvironment = await this.cryptoProvider.decrypt({
       content: project.variablesEnvironment,
-      iv: project.InitializationVector,
+      iv: project.initializationVector,
     });
 
     return projectDTO;

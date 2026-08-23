@@ -2,16 +2,1360 @@
   "version": 1,
   "created_at": "2026-08-11T18:00:03.276Z",
   "lifetime": {
-    "total_tokens_estimated": 0,
-    "total_reads": 0,
+    "total_tokens_estimated": 60282,
+    "total_reads": 139,
     "total_writes": 0,
-    "total_sessions": 2,
-    "anatomy_hits": 0,
-    "anatomy_misses": 0,
+    "total_sessions": 23,
+    "anatomy_hits": 79,
+    "anatomy_misses": 55,
     "repeated_reads_blocked": 0,
-    "estimated_savings_vs_bare_cli": 0
+    "estimated_savings_vs_bare_cli": 15800,
+    "real_input_tokens": 1510,
+    "real_output_tokens": 552982,
+    "real_cache_read_tokens": 86735943,
+    "real_cache_creation_tokens": 3178219,
+    "real_api_calls": 755
   },
-  "sessions": [],
+  "sessions": [
+    {
+      "id": "session-2026-08-19-0918",
+      "agent": "claude",
+      "started": "2026-08-19T12:18:03.626Z",
+      "ended": "2026-08-19T12:21:27.425Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/infra/typeorm/entities/Project.ts",
+          "tokens_estimated": 313,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/services/UpdateProjectService.ts",
+          "tokens_estimated": 828,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/domain/repositories/IProjectRepository.ts",
+          "tokens_estimated": 214,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 1355,
+        "output_tokens_estimated": 0,
+        "reads_count": 3,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 6,
+        "output_tokens": 1482,
+        "cache_read_input_tokens": 141429,
+        "cache_creation_input_tokens": 22912,
+        "api_calls": 3
+      }
+    },
+    {
+      "id": "session-2026-08-19-0918",
+      "agent": "claude",
+      "started": "2026-08-19T12:18:03.626Z",
+      "ended": "2026-08-19T12:26:37.798Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/infra/typeorm/entities/Project.ts",
+          "tokens_estimated": 313,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/services/UpdateProjectService.ts",
+          "tokens_estimated": 828,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/projects/domain/repositories/IProjectRepository.ts",
+          "tokens_estimated": 214,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 1355,
+        "output_tokens_estimated": 0,
+        "reads_count": 3,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 8,
+        "output_tokens": 3151,
+        "cache_read_input_tokens": 197441,
+        "cache_creation_input_tokens": 25649,
+        "api_calls": 4
+      }
+    },
+    {
+      "id": "session-2026-08-19-1027",
+      "agent": "claude",
+      "started": "2026-08-19T13:27:40.895Z",
+      "ended": "2026-08-19T13:32:57.169Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/isAuthenticated.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/rateLimiter.ts",
+          "tokens_estimated": 236,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/refreshTokenRateLimiter.ts",
+          "tokens_estimated": 307,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/jwt/models/IJWTProvider.ts",
+          "tokens_estimated": 61,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/cache/models/ICacheProvider.ts",
+          "tokens_estimated": 71,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/models/IUserToken.ts",
+          "tokens_estimated": 35,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/repositories/IUserTokensRepository.ts",
+          "tokens_estimated": 147,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/CHECKLIST.md",
+          "tokens_estimated": 1466,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 2827,
+        "output_tokens_estimated": 0,
+        "reads_count": 8,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 7
+      },
+      "real_usage": {
+        "input_tokens": 10,
+        "output_tokens": 2166,
+        "cache_read_input_tokens": 264698,
+        "cache_creation_input_tokens": 31868,
+        "api_calls": 5
+      }
+    },
+    {
+      "id": "session-2026-08-19-1027",
+      "agent": "claude",
+      "started": "2026-08-19T13:27:40.895Z",
+      "ended": "2026-08-19T13:38:04.147Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/isAuthenticated.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/rateLimiter.ts",
+          "tokens_estimated": 236,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/refreshTokenRateLimiter.ts",
+          "tokens_estimated": 307,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/jwt/models/IJWTProvider.ts",
+          "tokens_estimated": 61,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/cache/models/ICacheProvider.ts",
+          "tokens_estimated": 71,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/models/IUserToken.ts",
+          "tokens_estimated": 35,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/repositories/IUserTokensRepository.ts",
+          "tokens_estimated": 147,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/CHECKLIST.md",
+          "tokens_estimated": 1466,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/app.ts",
+          "tokens_estimated": 533,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/docker/prometheus/prometheus.yml",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/shared/http/health.spec.ts",
+          "tokens_estimated": 561,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 3970,
+        "output_tokens_estimated": 0,
+        "reads_count": 12,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 10
+      },
+      "real_usage": {
+        "input_tokens": 22,
+        "output_tokens": 5400,
+        "cache_read_input_tokens": 687084,
+        "cache_creation_input_tokens": 45405,
+        "api_calls": 11
+      }
+    },
+    {
+      "id": "session-2026-08-19-1027",
+      "agent": "claude",
+      "started": "2026-08-19T13:27:40.895Z",
+      "ended": "2026-08-19T13:41:16.787Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/isAuthenticated.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/rateLimiter.ts",
+          "tokens_estimated": 236,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/refreshTokenRateLimiter.ts",
+          "tokens_estimated": 307,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/jwt/models/IJWTProvider.ts",
+          "tokens_estimated": 61,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/cache/models/ICacheProvider.ts",
+          "tokens_estimated": 71,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/models/IUserToken.ts",
+          "tokens_estimated": 35,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/repositories/IUserTokensRepository.ts",
+          "tokens_estimated": 147,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/CHECKLIST.md",
+          "tokens_estimated": 1466,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/app.ts",
+          "tokens_estimated": 533,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/docker/prometheus/prometheus.yml",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/shared/http/health.spec.ts",
+          "tokens_estimated": 561,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 3970,
+        "output_tokens_estimated": 0,
+        "reads_count": 12,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 10
+      },
+      "real_usage": {
+        "input_tokens": 24,
+        "output_tokens": 7881,
+        "cache_read_input_tokens": 765589,
+        "cache_creation_input_tokens": 46316,
+        "api_calls": 12
+      }
+    },
+    {
+      "id": "session-2026-08-19-1027",
+      "agent": "claude",
+      "started": "2026-08-19T13:27:40.895Z",
+      "ended": "2026-08-19T13:42:55.439Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/isAuthenticated.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/rateLimiter.ts",
+          "tokens_estimated": 236,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/refreshTokenRateLimiter.ts",
+          "tokens_estimated": 307,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/jwt/models/IJWTProvider.ts",
+          "tokens_estimated": 61,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/cache/models/ICacheProvider.ts",
+          "tokens_estimated": 71,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/models/IUserToken.ts",
+          "tokens_estimated": 35,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/repositories/IUserTokensRepository.ts",
+          "tokens_estimated": 147,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/CHECKLIST.md",
+          "tokens_estimated": 1466,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/app.ts",
+          "tokens_estimated": 533,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/docker/prometheus/prometheus.yml",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/shared/http/health.spec.ts",
+          "tokens_estimated": 561,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 3970,
+        "output_tokens_estimated": 0,
+        "reads_count": 12,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 10
+      },
+      "real_usage": {
+        "input_tokens": 26,
+        "output_tokens": 8303,
+        "cache_read_input_tokens": 845005,
+        "cache_creation_input_tokens": 48935,
+        "api_calls": 13
+      }
+    },
+    {
+      "id": "session-2026-08-19-1027",
+      "agent": "claude",
+      "started": "2026-08-19T13:27:40.895Z",
+      "ended": "2026-08-19T13:44:38.030Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/isAuthenticated.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/rateLimiter.ts",
+          "tokens_estimated": 236,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/middleware/refreshTokenRateLimiter.ts",
+          "tokens_estimated": 307,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/jwt/models/IJWTProvider.ts",
+          "tokens_estimated": 61,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/providers/cache/models/ICacheProvider.ts",
+          "tokens_estimated": 71,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/models/IUserToken.ts",
+          "tokens_estimated": 35,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/modules/users/domain/repositories/IUserTokensRepository.ts",
+          "tokens_estimated": 147,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/CHECKLIST.md",
+          "tokens_estimated": 1466,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/shared/infra/http/app.ts",
+          "tokens_estimated": 533,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/docker/prometheus/prometheus.yml",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/shared/http/health.spec.ts",
+          "tokens_estimated": 561,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 3970,
+        "output_tokens_estimated": 0,
+        "reads_count": 12,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 10
+      },
+      "real_usage": {
+        "input_tokens": 28,
+        "output_tokens": 8722,
+        "cache_read_input_tokens": 927462,
+        "cache_creation_input_tokens": 49052,
+        "api_calls": 14
+      }
+    },
+    {
+      "id": "session-2026-08-20-0911",
+      "agent": "claude",
+      "started": "2026-08-20T12:11:07.358Z",
+      "ended": "2026-08-20T12:12:22.873Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.github/workflows/ci.yml",
+          "tokens_estimated": 495,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 495,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 16,
+        "output_tokens": 2319,
+        "cache_read_input_tokens": 361343,
+        "cache_creation_input_tokens": 31725,
+        "api_calls": 8
+      }
+    },
+    {
+      "id": "session-2026-08-20-0911",
+      "agent": "claude",
+      "started": "2026-08-20T12:11:07.358Z",
+      "ended": "2026-08-20T12:13:11.411Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.github/workflows/ci.yml",
+          "tokens_estimated": 495,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 495,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 18,
+        "output_tokens": 2348,
+        "cache_read_input_tokens": 417755,
+        "cache_creation_input_tokens": 33146,
+        "api_calls": 9
+      }
+    },
+    {
+      "id": "session-2026-08-20-0911",
+      "agent": "claude",
+      "started": "2026-08-20T12:11:07.358Z",
+      "ended": "2026-08-20T12:38:56.012Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.github/workflows/ci.yml",
+          "tokens_estimated": 495,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 495,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 142,
+        "output_tokens": 44257,
+        "cache_read_input_tokens": 7425885,
+        "cache_creation_input_tokens": 118092,
+        "api_calls": 71
+      }
+    },
+    {
+      "id": "session-2026-08-20-0911",
+      "agent": "claude",
+      "started": "2026-08-20T12:11:07.358Z",
+      "ended": "2026-08-20T13:00:29.524Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.github/workflows/ci.yml",
+          "tokens_estimated": 495,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 495,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 146,
+        "output_tokens": 47018,
+        "cache_read_input_tokens": 7713125,
+        "cache_creation_input_tokens": 120615,
+        "api_calls": 73
+      }
+    },
+    {
+      "id": "session-2026-08-20-0911",
+      "agent": "claude",
+      "started": "2026-08-20T12:11:07.358Z",
+      "ended": "2026-08-20T13:02:42.490Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/.github/workflows/ci.yml",
+          "tokens_estimated": 495,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 495,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 150,
+        "output_tokens": 47083,
+        "cache_read_input_tokens": 8008670,
+        "cache_creation_input_tokens": 129340,
+        "api_calls": 75
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:18:34.397Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 1100,
+        "output_tokens_estimated": 0,
+        "reads_count": 9,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 2
+      },
+      "real_usage": {
+        "input_tokens": 4,
+        "output_tokens": 1566,
+        "cache_read_input_tokens": 70664,
+        "cache_creation_input_tokens": 14519,
+        "api_calls": 2
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:19:38.829Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 6,
+        "output_tokens": 1584,
+        "cache_read_input_tokens": 115090,
+        "cache_creation_input_tokens": 17128,
+        "api_calls": 3
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:20:29.982Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 8,
+        "output_tokens": 1605,
+        "cache_read_input_tokens": 162125,
+        "cache_creation_input_tokens": 22845,
+        "api_calls": 4
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:22:59.771Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 18,
+        "output_tokens": 4064,
+        "cache_read_input_tokens": 473279,
+        "cache_creation_input_tokens": 38119,
+        "api_calls": 9
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:52:17.638Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 130,
+        "output_tokens": 54305,
+        "cache_read_input_tokens": 7190488,
+        "cache_creation_input_tokens": 353661,
+        "api_calls": 65
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:52:24.025Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 130,
+        "output_tokens": 54305,
+        "cache_read_input_tokens": 7190488,
+        "cache_creation_input_tokens": 353661,
+        "api_calls": 65
+      }
+    },
+    {
+      "id": "session-2026-08-20-1116",
+      "agent": "claude",
+      "started": "2026-08-20T14:16:49.411Z",
+      "ended": "2026-08-20T14:54:18.182Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/package.json",
+          "tokens_estimated": 880,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/auth/auth.flow.spec.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/helpers/auth.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/env.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/typeormStub.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/jest.config.integration.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/src/docs/swagger.json",
+          "tokens_estimated": 4745,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5845,
+        "output_tokens_estimated": 0,
+        "reads_count": 10,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 3
+      },
+      "real_usage": {
+        "input_tokens": 132,
+        "output_tokens": 54455,
+        "cache_read_input_tokens": 7351083,
+        "cache_creation_input_tokens": 354911,
+        "api_calls": 66
+      }
+    },
+    {
+      "id": "session-2026-08-20-1437",
+      "agent": "claude",
+      "started": "2026-08-20T17:37:03.702Z",
+      "ended": "2026-08-20T18:39:59.041Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/ormconfig.ts",
+          "tokens_estimated": 220,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/database.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 220,
+        "output_tokens_estimated": 0,
+        "reads_count": 2,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 240,
+        "output_tokens": 99492,
+        "cache_read_input_tokens": 17967648,
+        "cache_creation_input_tokens": 553024,
+        "api_calls": 120
+      }
+    },
+    {
+      "id": "session-2026-08-20-1748",
+      "agent": "claude",
+      "started": "2026-08-20T20:48:16.267Z",
+      "ended": "2026-08-20T20:50:39.508Z",
+      "reads": [
+        {
+          "file": "/home/heytor/Dev/Pessoal/nimbus/api-nimbus/tests/integration/setup/hooks.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 0,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 0
+      },
+      "real_usage": {
+        "input_tokens": 246,
+        "output_tokens": 101476,
+        "cache_read_input_tokens": 18459592,
+        "cache_creation_input_tokens": 767296,
+        "api_calls": 123
+      }
+    }
+  ],
   "daemon_usage": [],
   "waste_flags": [],
   "optimization_report": {

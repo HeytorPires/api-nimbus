@@ -3,8 +3,8 @@ export interface IProjectDTO {
   title: string;
   description: string;
   variablesEnvironment: string;
-  user_id: string;
-  tag_id?: string;
-  created_at: Date;
-  updated_at: Date;
+  userId: string;
+  tagId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

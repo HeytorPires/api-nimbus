@@ -9,6 +9,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 @Entity('tags')
 class Tag implements ITag {
@@ -18,18 +19,20 @@ class Tag implements ITag {
   @Column()
   name: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @Column()
-  user_id: string;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @Column({ name: 'user_id' })
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.tags)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
   @OneToMany(() => Project, (project) => project.tag)
-  @JoinColumn({ name: 'user_id' })
   projects: Project[];
 }
 

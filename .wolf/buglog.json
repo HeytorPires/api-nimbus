@@ -1,4 +1,230 @@
 {
   "version": 1,
-  "bugs": []
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-08-20T12:40:00Z",
+      "error_message": "Cannot find module '@modules/users/infra/typeorm/entities/User' (Jest: Got error running globalSetup)",
+      "file": "jest.config.integration.ts / tests/integration/setup/",
+      "root_cause": "globalSetup do Jest é carregado fora do moduleNameMapper, então os aliases @modules/@shared não resolvem (nem no arquivo, nem nos requires em cascata das entidades).",
+      "fix": "Removido globalSetup/globalTeardown; a conexão, o runMigrations e a limpeza passaram para setupFilesAfterEnv (tests/integration/setup/hooks.ts), onde o moduleNameMapper vale.",
+      "tags": [
+        "jest",
+        "globalSetup",
+        "moduleNameMapper",
+        "aliases",
+        "typeorm",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T12:40:00Z"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-08-20T12:40:00Z",
+      "error_message": "Error response from daemon: Conflict. The container name \"/redis-nimbus-test\" is already in use",
+      "file": "docker-compose.test.yml",
+      "root_cause": "O compose de teste herdava o nome de projeto do diretório, o mesmo do docker-compose.yml de dev — containers ficavam órfãos entre os dois arquivos.",
+      "fix": "Declarado 'name: nimbus-test' no docker-compose.test.yml, isolando o projeto (e a rede) dos containers de desenvolvimento.",
+      "tags": [
+        "docker-compose",
+        "container-name",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T12:40:00Z"
+    },
+    {
+      "id": "bug-003",
+      "timestamp": "2026-08-20T12:40:00Z",
+      "error_message": "POST /users responde sem o campo id (expect(response.body.id).toBeDefined() -> undefined)",
+      "file": "src/modules/users/infra/typeorm/entities/User.ts",
+      "root_cause": "users.id é gerado pelo banco (default uuid_generate_v4() na migration CreateUsers), mas a entidade declara apenas @PrimaryColumn(), sem @Generated('uuid'). O TypeORM não recarrega o default, então o objeto devolvido pelo save() fica sem id.",
+      "fix": "NÃO corrigido nesta leva (fora do escopo). Comportamento documentado por teste em tests/integration/auth/auth.flow.spec.ts e registrado em CHECKLIST.md, Etapa 6.",
+      "tags": [
+        "typeorm",
+        "entity",
+        "uuid",
+        "primary-column",
+        "users",
+        "known-issue"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T12:40:00Z"
+    },
+    {
+      "id": "bug-004",
+      "timestamp": "2026-08-20T18:00:00Z",
+      "error_message": "Jest: Failed to parse the TypeScript config file jest.config.integration.red.ts — Error [ERR_MODULE_NOT_FOUND]: Cannot find module '.../jest.config.integration'",
+      "file": "jest.config.integration.red.ts",
+      "root_cause": "O Jest carrega arquivos de config .ts via ESM/ts-node; um `import integrationConfig from './jest.config.integration'` entre duas configs não resolve (falta extensão no contexto ESM).",
+      "fix": "Config red reescrita standalone, repetindo preset/moduleNameMapper/setupFiles em vez de importar a config de integração.",
+      "tags": [
+        "jest",
+        "config",
+        "esm",
+        "ts-node",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T18:00:00Z"
+    },
+    {
+      "id": "bug-005",
+      "timestamp": "2026-08-20T18:00:00Z",
+      "error_message": "Exceeded timeout of 30000 ms for a test — GET /files/nao-existe.png nunca responde (ENOENT: no such file or directory)",
+      "file": "src/shared/infra/http/app.ts:43-62",
+      "root_cause": "O handler chama fs.createReadStream dentro do try, mas o ENOENT é emitido no evento 'error' do stream, depois do try/catch; o catch nunca roda e o 404 nunca é enviado, então a request pendura.",
+      "fix": "NÃO corrigido nesta leva (código de produção é do usuário). O teste do 404 foi removido da suíte verde para não travar por timeout, e o achado ficou registrado no CHECKLIST.md (Etapa 7).",
+      "tags": [
+        "express",
+        "stream",
+        "enoent",
+        "timeout",
+        "files",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T18:00:00Z"
+    },
+    {
+      "id": "bug-006",
+      "timestamp": "2026-08-20T18:00:00Z",
+      "error_message": "PUT /password/reset com token inexistente responde 500 em vez de 400 'User Token does not exists.'",
+      "file": "tests/integration/users/password.spec.ts",
+      "root_cause": "A coluna user_tokens.token é uuid; buscar por uma string não-uuid ('token-que-nao-existe') estoura no driver do Postgres antes da checagem do service, virando 500 no ErrorHandler.",
+      "fix": "Teste passou a usar um uuid válido inexistente (missingUuid, helpers/resources.ts) para exercitar o 400 do service.",
+      "tags": [
+        "postgres",
+        "uuid",
+        "typeorm",
+        "reset-password",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T18:00:00Z"
+    },
+    {
+      "id": "bug-007",
+      "timestamp": "2026-08-20T18:00:00Z",
+      "error_message": "Bug previsto que não existia: user_id no retorno de POST /tags (TagMapper sem fallback tag.user?.id)",
+      "file": "tests/integration/tags/tags.bugs.red.spec.ts",
+      "root_cause": "A hipótese era que o TagMapper devolvesse user_id undefined, mas TagsRepository.create/save preenche a coluna user_id; o teste red passou (verde numa suíte que deve falhar).",
+      "fix": "Assertion movida da suíte red para tags.crud.spec.ts, onde documenta o comportamento correto.",
+      "tags": [
+        "mapper",
+        "tags",
+        "red-suite",
+        "integration-tests"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T18:00:00Z"
+    },
+    {
+      "id": "bug-008",
+      "timestamp": "2026-08-20T19:55:00Z",
+      "error_message": "Diagnóstico errado registrado: 'glob de .ts em config TypeORM não funciona dentro do Jest'",
+      "file": "tests/integration/setup/ormconfig.ts",
+      "root_cause": "O glob funciona: o require interno do TypeORM passa pelo runtime do Jest, que aplica o transform do ts-jest. A falha original vinha de glob RELATIVO — dentro do Jest o cwd não é necessariamente a raiz do projeto, então o padrão não casa arquivo nenhum e a conexão sobe sem entidades.",
+      "fix": "Voltou a usar glob, agora absoluto a partir de __dirname (`${ROOT}/src/modules/**/infra/typeorm/entities/*.ts`). Lista explícita de classes removida, junto com TEST_TABLES (as tabelas agora vêm de connection().entityMetadatas).",
+      "tags": [
+        "typeorm",
+        "jest",
+        "glob",
+        "ts-jest",
+        "cwd",
+        "integration-tests"
+      ],
+      "related_bugs": [
+        "bug-002"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-20T19:55:00Z"
+    },
+    {
+      "id": "bug-009",
+      "timestamp": "2026-08-21T22:58:06.939883",
+      "error_message": "CreateTagService.spec: expect(...).rejects.toBeInstanceOf(AppError) — Received promise resolved instead of rejected; Jest worker encountered 4 child process exceptions",
+      "file": "src/modules/tags/services/CreateTagService.ts, tests/modules/tags/unit/CreateTagService.spec.ts",
+      "root_cause": "O refactor user_id -> userId em ICreateTag removeu a checagem de existencia do usuario (usersRepository.findById) do CreateTagService, porque o findByName antigo recebia a entidade User carregada nessa checagem. Sem ela, userId inexistente cria a tag. Alem disso os dois expect() do spec estavam sem await, transformando a rejeicao em unhandled rejection que derrubava o worker do Jest.",
+      "fix": "Restaurada a validacao (findById(userId) -> AppError 400 'User not exist: <id>') antes do findByName, e adicionado await nos dois expect(...).rejects do spec.",
+      "tags": [
+        "tags",
+        "refactor",
+        "user_id",
+        "userId",
+        "jest",
+        "unhandled-rejection",
+        "validation"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-21T22:58:06.939883"
+    },
+    {
+      "id": "bug-010",
+      "timestamp": "2026-08-21T23:58:35.708543",
+      "error_message": "tests/modules/projects/unit/DeleteProjectService.spec.ts(24,32): error TS2554: Expected 2 arguments, but got 1.",
+      "file": "tests/modules/projects/unit/DeleteProjectService.spec.ts",
+      "root_cause": "DeleteProjectService.execute ganhou o parametro user_id (checagem de ownership, 403 Access denied) mas o spec unitario continuou chamando execute(id) com um argumento, quebrando o tsc.",
+      "fix": "Spec atualizado para execute(project.id, 'user-id-1') nos dois casos existentes e adicionado caso 'should not be able to delete a project from another user' cobrindo o 403.",
+      "tags": [
+        "typescript",
+        "TS2554",
+        "tests",
+        "ownership",
+        "DeleteProjectService",
+        "build"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-21T23:58:35.708543"
+    },
+    {
+      "id": "bug-011",
+      "timestamp": "2026-08-22T00:23:00Z",
+      "error_message": "Error during migration revert: SyntaxError: Invalid or unexpected token",
+      "file": "package.json (scripts migration:revert, migration:generate)",
+      "root_cause": "migration:revert e migration:generate chamavam `yarn typeorm ...`, que roda o bin do TypeORM em node puro. Sem ts-node, o require das migrations .ts explode no primeiro token de TypeScript. Só migration:run e migration:create usavam `ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js`.",
+      "fix": "Os quatro scripts passaram a usar o mesmo prefixo ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js. Revert validado renomeando as colunas de projects de volta e reaplicando o up no banco de teste.",
+      "tags": [
+        "typeorm",
+        "migration",
+        "ts-node",
+        "package.json",
+        "cli"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-22T00:23:00Z"
+    },
+    {
+      "id": "bug-012",
+      "timestamp": "2026-08-22T00:35:00Z",
+      "error_message": "Error during migration revert/run: SyntaxError: Invalid or unexpected token (CLI do TypeORM carregando ormconfig.ts sem ts-node)",
+      "file": "Dockerfile (COPY ormconfig.ts ./)",
+      "root_cause": "A imagem de produção copiava ormconfig.ts para a raiz e instalava só dependências de produção (sem ts-node). O CLI 0.2 procura ormconfig.js antes de ormconfig.ts, mas na imagem só existia a versão .ts na raiz — o `npx typeorm migration:run` do cd.yml morria no primeiro token TypeScript. Nenhuma migration jamais foi aplicada por esse passo do deploy.",
+      "fix": "Dockerfile passou a copiar o ormconfig já compilado (COPY --from=builder /usr/src/app/build/ormconfig.js ./ormconfig.js). Os globs de entities/migrations continuam relativos ao cwd /usr/src/app, onde build/ está. Validado construindo a imagem e rodando `npx typeorm migration:run` dentro dela contra o Postgres de teste: as duas colunas foram renomeadas.",
+      "tags": [
+        "docker",
+        "typeorm",
+        "migration",
+        "cd",
+        "ormconfig",
+        "producao"
+      ],
+      "related_bugs": [
+        "bug-011"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-22T00:35:00Z"
+    }
+  ]
 }

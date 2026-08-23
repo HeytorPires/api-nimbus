@@ -3,6 +3,6 @@ export interface IUpdateProject {
   title: string;
   description: string;
   variablesEnvironment: string;
-  user_id: string;
-  tag_id?: string;
+  userId: string;
+  tagId?: string;
 }

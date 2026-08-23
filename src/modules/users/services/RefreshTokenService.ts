@@ -83,11 +83,11 @@ class RefreshTokenService {
     const connection = getConnection();
     await connection.transaction(async (transactionEntityManager) => {
       // Remove old token
-      await transactionEntityManager.delete(UserToken, { user_id: userId });
+      await transactionEntityManager.delete(UserToken, { userId: userId });
 
       // Save new token
       const userToken = transactionEntityManager.create(UserToken, {
-        user_id: userId,
+        userId: userId,
         token: newJti,
       });
 

@@ -27,13 +27,13 @@ describe('UpdateTag', () => {
 
     const created = await fakeTagsRepository.create({
       name: 'Old Name',
-      user_id: user.id,
+      userId: user.id,
     });
 
     const updatedTag = await updateTag.execute({
       id: created.id,
       name: 'New Name',
-      user_id: user.id,
+      userId: user.id,
     });
 
     expect(updatedTag.name).toBe('New Name');
@@ -44,7 +44,7 @@ describe('UpdateTag', () => {
       updateTag.execute({
         id: 'non-existing-id',
         name: 'New Name',
-        user_id: 'user-id',
+        userId: 'user-id',
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -64,14 +64,14 @@ describe('UpdateTag', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Tag from User 1',
-      user_id: user1.id,
+      userId: user1.id,
     });
 
     await expect(
       updateTag.execute({
         id: tag.id,
         name: 'Updated Name',
-        user_id: user2.id,
+        userId: user2.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });

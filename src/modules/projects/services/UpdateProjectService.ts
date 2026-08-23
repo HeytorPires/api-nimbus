@@ -34,29 +34,29 @@ class UpdateProjectService {
     title,
     description,
     variablesEnvironment,
-    user_id,
-    tag_id,
+    userId,
+    tagId,
   }: IUpdateProject): Promise<IProjectDTO> {
     const project = await this.projectsRepository.findById(id);
     if (!project) {
-      throw new AppError('Project not found.', 'UpdateProjectService');
+      throw new AppError('Project not found.', 'UpdateProjectService', 404);
     }
 
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
     if (project.user.id !== user?.id) {
-      throw new AppError('Access denied.', 'UpdateProjectService');
+      throw new AppError('Access denied.', 'UpdateProjectService', 403);
     }
 
-    if (tag_id) {
-      const tag = await this.tagsRepository.findById(tag_id);
+    if (tagId) {
+      const tag = await this.tagsRepository.findById(tagId);
       if (!tag) {
         throw new AppError(
-          `Tag not found: ${tag_id}`,
+          `Tag not found: ${tagId}`,
           'UpdateProjectService',
-          400
+          404
         );
       }
-      if (tag.user.id !== user_id) {
+      if (tag.user.id !== userId) {
         throw new AppError(
           'Tag belongs to another user',
           'UpdateProjectService',
@@ -71,7 +71,7 @@ class UpdateProjectService {
 
     const encrypted = await this.cryptoProvider.encrypt(variablesEnvironment);
     project.variablesEnvironment = encrypted.content;
-    project.InitializationVector = encrypted.iv;
+    project.initializationVector = encrypted.iv;
 
     await this.projectsRepository.save(project);
 
@@ -80,7 +80,7 @@ class UpdateProjectService {
     this.logger.info({
       message: 'Project updated',
       context: 'UpdateProjectService',
-      metadata: { projectId: id, userId: user_id },
+      metadata: { projectId: id, userId: userId },
       requestId: context?.requestId,
       requestIp: context?.requestIp,
     });

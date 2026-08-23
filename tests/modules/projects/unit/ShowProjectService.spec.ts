@@ -19,17 +19,17 @@ describe('ShowProject', () => {
   });
 
   it('should be able to show a project', async () => {
-    const user_id = 'user-id-1';
+    const userId = 'user-id-1';
 
     const created = await fakeProjectsRepository.create({
       title: 'My Project',
       description: 'A test project',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id,
+      initializationVector: 'fake-iv',
+      userId,
     });
 
-    const project = await showProject.execute(created.id, user_id);
+    const project = await showProject.execute(created.id, userId);
 
     expect(project).toHaveProperty('id');
     expect(project.title).toBe('My Project');
@@ -47,8 +47,8 @@ describe('ShowProject', () => {
       title: 'My Project',
       description: 'A test project',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: 'user-id-1',
+      initializationVector: 'fake-iv',
+      userId: 'user-id-1',
     });
 
     await expect(

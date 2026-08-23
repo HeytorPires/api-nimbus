@@ -55,14 +55,13 @@ jobs:
             # Baixa do GHCR a imagem já construída pelo CI (sem --build: a VPS não compila nada)
             docker compose --profile production pull
 
+            # Migrations rodam ANTES de trocar os containers, num container efêmero da imagem nova.
+            # Ordem importa: migrations de rename deixariam a versão em execução procurando
+            # uma coluna que ainda não existe se o up -d viesse primeiro.
+            docker compose --profile production run --rm --no-deps --name nimbus-api-migrate node npx typeorm migration:run
+
             # Recria os containers usando a imagem baixada
             docker compose --profile production up -d
-
-            # Executa migrations no banco de dados, ignorando erros caso não haja migrations pendentes
-            docker exec nimbus-api node -e "
-              const { execSync } = require('child_process');
-              execSync('npx typeorm migration:run', { stdio: 'inherit' });
-            "
 
             # Healthcheck: função reaproveitada tanto pro deploy novo quanto pra confirmar o rollback.
             # API_PORT vem do .env do próprio container (mesmo env_file do docker-compose.yml) — server.ts escuta nele.
@@ -84,6 +83,12 @@ jobs:
 
             if ! check_health; then
               echo "::error::Deploy da imagem $IMAGE_TAG falhou no healthcheck. Revertendo para $PREVIOUS_TAG..."
+
+              # Desfaz a última migration antes de voltar o código: a versão antiga não conhece
+              # o schema novo. Falha aqui não aborta o rollback — o healthcheck seguinte decide.
+              docker compose --profile production run --rm --no-deps --name nimbus-api-revert node npx typeorm migration:revert || \
+                echo "::warning::migration:revert falhou ou não havia migration para reverter."
+
               export IMAGE_TAG=$PREVIOUS_TAG
               docker compose --profile production up -d
 

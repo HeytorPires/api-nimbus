@@ -1,0 +1,35 @@
+# Infraestrutura efêmera para os testes de integração (yarn test:integration).
+# Portas deslocadas (5433/6380) para conviver com o docker-compose.yml de desenvolvimento.
+# Os dados ficam em tmpfs: nada é persistido entre execuções.
+# Projeto próprio, para não colidir com os containers do docker-compose.yml de dev.
+name: nimbus-test
+
+services:
+  postgres-test:
+    image: postgres:17-alpine
+    container_name: nimbus-db-test
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: nimbus_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d nimbus_test']
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  redis-test:
+    image: redis:7-alpine
+    container_name: redis-nimbus-test
+    # Sem --requirepass: REDIS_PASS fica vazio no .env.test.
+    ports:
+      - '6380:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 3s
+      retries: 15

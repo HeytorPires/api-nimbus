@@ -165,6 +165,14 @@ const config: InitialOptionsTsJest = {
   // The glob patterns Jest uses to detect test files
   testMatch: ['**/*.spec.ts'],
 
+  // Integração roda em jest.config.integration.ts (exige Postgres/Redis reais).
+  // build/ contém cópias compiladas que não devem ser coletadas.
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/build/',
+    '/tests/integration/',
+  ],
+
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
   //   "\\\\node_modules\\\\"

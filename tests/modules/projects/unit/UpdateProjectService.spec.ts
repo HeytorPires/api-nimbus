@@ -41,8 +41,8 @@ describe('UpdateProject', () => {
       title: 'Old Title',
       description: 'Old Description',
       variablesEnvironment: 'encrypted-OLD=value',
-      InitializationVector: 'fake-iv',
-      user_id: user.id,
+      initializationVector: 'fake-iv',
+      userId: user.id,
     });
 
     const updatedProject = await updateProject.execute({
@@ -50,7 +50,7 @@ describe('UpdateProject', () => {
       title: 'New Title',
       description: 'New Description',
       variablesEnvironment: 'NEW=value',
-      user_id: user.id,
+      userId: user.id,
     });
 
     expect(updatedProject.title).toBe('New Title');
@@ -71,7 +71,7 @@ describe('UpdateProject', () => {
         title: 'Title',
         description: 'Desc',
         variablesEnvironment: 'KEY=value',
-        user_id: user.id,
+        userId: user.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -93,8 +93,8 @@ describe('UpdateProject', () => {
       title: 'Project',
       description: 'Description',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: user1.id,
+      initializationVector: 'fake-iv',
+      userId: user1.id,
     });
 
     await expect(
@@ -103,7 +103,7 @@ describe('UpdateProject', () => {
         title: 'Updated Title',
         description: 'Updated Desc',
         variablesEnvironment: 'KEY=newvalue',
-        user_id: user2.id,
+        userId: user2.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -117,15 +117,15 @@ describe('UpdateProject', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Important',
-      user_id: user.id,
+      userId: user.id,
     });
 
     const project = await fakeProjectsRepository.create({
       title: 'Project',
       description: 'Description',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: user.id,
+      initializationVector: 'fake-iv',
+      userId: user.id,
     });
 
     const updatedProject = await updateProject.execute({
@@ -133,11 +133,11 @@ describe('UpdateProject', () => {
       title: 'Updated Title',
       description: 'Updated Desc',
       variablesEnvironment: 'KEY=newvalue',
-      user_id: user.id,
-      tag_id: tag.id,
+      userId: user.id,
+      tagId: tag.id,
     });
 
-    expect(updatedProject.tag_id).toBe(tag.id);
+    expect(updatedProject.tagId).toBe(tag.id);
   });
 
   it('should not be able to update with non-existing tag', async () => {
@@ -151,8 +151,8 @@ describe('UpdateProject', () => {
       title: 'Project',
       description: 'Description',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: user.id,
+      initializationVector: 'fake-iv',
+      userId: user.id,
     });
 
     await expect(
@@ -161,8 +161,8 @@ describe('UpdateProject', () => {
         title: 'Updated',
         description: 'Updated',
         variablesEnvironment: 'KEY=value',
-        user_id: user.id,
-        tag_id: 'non-existing-tag',
+        userId: user.id,
+        tagId: 'non-existing-tag',
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -182,15 +182,15 @@ describe('UpdateProject', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Tag from User 2',
-      user_id: user2.id,
+      userId: user2.id,
     });
 
     const project = await fakeProjectsRepository.create({
       title: 'Project',
       description: 'Description',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: user1.id,
+      initializationVector: 'fake-iv',
+      userId: user1.id,
     });
 
     await expect(
@@ -199,8 +199,8 @@ describe('UpdateProject', () => {
         title: 'Updated',
         description: 'Updated',
         variablesEnvironment: 'KEY=value',
-        user_id: user1.id,
-        tag_id: tag.id,
+        userId: user1.id,
+        tagId: tag.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });

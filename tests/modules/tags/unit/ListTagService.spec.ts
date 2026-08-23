@@ -21,8 +21,8 @@ describe('ListTag', () => {
       password: '123456',
     });
 
-    await fakeTagsRepository.create({ name: 'Tag 1', user_id: user.id });
-    await fakeTagsRepository.create({ name: 'Tag 2', user_id: user.id });
+    await fakeTagsRepository.create({ name: 'Tag 1', userId: user.id });
+    await fakeTagsRepository.create({ name: 'Tag 2', userId: user.id });
 
     const result = await listTags.execute(user.id, 10, 1);
 
@@ -46,7 +46,7 @@ describe('ListTag', () => {
     });
 
     for (let i = 1; i <= 5; i++) {
-      await fakeTagsRepository.create({ name: `Tag ${i}`, user_id: user.id });
+      await fakeTagsRepository.create({ name: `Tag ${i}`, userId: user.id });
     }
 
     const page1 = await listTags.execute(user.id, 2, 1);
@@ -75,11 +75,11 @@ describe('ListTag', () => {
 
     await fakeTagsRepository.create({
       name: 'Tag from User 1',
-      user_id: user1.id,
+      userId: user1.id,
     });
     await fakeTagsRepository.create({
       name: 'Tag from User 2',
-      user_id: user2.id,
+      userId: user2.id,
     });
 
     const result = await listTags.execute(user1.id, 10, 1);

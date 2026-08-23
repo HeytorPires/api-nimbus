@@ -68,7 +68,7 @@ describe('CreateSession', () => {
 
     const storedToken = await fakeUserTokensRepository.findByUserId(user.id);
     expect(storedToken).toBeDefined();
-    expect(storedToken?.user_id).toBe(user.id);
+    expect(storedToken?.userId).toBe(user.id);
   });
   it('should be able to authenticate with wrong password', async () => {
     await fakeUsersRepository.create({

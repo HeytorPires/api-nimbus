@@ -37,15 +37,15 @@
             "type": "string",
             "format": "email"
           },
-          "avatar": {
+          "avatarUrl": {
             "type": "string",
             "nullable": true
           },
-          "created_at": {
+          "createdAt": {
             "type": "string",
             "format": "date-time"
           },
-          "updated_at": {
+          "updatedAt": {
             "type": "string",
             "format": "date-time"
           }
@@ -67,20 +67,20 @@
           "variablesEnvironment": {
             "type": "string"
           },
-          "user_id": {
+          "userId": {
             "type": "string",
             "format": "uuid"
           },
-          "tag_id": {
+          "tagId": {
             "type": "string",
             "format": "uuid",
             "nullable": true
           },
-          "created_at": {
+          "createdAt": {
             "type": "string",
             "format": "date-time"
           },
-          "updated_at": {
+          "updatedAt": {
             "type": "string",
             "format": "date-time"
           }
@@ -98,17 +98,17 @@
             "type": "string",
             "description": "The name of the tag"
           },
-          "user_id": {
+          "userId": {
             "type": "string",
             "format": "uuid",
             "description": "The ID of the user who owns this tag"
           },
-          "created_at": {
+          "createdAt": {
             "type": "string",
             "format": "date-time",
             "description": "The creation timestamp"
           },
-          "updated_at": {
+          "updatedAt": {
             "type": "string",
             "format": "date-time",
             "description": "The last update timestamp"
@@ -323,7 +323,7 @@
                   "variablesEnvironment": {
                     "type": "string"
                   },
-                  "tag_id": {
+                  "tagId": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -414,7 +414,7 @@
                   "variablesEnvironment": {
                     "type": "string"
                   },
-                  "tag_id": {
+                  "tagId": {
                     "type": "string",
                     "format": "uuid"
                   }

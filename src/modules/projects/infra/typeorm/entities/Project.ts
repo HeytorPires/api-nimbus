@@ -21,30 +21,30 @@ class Project implements IProject {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ name: 'variables_environment' })
   variablesEnvironment: string;
 
   @Column()
   repository: string;
 
-  @Column({ name: 'InitializationVector', nullable: true })
-  InitializationVector: string;
+  @Column({ name: 'initialization_vector', nullable: true })
+  initializationVector: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
-  @Column()
-  user_id: string;
+  @Column({ name: 'user_id' })
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column({ name: 'tag_id' })
-  tag_id: string;
+  tagId: string;
 
   @ManyToOne(() => Tag)
   @JoinColumn({ name: 'tag_id' })

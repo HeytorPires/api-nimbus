@@ -16,11 +16,11 @@ class ListTagService {
   }
 
   public async execute(
-    user_id: string,
+    userId: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<ITagDTO[]>> {
-    const tags = await this.tagRepository.list(user_id, perPage, currentPage);
+    const tags = await this.tagRepository.list(userId, perPage, currentPage);
 
     return {
       ...tags,

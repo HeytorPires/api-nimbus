@@ -20,15 +20,21 @@ class UpdateTagService {
     this.tagMapper = new TagMapper();
   }
 
-  public async execute({ id, name, user_id }: IUpdateTag): Promise<ITagDTO> {
+  public async execute({ id, name, userId }: IUpdateTag): Promise<ITagDTO> {
     const tag = await this.tagRepository.findById(id);
 
     if (!tag) {
       throw new AppError('Tag not found.', 'UpdateTagService', 404);
     }
 
-    if (tag.user.id !== user_id) {
+    if (tag.user.id !== userId) {
       throw new AppError('Access denied.', 'UpdateTagService', 403);
+    }
+
+    const tagsExistsByName = await this.tagRepository.findByName(name, userId);
+
+    if (tagsExistsByName && tagsExistsByName.id !== id) {
+      throw new AppError('Tag name already in use.', 'UpdateTagService', 400);
     }
 
     tag.name = name;
@@ -40,7 +46,7 @@ class UpdateTagService {
     this.logger.info({
       message: 'Tag updated',
       context: 'UpdateTagService',
-      metadata: { tagId: id, userId: user_id },
+      metadata: { tagId: id, userId: userId },
       requestId: context?.requestId,
       requestIp: context?.requestIp,
     });

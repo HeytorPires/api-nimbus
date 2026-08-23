@@ -6,8 +6,8 @@ export class TagMapper {
     return {
       id: tag.id,
       name: tag.name,
-      created_at: tag.created_at,
-      user_id: tag.user_id,
+      createdAt: tag.createdAt,
+      userId: tag.userId,
     };
   }
 

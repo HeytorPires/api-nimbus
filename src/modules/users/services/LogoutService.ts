@@ -15,9 +15,9 @@ class LogoutService {
     private readonly logger: ILogProvider
   ) {}
 
-  public async execute(user_id: string): Promise<void> {
-    const jti = await this.cacheProvider.recover<string>(`session:${user_id}`);
-    await this.cacheProvider.invalidate(`session:${user_id}`);
+  public async execute(userId: string): Promise<void> {
+    const jti = await this.cacheProvider.recover<string>(`session:${userId}`);
+    await this.cacheProvider.invalidate(`session:${userId}`);
 
     if (jti) {
       await this.usersTokensRepository.deleteByToken(jti);
@@ -30,7 +30,7 @@ class LogoutService {
       requestIp: context?.requestIp,
       message: 'Session destroyed',
       context: 'LogoutService',
-      metadata: { userId: user_id },
+      metadata: { userId: userId },
     });
   }
 }

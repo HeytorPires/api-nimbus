@@ -20,9 +20,9 @@ export default class UserMapper {
       id: user.id,
       name: user.name,
       email: user.email,
-      avatar_url: avatarUrl,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
+      avatarUrl: avatarUrl,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 

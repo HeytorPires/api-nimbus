@@ -9,11 +9,15 @@ class DeleteTagService {
     private readonly tagRepository: ITagRepository
   ) {}
 
-  public async execute(id: string): Promise<void> {
+  public async execute(id: string, userId: string): Promise<void> {
     const tag = await this.tagRepository.findById(id);
 
     if (!tag) {
       throw new AppError('Tag not found.', 'DeleteTagService', 404);
+    }
+
+    if (tag?.userId !== userId) {
+      throw new AppError('Access denied.', 'DeleteTagService', 403);
     }
 
     await this.tagRepository.remove(tag);

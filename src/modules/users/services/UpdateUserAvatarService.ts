@@ -20,10 +20,10 @@ class UpdateUserAvatarService {
 
   private readonly userMapper = new UserMapper();
   public async execute({
-    user_id,
+    userId,
     avatarFileName,
   }: IUpdateUserAvatar): Promise<UserDTO> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
     if (!user) {
       throw new AppError('User not found!', 'UpdateUserAvatarService');
     }
@@ -39,7 +39,7 @@ class UpdateUserAvatarService {
     this.logger.info({
       message: 'User avatar updated',
       context: 'UpdateUserAvatarService',
-      metadata: { userId: user_id },
+      metadata: { userId: userId },
     });
 
     return this.userMapper.toDTO(user);

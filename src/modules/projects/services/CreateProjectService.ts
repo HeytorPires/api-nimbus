@@ -29,29 +29,29 @@ class CreateProjectService {
     title,
     description,
     variablesEnvironment,
-    user_id,
-    tag_id,
+    userId,
+    tagId,
   }: ICreateProject): Promise<IProjectDTO> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new AppError(
-        `User not exist: ${user_id}`,
+        `User not exist: ${userId}`,
         'CreateProjectService',
         400
       );
     }
 
-    if (tag_id) {
-      const tag = await this.tagsRepository.findById(tag_id);
+    if (tagId) {
+      const tag = await this.tagsRepository.findById(tagId);
       if (!tag) {
         throw new AppError(
-          `Tag not found: ${tag_id}`,
+          `Tag not found: ${tagId}`,
           'CreateProjectService',
           400
         );
       }
-      if (tag.user.id !== user_id) {
+      if (tag.user.id !== userId) {
         throw new AppError(
           'Tag belongs to another user',
           'CreateProjectService',
@@ -78,9 +78,9 @@ class CreateProjectService {
       title,
       description,
       variablesEnvironment: encrypted.content,
-      InitializationVector: encrypted.iv,
-      user_id,
-      tag_id,
+      initializationVector: encrypted.iv,
+      userId,
+      tagId,
     });
 
     const projectDTO = this.projectMapper.toDTO(projectCreated);

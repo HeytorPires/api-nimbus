@@ -21,13 +21,13 @@ class UpdateProfileService {
 
   private readonly userMapper = new UserMapper();
   public async execute({
-    user_id,
+    userId,
     name,
     email,
     password,
-    old_password,
+    oldPassword,
   }: IUpdateProfileUser): Promise<UserDTO> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new AppError('User not found.', 'UpdateProfileService');
@@ -35,19 +35,19 @@ class UpdateProfileService {
 
     const userUpdateEmail = await this.usersRepository.findByEmail(email);
 
-    if (userUpdateEmail && userUpdateEmail.id !== user_id) {
+    if (userUpdateEmail && userUpdateEmail.id !== userId) {
       throw new AppError(
         'there is already one user with this email',
         'UpdateProfileService'
       );
     }
 
-    if (password && !old_password) {
+    if (password && !oldPassword) {
       throw new AppError('Old password is required', 'UpdateProfileService');
     }
-    if (password && old_password) {
+    if (password && oldPassword) {
       const checkOldPassword = await this.hashProvider.compareHash(
-        old_password,
+        oldPassword,
         user.password
       );
       if (!checkOldPassword) {
@@ -70,7 +70,7 @@ class UpdateProfileService {
     this.logger.info({
       message: 'Profile updated',
       context: 'UpdateProfileService',
-      metadata: { userId: user_id },
+      metadata: { userId: userId },
       requestId: context?.requestId,
       requestIp: context?.requestIp,
     });

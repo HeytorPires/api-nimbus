@@ -32,11 +32,11 @@ describe('UpdateUserAvatar', () => {
     });
 
     const updatedUser = await updateUserAvatar.execute({
-      user_id: user.id,
+      userId: user.id,
       avatarFileName: 'avatar.jpg',
     });
 
-    expect(updatedUser.avatar_url).toContain('avatar.jpg');
+    expect(updatedUser.avatarUrl).toContain('avatar.jpg');
   });
 
   it('should delete old avatar when updating new one', async () => {
@@ -50,17 +50,17 @@ describe('UpdateUserAvatar', () => {
     await fakeUsersRepository.save(user);
 
     const updatedUser = await updateUserAvatar.execute({
-      user_id: user.id,
+      userId: user.id,
       avatarFileName: 'new-avatar.jpg',
     });
 
-    expect(updatedUser.avatar_url).toContain('new-avatar.jpg');
+    expect(updatedUser.avatarUrl).toContain('new-avatar.jpg');
   });
 
   it('should not be able to update avatar of non-existing user', async () => {
     await expect(
       updateUserAvatar.execute({
-        user_id: 'non-existing-id',
+        userId: 'non-existing-id',
         avatarFileName: 'avatar.jpg',
       })
     ).rejects.toBeInstanceOf(AppError);

@@ -8,7 +8,7 @@ const projectUpdateSchema = yup.object({
     title: yup.string().required(),
     description: yup.string().required(),
     variablesEnvironment: yup.string().required(),
-    tag_id: yup.string().uuid().optional(),
+    tagId: yup.string().uuid().optional(),
   }),
 });
 

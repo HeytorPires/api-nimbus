@@ -9,19 +9,19 @@ import DeleteTagService from '@modules/tags/services/DeleteTagService';
 export default class TagsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name } = request.body;
-    const user_id = request.user.id;
+    const userId = request.user.id;
     const createTags = container.resolve(CreateTagService);
-    const tag = await createTags.execute({ name, user_id });
+    const tag = await createTags.execute({ name, userId });
 
     return response.json(tag);
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
     const listTags = container.resolve(ListTagService);
-    const user_id = request.user.id;
+    const userId = request.user.id;
     const { perPage, currentPage } = request.query;
     const tags = await listTags.execute(
-      user_id,
+      userId,
       Number(perPage) || 10,
       Number(currentPage) || 1
     );
@@ -35,8 +35,8 @@ export default class TagsController {
   ): Promise<Response> {
     const showTag = container.resolve(ShowTagService);
     const { id } = request.params;
-    const user_id = request.user.id;
-    const tag = await showTag.execute(id, user_id);
+    const userId = request.user.id;
+    const tag = await showTag.execute(id, userId);
 
     return response.json(tag);
   }
@@ -45,7 +45,9 @@ export default class TagsController {
     const deleteTag = container.resolve(DeleteTagService);
     const { id } = request.params;
 
-    await deleteTag.execute(id);
+    const userId = request.user.id;
+
+    await deleteTag.execute(id, userId);
 
     return response.status(204).send();
   }
@@ -54,8 +56,8 @@ export default class TagsController {
     const updateTag = container.resolve(UpdateTagService);
     const { id } = request.params;
     const { name } = request.body;
-    const user_id = request.user.id;
-    const tag = await updateTag.execute({ id, name, user_id });
+    const userId = request.user.id;
+    const tag = await updateTag.execute({ id, name, userId });
 
     return response.json(tag);
   }

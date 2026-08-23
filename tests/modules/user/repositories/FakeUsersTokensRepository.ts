@@ -9,14 +9,14 @@ import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
 class FakeUserTokenRepository implements IUserTokensRepository {
   private users: IUserToken[] = [];
 
-  public async generate(user_id: string): Promise<UserToken> {
+  public async generate(userId: string): Promise<UserToken> {
     const userToken = new UserToken();
 
     userToken.id = uuidv4();
     userToken.token = uuidv4();
-    userToken.user_id = user_id;
-    userToken.created_at = new Date();
-    userToken.updated_at = new Date();
+    userToken.userId = userId;
+    userToken.createdAt = new Date();
+    userToken.updatedAt = new Date();
 
     this.users.push(userToken);
 
@@ -28,9 +28,9 @@ class FakeUserTokenRepository implements IUserTokensRepository {
 
     userToken.id = uuidv4();
     userToken.token = data.token;
-    userToken.user_id = data.user_id;
-    userToken.created_at = new Date();
-    userToken.updated_at = new Date();
+    userToken.userId = data.userId;
+    userToken.createdAt = new Date();
+    userToken.updatedAt = new Date();
 
     this.users.push(userToken);
 
@@ -42,8 +42,8 @@ class FakeUserTokenRepository implements IUserTokensRepository {
     return user;
   }
 
-  public async findByUserId(user_id: string): Promise<IUserToken | undefined> {
-    const user = this.users.find((user) => user.user_id === user_id);
+  public async findByUserId(userId: string): Promise<IUserToken | undefined> {
+    const user = this.users.find((user) => user.userId === userId);
     return user;
   }
 
@@ -51,8 +51,8 @@ class FakeUserTokenRepository implements IUserTokensRepository {
     this.users = this.users.filter((user) => user.token !== token);
   }
 
-  public async removeByUserId(user_id: string): Promise<void> {
-    this.users = this.users.filter((user) => user.user_id !== user_id);
+  public async removeByUserId(userId: string): Promise<void> {
+    this.users = this.users.filter((user) => user.userId !== userId);
   }
 }
 

@@ -55,10 +55,10 @@ describe('Update profile', () => {
 
     const newPassword = '654321';
     const updatedUser = await updateProfile.execute({
-      user_id: id,
+      userId: id,
       name,
       email,
-      old_password: '123456',
+      oldPassword: '123456',
       password: newPassword,
     });
 
@@ -80,10 +80,10 @@ describe('Update profile', () => {
     const newPassword = '654321';
     expect(
       updateProfile.execute({
-        user_id: '1',
+        userId: '1',
         name,
         email,
-        old_password: '123456',
+        oldPassword: '123456',
         password: newPassword,
       })
     ).rejects.toBeInstanceOf(AppError);

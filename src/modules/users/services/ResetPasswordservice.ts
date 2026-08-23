@@ -30,13 +30,13 @@ class ResetPasswordService {
       throw new AppError('User Token does not exists.', 'ResetPasswordService');
     }
 
-    const user = await this.usersRepository.findById(userToken.user_id);
+    const user = await this.usersRepository.findById(userToken.userId);
 
     if (!user) {
       throw new AppError('User does not exists.', 'ResetPasswordService');
     }
 
-    const TokenCreatedAt = userToken.created_at;
+    const TokenCreatedAt = userToken.createdAt;
     const CompareDateExpires = addHours(TokenCreatedAt, 2);
 
     if (isAfter(new Date(), CompareDateExpires)) {
@@ -47,6 +47,8 @@ class ResetPasswordService {
 
     user.password = hashedPassword;
     await this.usersRepository.save(user);
+
+    await this.usersTokensRepository.deleteByToken(token);
 
     this.logger.info({
       message: 'Password reset successfully',

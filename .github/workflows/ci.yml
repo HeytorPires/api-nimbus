@@ -43,6 +43,47 @@ jobs: # Definição dos jobs do workflow
           name: coverage-report
           path: coverage/
 
+  # Testes de integração: batem no Express via supertest contra Postgres e Redis
+  # reais. Job separado do `test` para manter a suíte unitária rápida e sem infra.
+  integration:
+    name: Integration tests
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    # Mesmas portas do docker-compose.test.yml, para reaproveitar o .env.test.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: docker
+          POSTGRES_DB: nimbus_test
+        ports:
+          - '5433:5432'
+        options: >-
+          --health-cmd "pg_isready -U postgres -d nimbus_test"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 15
+      redis:
+        image: redis:7-alpine
+        ports:
+          - '6380:6379'
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-node-deps
+
+      # As migrations são aplicadas pelo próprio setup do Jest (hooks.ts).
+      - name: Run integration tests
+        run: yarn test:integration
+
   build:
     name: Build
     timeout-minutes: 30
@@ -66,7 +107,7 @@ jobs: # Definição dos jobs do workflow
     # Runner ARM é gratuito por este repositório ser público.
     runs-on: ubuntu-24.04-arm
     # Só publica imagem se lint, test e build passarem. Impede que código quebrado vire artefato.
-    needs: [lint, test, build]
+    needs: [lint, test, integration, build]
     # Publica somente em push na main. Pull request valida, mas não gera imagem.
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 

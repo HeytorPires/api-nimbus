@@ -19,8 +19,11 @@ RUN yarn install --frozen-lockfile --production
 # Copia o código compilado (outDir = ./build)
 COPY --from=builder /usr/src/app/build ./build
 
-# Copia o ormconfig para o TypeORM encontrar
-COPY ormconfig.ts ./
+# Copia o ormconfig JÁ COMPILADO para a raiz: o CLI do TypeORM procura ormconfig.js antes
+# de ormconfig.ts e a imagem de produção não tem ts-node, então a versão .ts faria
+# `npx typeorm migration:run` morrer com SyntaxError. Os globs de entities/migrations são
+# relativos ao cwd (/usr/src/app), que é onde `build/` está.
+COPY --from=builder /usr/src/app/build/ormconfig.js ./ormconfig.js
 
 # Copia uploads (pasta para arquivos estáticos)
 RUN mkdir -p uploads

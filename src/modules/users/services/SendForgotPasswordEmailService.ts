@@ -31,7 +31,8 @@ class SendForgotPasswordEmailService {
     if (!user) {
       throw new AppError(
         'User does not exists.',
-        'SendForgotPasswordEmailService'
+        'SendForgotPasswordEmailService',
+        404
       );
     }
 

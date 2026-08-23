@@ -1,13 +1,12 @@
 import { IPaginationReturn } from '@shared/interfaces/IPaginationReturn';
 import { ICreateTag } from '../models/ICreateTag';
 import { ITag } from '../models/ITag';
-import User from '@modules/users/infra/typeorm/entities/User';
 
 export interface ITagRepository {
-  findByName(name: string, user: User): Promise<ITag | undefined>;
+  findByName(name: string, userId: string): Promise<ITag | undefined>;
   findById(id: string): Promise<ITag | undefined>;
   list(
-    user_id: string,
+    userId: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<ITag[]>>;

@@ -46,7 +46,7 @@ describe('CreateProject', () => {
       title: 'My Project',
       description: 'A test project',
       variablesEnvironment: 'KEY=value',
-      user_id: user.id,
+      userId: user.id,
     });
 
     expect(project).toHaveProperty('id');
@@ -63,19 +63,19 @@ describe('CreateProject', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Important',
-      user_id: user.id,
+      userId: user.id,
     });
 
     const project = await createProject.execute({
       title: 'My Project',
       description: 'A test project',
       variablesEnvironment: 'KEY=value',
-      user_id: user.id,
-      tag_id: tag.id,
+      userId: user.id,
+      tagId: tag.id,
     });
 
     expect(project).toHaveProperty('id');
-    expect(project.tag_id).toBe(tag.id);
+    expect(project.tagId).toBe(tag.id);
   });
 
   it('should not be able to create a project with non-existing user', async () => {
@@ -84,7 +84,7 @@ describe('CreateProject', () => {
         title: 'My Project',
         description: 'A test project',
         variablesEnvironment: 'KEY=value',
-        user_id: 'non-existing-id',
+        userId: 'non-existing-id',
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -100,7 +100,7 @@ describe('CreateProject', () => {
       title: 'My Project',
       description: 'First project',
       variablesEnvironment: 'KEY=value1',
-      user_id: user.id,
+      userId: user.id,
     });
 
     await expect(
@@ -108,7 +108,7 @@ describe('CreateProject', () => {
         title: 'My Project',
         description: 'Second project',
         variablesEnvironment: 'KEY=value2',
-        user_id: user.id,
+        userId: user.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -125,8 +125,8 @@ describe('CreateProject', () => {
         title: 'My Project',
         description: 'A test project',
         variablesEnvironment: 'KEY=value',
-        user_id: user.id,
-        tag_id: 'non-existing-tag-id',
+        userId: user.id,
+        tagId: 'non-existing-tag-id',
       })
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -146,7 +146,7 @@ describe('CreateProject', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Tag from User 2',
-      user_id: user2.id,
+      userId: user2.id,
     });
 
     await expect(
@@ -154,8 +154,8 @@ describe('CreateProject', () => {
         title: 'My Project',
         description: 'A test project',
         variablesEnvironment: 'KEY=value',
-        user_id: user1.id,
-        tag_id: tag.id,
+        userId: user1.id,
+        tagId: tag.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });

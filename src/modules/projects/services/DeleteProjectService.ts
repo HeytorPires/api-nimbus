@@ -9,11 +9,15 @@ class DeleteProjectService {
     private readonly projectRepository: IProjectRepository
   ) {}
 
-  public async execute(id: string): Promise<void> {
+  public async execute(id: string, userId: string): Promise<void> {
     const project = await this.projectRepository.findById(id);
 
     if (!project) {
       throw new AppError('Project not found.', 'DeleteProjectService', 404);
+    }
+
+    if (project.userId !== userId) {
+      throw new AppError('Access denied.', 'DeleteProjectService', 403);
     }
 
     await this.projectRepository.remove(project);

@@ -6,23 +6,23 @@ import { container } from 'tsyringe';
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
     const listUser = container.resolve(ShowProfileService);
-    const user_id = request.user.id;
-    const user = await listUser.execute(user_id);
+    const userId = request.user.id;
+    const user = await listUser.execute(userId);
 
     return response.json(user);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
-    const { name, email, password, old_password } = request.body;
+    const userId = request.user.id;
+    const { name, email, password, oldPassword } = request.body;
     const UpdateUser = container.resolve(UpdateProfileService);
 
     const user = await UpdateUser.execute({
-      user_id,
+      userId,
       name,
       email,
       password,
-      old_password,
+      oldPassword,
     });
 
     return response.json(user);

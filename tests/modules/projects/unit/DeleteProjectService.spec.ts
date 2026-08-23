@@ -17,11 +17,13 @@ describe('DeleteProject', () => {
       title: 'My Project',
       description: 'A test project',
       variablesEnvironment: 'encrypted-KEY=value',
-      InitializationVector: 'fake-iv',
-      user_id: 'user-id-1',
+      initializationVector: 'fake-iv',
+      userId: 'user-id-1',
     });
 
-    await expect(deleteProject.execute(project.id)).resolves.not.toThrow();
+    await expect(
+      deleteProject.execute(project.id, 'user-id-1')
+    ).resolves.not.toThrow();
 
     const found = await fakeProjectsRepository.findById(project.id);
     expect(found).toBeUndefined();
@@ -29,7 +31,24 @@ describe('DeleteProject', () => {
 
   it('should not be able to delete a non-existing project', async () => {
     await expect(
-      deleteProject.execute('non-existing-id')
+      deleteProject.execute('non-existing-id', 'user-id-1')
     ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to delete a project from another user', async () => {
+    const project = await fakeProjectsRepository.create({
+      title: 'My Project',
+      description: 'A test project',
+      variablesEnvironment: 'encrypted-KEY=value',
+      initializationVector: 'fake-iv',
+      userId: 'user-id-1',
+    });
+
+    await expect(
+      deleteProject.execute(project.id, 'user-id-2')
+    ).rejects.toBeInstanceOf(AppError);
+
+    const found = await fakeProjectsRepository.findById(project.id);
+    expect(found).toBeDefined();
   });
 });

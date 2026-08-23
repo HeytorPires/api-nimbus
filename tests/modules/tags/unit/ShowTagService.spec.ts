@@ -24,14 +24,14 @@ describe('ShowTag', () => {
 
     const created = await fakeTagsRepository.create({
       name: 'Important',
-      user_id: user.id,
+      userId: user.id,
     });
 
     const tag = await showTag.execute(created.id, user.id);
 
     expect(tag).toHaveProperty('id');
     expect(tag.name).toBe('Important');
-    expect(tag.user_id).toBe(user.id);
+    expect(tag.userId).toBe(user.id);
   });
 
   it('should not be able to show a non-existing tag', async () => {
@@ -55,7 +55,7 @@ describe('ShowTag', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'Private Tag',
-      user_id: user1.id,
+      userId: user1.id,
     });
 
     await expect(showTag.execute(tag.id, user2.id)).rejects.toBeInstanceOf(

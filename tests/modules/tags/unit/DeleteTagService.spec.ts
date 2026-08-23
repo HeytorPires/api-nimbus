@@ -24,18 +24,18 @@ describe('DeleteTag', () => {
 
     const tag = await fakeTagsRepository.create({
       name: 'To Delete',
-      user_id: user.id,
+      userId: user.id,
     });
 
-    await expect(deleteTag.execute(tag.id)).resolves.not.toThrow();
+    await expect(deleteTag.execute(tag.id, user.id)).resolves.not.toThrow();
 
     const found = await fakeTagsRepository.findById(tag.id);
     expect(found).toBeUndefined();
   });
 
   it('should not be able to delete a non-existing tag', async () => {
-    await expect(deleteTag.execute('non-existing-id')).rejects.toBeInstanceOf(
-      AppError
-    );
+    await expect(
+      deleteTag.execute('non-existing-id', 'user-id')
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

@@ -4,9 +4,9 @@ const updateProfileSchema = yup.object({
   body: yup.object({
     name: yup.string().required(),
     email: yup.string().required().email(),
-    old_password: yup.string(),
+    oldPassword: yup.string(),
     password: yup.string().optional(),
-    password_confirmation: yup.string().when('password', {
+    passwordConfirmation: yup.string().when('password', {
       is: (val: string | undefined) => !!val,
       then: (schema) =>
         schema

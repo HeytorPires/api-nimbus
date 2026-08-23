@@ -8,15 +8,15 @@ import UpdateProjectService from '@modules/projects/services/UpdateProjectServic
 
 export default class ProjectsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { title, description, variablesEnvironment, tag_id } = request.body;
-    const user_id = request.user.id;
+    const { title, description, variablesEnvironment, tagId } = request.body;
+    const userId = request.user.id;
     const createProjects = container.resolve(CreateProjectService);
     const project = await createProjects.execute({
       title,
       description,
       variablesEnvironment,
-      user_id,
-      tag_id,
+      userId,
+      tagId,
     });
 
     return response.json(project);
@@ -24,15 +24,15 @@ export default class ProjectsController {
 
   public async list(request: Request, response: Response): Promise<Response> {
     const listProjects = container.resolve(ListProjectService);
-    const user_id = request.user.id;
+    const userId = request.user.id;
     const { perPage, currentPage } = request.query as {
       perPage: string;
       currentPage: string;
     };
     const projects = await listProjects.execute(
-      Number(perPage),
-      Number(currentPage),
-      user_id
+      Number(perPage) || 10,
+      Number(currentPage) || 1,
+      userId
     );
 
     return response.status(200).json(projects);
@@ -44,8 +44,8 @@ export default class ProjectsController {
   ): Promise<Response> {
     const findProject = container.resolve(ShowProjectService);
     const { id } = request.params;
-    const user_id = request.user.id;
-    const project = await findProject.execute(id, user_id);
+    const userId = request.user.id;
+    const project = await findProject.execute(id, userId);
 
     return response.json(project);
   }
@@ -53,8 +53,8 @@ export default class ProjectsController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const deleteProject = container.resolve(DeleteProjectService);
     const { id } = request.params;
-
-    await deleteProject.execute(id);
+    const userId = request.user.id;
+    await deleteProject.execute(id, userId);
 
     return response.status(204).send();
   }
@@ -62,15 +62,15 @@ export default class ProjectsController {
   public async update(request: Request, response: Response): Promise<Response> {
     const updateProject = container.resolve(UpdateProjectService);
     const { id } = request.params;
-    const { title, description, variablesEnvironment, tag_id } = request.body;
-    const user_id = request.user.id;
+    const { title, description, variablesEnvironment, tagId } = request.body;
+    const userId = request.user.id;
     const project = await updateProject.execute({
       id,
       title,
       description,
       variablesEnvironment,
-      user_id,
-      tag_id,
+      userId,
+      tagId,
     });
 
     return response.status(200).json(project);

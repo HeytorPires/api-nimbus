@@ -15,9 +15,9 @@ class FakeProjectsRepository implements IProjectRepository {
     title,
     description,
     variablesEnvironment,
-    InitializationVector,
-    user_id,
-    tag_id,
+    initializationVector,
+    userId,
+    tagId,
   }: ICreateProject): Promise<Project> {
     const project = new Project();
 
@@ -25,20 +25,20 @@ class FakeProjectsRepository implements IProjectRepository {
     project.title = title;
     project.description = description;
     project.variablesEnvironment = variablesEnvironment;
-    project.InitializationVector = InitializationVector || '';
-    project.user_id = user_id;
+    project.initializationVector = initializationVector || '';
+    project.userId = userId;
     project.repository = '';
-    project.updated_at = new Date();
-    project.created_at = new Date();
+    project.updatedAt = new Date();
+    project.createdAt = new Date();
 
     const user = new User();
-    user.id = user_id;
+    user.id = userId;
     project.user = user;
 
-    if (tag_id) {
-      project.tag_id = tag_id;
+    if (tagId) {
+      project.tagId = tagId;
       const tag = new Tag();
-      tag.id = tag_id;
+      tag.id = tagId;
       project.tag = tag;
     }
 
@@ -83,9 +83,9 @@ class FakeProjectsRepository implements IProjectRepository {
   public async list(
     perPage: number,
     currentPage: number,
-    user_id: string
+    userId: string
   ): Promise<IPaginationReturn<IProject[]>> {
-    const filtered = this.projects.filter((p) => p.user.id === user_id);
+    const filtered = this.projects.filter((p) => p.user.id === userId);
     const start = (currentPage - 1) * perPage;
     const data = filtered.slice(start, start + perPage);
     return {

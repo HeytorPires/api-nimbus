@@ -26,7 +26,7 @@ describe('Create Tag', () => {
 
     const tag = await createTagService.execute({
       name: 'Important',
-      user_id: user.id,
+      userId: user.id,
     });
 
     expect(tag).toHaveProperty('id');
@@ -40,20 +40,20 @@ describe('Create Tag', () => {
 
     await createTagService.execute({
       name: 'Important',
-      user_id: user.id,
+      userId: user.id,
     });
-    expect(
+    await expect(
       createTagService.execute({
         name: 'Important',
-        user_id: user.id,
+        userId: user.id,
       })
     ).rejects.toBeInstanceOf(AppError);
   });
-  it('should not be able to create tags with invalid user_id', async () => {
-    expect(
+  it('should not be able to create tags with invalid userId', async () => {
+    await expect(
       createTagService.execute({
         name: 'Important',
-        user_id: '1234',
+        userId: '1234',
       })
     ).rejects.toBeInstanceOf(AppError);
   });

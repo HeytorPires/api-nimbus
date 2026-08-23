@@ -24,7 +24,7 @@ describe('Logout', () => {
   it('should be able to logout and invalidate session', async () => {
     const userId = 'user-123';
     await fakeCacheProvider.save(`session:${userId}`, 'some-jti');
-    await fakeUserTokensRepository.save({ user_id: userId, token: 'some-jti' });
+    await fakeUserTokensRepository.save({ userId: userId, token: 'some-jti' });
 
     await logoutService.execute(userId);
 
@@ -39,11 +39,11 @@ describe('Logout', () => {
     const userId = 'user-123';
     await fakeCacheProvider.save(`session:${userId}`, 'session-jti');
     await fakeUserTokensRepository.save({
-      user_id: userId,
+      userId: userId,
       token: 'session-jti',
     });
     await fakeUserTokensRepository.save({
-      user_id: userId,
+      userId: userId,
       token: 'reset-token',
     });
 

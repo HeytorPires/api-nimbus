@@ -9,15 +9,19 @@
     "build-local": "tsc && tsc-alias",
     "start": "node build/src/shared/infra/http/server.js",
     "test": "jest",
+    "test:integration": "jest --config jest.config.integration.ts --runInBand",
+    "test:integration:up": "docker compose -f docker-compose.test.yml up -d --wait",
+    "test:integration:down": "docker compose -f docker-compose.test.yml down -v",
+    "test:integration:local": "yarn test:integration:up && yarn test:integration; yarn test:integration:down",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
     "up": "docker-compose up",
     "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -n",
-    "migration:generate": "yarn typeorm migration:generate -n",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -n",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
-    "migration:revert": "yarn typeorm migration:revert"
+    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

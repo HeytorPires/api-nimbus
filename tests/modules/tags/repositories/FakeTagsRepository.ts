@@ -7,16 +7,16 @@ import { IPaginationReturn } from '@shared/interfaces/IPaginationReturn';
 
 class FakeTagsRepository implements ITagRepository {
   private tags: Tag[] = [];
-  public async create({ name, user_id }: ICreateTag): Promise<Tag> {
+  public async create({ name, userId }: ICreateTag): Promise<Tag> {
     const tag = new Tag();
 
     tag.id = uuidv4();
     tag.name = name;
-    tag.user_id = user_id;
-    tag.created_at = new Date();
+    tag.userId = userId;
+    tag.createdAt = new Date();
 
     const user = new User();
-    user.id = user_id;
+    user.id = userId;
     tag.user = user;
 
     this.tags.push(tag);
@@ -56,11 +56,11 @@ class FakeTagsRepository implements ITagRepository {
   }
 
   public async list(
-    user_id: string,
+    userId: string,
     perPage: number,
     currentPage: number
   ): Promise<IPaginationReturn<Tag[]>> {
-    const filtered = this.tags.filter((t) => t.user_id === user_id);
+    const filtered = this.tags.filter((t) => t.userId === userId);
     const start = (currentPage - 1) * perPage;
     const data = filtered.slice(start, start + perPage);
     return {
@@ -71,9 +71,12 @@ class FakeTagsRepository implements ITagRepository {
     };
   }
 
-  public async findByName(name: string, user: User): Promise<Tag | undefined> {
+  public async findByName(
+    name: string,
+    userId: string
+  ): Promise<Tag | undefined> {
     const tag = this.tags.find(
-      (tag) => tag.name === name && tag.user_id === user.id
+      (tag) => tag.name === name && tag.userId === userId
     );
     return tag;
   }

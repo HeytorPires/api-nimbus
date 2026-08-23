@@ -13,6 +13,7 @@ import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { ICacheProvider } from '@shared/providers/cache/models/ICacheProvider';
 import { IJWTProvider } from '@shared/providers/jwt/models/IJWTProvider';
 import { requestContext } from '@config/context';
+import UserMapper from '../mappers/userMapper';
 
 @injectable()
 class CreateSessionsService {
@@ -30,6 +31,8 @@ class CreateSessionsService {
     @inject('CacheProvider')
     private readonly cacheProvider: ICacheProvider
   ) {}
+
+  private readonly userMapper = new UserMapper();
 
   public async execute({
     email,
@@ -78,7 +81,7 @@ class CreateSessionsService {
       jti,
       authConfig.refreshToken.expiresInSeconds
     );
-    await this.userTokensRepository.save({ user_id: user.id, token: jti });
+    await this.userTokensRepository.save({ userId: user.id, token: jti });
 
     const context = requestContext.getStore();
 
@@ -92,14 +95,7 @@ class CreateSessionsService {
     return {
       accessToken,
       refreshToken,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-      },
+      user: await this.userMapper.toDTO(user),
     };
   }
 }

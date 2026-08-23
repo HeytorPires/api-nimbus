@@ -11,9 +11,12 @@
 - `CHECKLIST.md` — 🚀 Checklist de Profissionalização — Backend (~1466 tok)
 - `CLAUDE.md` — OpenWolf (~1563 tok)
 - `docker-compose.yml` — Docker Compose services (~655 tok)
+- `docker-compose.test.yml` — Postgres 5433 + Redis 6380 efêmeros (tmpfs) para os testes de integração; projeto compose `nimbus-test` (~230 tok)
+- `.env.test` — Env versionado da suíte de integração (sem segredo real) (~260 tok)
 - `Dockerfile` — Docker container definition (~181 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~127 tok)
-- `jest.config.ts` — Jest test configuration (~2023 tok)
+- `jest.config.ts` — Jest test configuration (unitário; ignora build/ e tests/integration/) (~2060 tok)
+- `jest.config.integration.ts` — Config da suíte de integração: serial, timeout 30s, stub de @shared/infra/typeorm (~420 tok)
 - `LICENSE` — Project license (~284 tok)
 - `logger.ts` (~16 tok)
 - `ormconfig.ts` — /infra/typeorm/entities/*.js' (~220 tok)
@@ -298,6 +301,7 @@
 - `1755555823981-AddCollumnInitializationVector.ts` — Exports AddColumnInitializationVector1755555823981 (~163 tok)
 - `1755715171256-CreateTableTags.ts` — Exports CreateTableTags1755715171256 (~400 tok)
 - `1755717077159-AddColumntagIdToProjects.ts` — Exports AddColumntagIdToTasks1755717077159 (~308 tok)
+- `1787368703953-RenameProjectColumnsToSnakeCase.ts` — Renomeia projects.variablesEnvironment -> variables_environment e projects.InitializationVector -> initialization_vector; up/down simétricos via renameColumn (~200 tok)
 
 ## src/shared/interfaces/
 
@@ -431,3 +435,39 @@
 ## tests/shared/http/
 
 - `health.spec.ts` — API routes: GET (3 endpoints) (~561 tok)
+
+## tests/integration/setup/
+
+- `env.ts` — Carrega .env.test antes dos imports do teste (~90 tok)
+- `ormconfig.ts` — Conexão de teste; entidades e migrations por glob absoluto a partir de __dirname (~330 tok)
+- `hooks.ts` — beforeAll: conexão + migrations; beforeEach: TRUNCATE + FLUSHDB; afterAll: fecha tudo (~470 tok)
+- `database.ts` — Helpers de conexão, cliente Redis, flushRedis e truncateAll (tabelas vindas do metadata) (~340 tok)
+- `typeormStub.ts` — Stub que neutraliza o createConnection do import de @shared/infra/typeorm (~110 tok)
+
+## tests/integration/helpers/
+
+- `auth.ts` — createUser, login, authenticatedAgent, findUserTokens, findCachedSession, getSetCookie (~570 tok)
+- `http.ts` — missingUuid e anonymous(app) (requisição sem cookie de sessão) (~90 tok)
+- `users.ts` — otherUserAgent: segundo usuário autenticado para casos de isolamento (~110 tok)
+- `tags.ts` — defaultTag e createTag (factory HTTP de POST /tags) (~140 tok)
+- `projects.ts` — defaultProject, createProject (título com sufixo incremental) e rawProject (cifra crua no banco) (~370 tok)
+- `files.ts` — PNG 1x1 em memória e utilitários de <root>/uploads para o teste de avatar (~330 tok)
+- `mail.ts` — FakeEmailProvider e useFakeEmailProvider (registerInstance no container) (~300 tok)
+
+## tests/integration/auth/
+
+- `auth.flow.spec.ts` — 22 casos: cadastro, login, profile, refresh (rotação de jti), logout, 4 bugs abertos (~2400 tok)
+
+## tests/integration/tags/
+
+- `tags.crud.spec.ts` — 20 casos: CRUD, unicidade por usuário, paginação, isolamento, 2 bugs abertos (~2000 tok)
+
+## tests/integration/projects/
+
+- `projects.crud.spec.ts` — 32 casos: CRUD, cifra AES no banco, decrypt, tag_id, paginação, cascade, 6 bugs abertos (~3600 tok)
+
+## tests/integration/users/
+
+- `profile.crud.spec.ts` — 13 casos: /users/me, GET/PUT /profile, troca de senha revalidada por login (~1700 tok)
+- `avatar.spec.ts` — 5 casos: upload multipart, avatar_url, GET /files/:filename, troca de avatar (~950 tok)
+- `password.spec.ts` — 9 casos: forgot/reset com EmailProvider fake, token envelhecido, 2 bugs abertos (~1600 tok)
