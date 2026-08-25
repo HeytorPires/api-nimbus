@@ -17,6 +17,7 @@
 - Prefere que o CI reprove enquanto houver bug conhecido (o job `docker` para de publicar imagem): "código com bug conhecido não vira artefato" vale mais que pipeline verde.
 - [2026-08-22] **Convenção de nomes: banco em snake_case, código e contrato HTTP em camelCase.** Vale para entidade, interfaces de domínio, DTOs, mappers, schemas yup, payload de request e corpo de resposta. Preferiu `@Column({ name: 'user_id' })` explícito a uma `SnakeNamingStrategy` global: sem dependência nova e o nome físico fica visível no arquivo.
 - [2026-08-22] Refactor que toca schema tem que ser **feito de um jeito que não quebre produção** — pediu isso explicitamente. Mudança de schema vai em fase/commit separado do refactor de código, e a ordem do deploy é parte da entrega.
+- [2026-08-25] **Não usar `AskUserQuestion` como portão de entrada da tarefa.** Ele interrompeu duas vezes um menu de opções (4 opções com preview de código, depois uma pergunta de follow-up) e repetiu o pedido original em vez de escolher. Quando a pergunta dele é "tem como fazer X?", a resposta é responder a pergunta e, se ele mandar executar, executar com o default razoável — não abrir leque de abordagens com trade-offs. Perguntar só quando duas leituras do pedido levariam a trabalhos materialmente diferentes e a escolha não dá para inferir.
 
 ## Key Learnings
 
@@ -61,4 +62,3 @@
 - [2026-08-20] **Os 3 testes do bloco "Comportamento atual documentado" de `auth.flow.spec.ts` foram convertidos** para afirmar o comportamento desejado, pela mesma política — não há mais teste que passa fixando bug.
 - [2026-08-22] **camelCase no código via `@Column({ name })`, não via `SnakeNamingStrategy`.** A strategy global seria menos verbosa e à prova de esquecimento, mas exigiria a dependência `typeorm-naming-strategies`, escaparia com `name` explícito as duas colunas fora do padrão de qualquer forma, e mudaria os nomes de índice/FK gerados por `migration:generate`.
 - [2026-08-22] **O rename das colunas `projects.variablesEnvironment`/`InitializationVector` foi separado do refactor de código**, porque o `cd.yml` subia a imagem nova **antes** de rodar as migrations: com rename puro, a versão em execução procuraria uma coluna que ainda não existe. A migration passou a rodar num container efêmero da imagem nova (`docker compose run --rm --no-deps --name nimbus-api-migrate node npx typeorm migration:run`) antes do `up -d`, e o path de rollback ganhou `migration:revert` antes de voltar `PREVIOUS_TAG`.
-

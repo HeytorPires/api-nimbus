@@ -1,127 +1,427 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.3",
   "info": {
-    "title": "Nimbus API Documentation",
-    "description": "Documentation for the Nimbus API - A project management system",
+    "title": "Nimbus API",
+    "description": "API REST do Nimbus — gerenciamento de projetos com variáveis de ambiente cifradas.\n\n**Autenticação.** O login (`POST /sessions`) devolve dois cookies `httpOnly`: `access_token` (15 min) e `refresh_token` (7 dias). Não há header `Authorization` — o navegador envia os cookies automaticamente, e o Swagger UI servido por esta própria API também. Requisições feitas por fora do navegador precisam de um cliente que persista cookies.\n\n**Convenção de nomes.** O contrato HTTP é camelCase (`createdAt`, `userId`, `tagId`, `avatarUrl`); o banco é snake_case.\n\n**Erros.** Falhas de regra de negócio saem pelo `ErrorHandler` no formato `AppError` (com `requestId`). Falhas de validação de schema saem antes disso, no middleware, no formato `ValidationError` — os dois formatos são diferentes de propósito.",
     "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/HeytorPires/api-nimbus/blob/main/LICENSE"
+    },
     "contact": {
-      "name": "API Support"
+      "name": "Repositório",
+      "url": "https://github.com/HeytorPires/api-nimbus"
     }
   },
   "servers": [
     {
       "url": "http://localhost:3333",
-      "description": "Development server"
+      "description": "Desenvolvimento local (yarn dev)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Login, refresh e logout. Os tokens vivem em cookies httpOnly."
+    },
+    {
+      "name": "Users",
+      "description": "Cadastro, usuário autenticado e avatar."
+    },
+    {
+      "name": "Profile",
+      "description": "Consulta e atualização do próprio perfil."
+    },
+    {
+      "name": "Password",
+      "description": "Recuperação e redefinição de senha."
+    },
+    {
+      "name": "Projects",
+      "description": "CRUD de projetos, escopado por dono."
+    },
+    { "name": "Tags", "description": "CRUD de tags, escopado por dono." },
+    {
+      "name": "System",
+      "description": "Health checks, métricas e arquivos estáticos."
     }
   ],
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "access_token",
+        "description": "JWT em cookie httpOnly, definido por `POST /sessions`. O middleware `isAuthenticated` valida a assinatura e cruza o `jti` do token com a sessão no Redis (`session:<userId>`), com fallback na tabela `user_tokens` — logout ou refresh invalidam o token anterior."
+      },
+      "refreshCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "refresh_token",
+        "description": "Cookie httpOnly de 7 dias, consumido apenas por `POST /sessions/refresh`."
       }
     },
     "schemas": {
-      "User": {
+      "UserDTO": {
         "type": "object",
+        "description": "Forma de usuário devolvida por toda rota que responde um usuário. A senha nunca é serializada.",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "type": "string"
-          },
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "example": "Heytor Pires" },
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "example": "heytor@example.com"
           },
           "avatarUrl": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "URL resolvida pelo StorageProvider (rota `/files/:filename` no disco local, URL do bucket no MinIO). `null` quando o usuário não tem avatar.",
+            "example": "http://localhost:3333/files/a1b2c3d4e5-avatar.png"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "avatarUrl",
+          "createdAt",
+          "updatedAt"
+        ]
       },
-      "Project": {
+      "ProjectDTO": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
+          "id": { "type": "string", "format": "uuid" },
+          "title": { "type": "string", "example": "Nimbus Web" },
+          "description": { "type": "string", "example": "Front-end do Nimbus" },
           "variablesEnvironment": {
-            "type": "string"
-          },
-          "userId": {
             "type": "string",
-            "format": "uuid"
+            "description": "Devolvido já decifrado. No banco fica cifrado em AES, com o IV por registro na coluna `initialization_vector`.",
+            "example": "DATABASE_URL=postgres://...\nAPI_KEY=..."
           },
+          "userId": { "type": "string", "format": "uuid" },
           "tagId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true,
+            "description": "Ausente quando o projeto não tem tag vinculada."
+          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "variablesEnvironment",
+          "userId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "TagDTO": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "example": "backend" },
+          "userId": { "type": "string", "format": "uuid" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["id", "name", "userId", "createdAt"]
+      },
+      "PaginatedProjects": {
+        "type": "object",
+        "description": "Envelope de paginação (`IPaginationReturn<IProjectDTO[]>`). Não é um array puro.",
+        "properties": {
+          "perPage": { "type": "integer", "example": 10 },
+          "currentPage": { "type": "integer", "example": 1 },
+          "totalRows": {
+            "type": "integer",
+            "description": "Total de registros do usuário, não o tamanho de `data`.",
+            "example": 42
+          },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ProjectDTO" }
+          }
+        },
+        "required": ["perPage", "currentPage", "totalRows", "data"]
+      },
+      "PaginatedTags": {
+        "type": "object",
+        "description": "Envelope de paginação (`IPaginationReturn<ITagDTO[]>`).",
+        "properties": {
+          "perPage": { "type": "integer", "example": 10 },
+          "currentPage": { "type": "integer", "example": 1 },
+          "totalRows": { "type": "integer", "example": 7 },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TagDTO" }
+          }
+        },
+        "required": ["perPage", "currentPage", "totalRows", "data"]
+      },
+      "AppError": {
+        "type": "object",
+        "description": "Formato emitido pelo `ErrorHandler` para todo erro de regra de negócio (`AppError`) e para exceções não previstas (500).",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Correlaciona a resposta com a linha de log da requisição.",
             "nullable": true
           },
-          "createdAt": {
+          "status": { "type": "string", "example": "error" },
+          "message": { "type": "string", "example": "Project not found." },
+          "date": {
             "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
+            "description": "Formato `YYYY-MM-DD HH:mm`, não ISO 8601.",
+            "example": "2026-08-25 11:42"
+          }
+        },
+        "required": ["status", "message", "date"]
+      },
+      "ValidationError": {
+        "type": "object",
+        "description": "Formato emitido pelo middleware `requestValidation` quando o schema yup reprova a requisição. Diferente do `AppError`: não tem `requestId` nem `date`, e traz apenas a primeira mensagem de erro (o yup roda sem `abortEarly: false`).",
+        "properties": {
+          "status": { "type": "string", "example": "ValidationError" },
+          "message": {
             "type": "string",
-            "format": "date-time"
+            "example": "body.email must be a valid email"
+          }
+        },
+        "required": ["status", "message"]
+      },
+      "HealthStatus": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "ok" },
+          "uptime": {
+            "type": "number",
+            "description": "Segundos desde o boot do processo (`process.uptime()`).",
+            "example": 1834.52
+          }
+        },
+        "required": ["status", "uptime"]
+      },
+      "ReadyStatus": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["ready", "not ready"] },
+          "checks": {
+            "type": "object",
+            "properties": {
+              "postgres": { "type": "boolean" },
+              "redis": { "type": "boolean" }
+            },
+            "required": ["postgres", "redis"]
+          }
+        },
+        "required": ["status", "checks"]
+      }
+    },
+    "parameters": {
+      "IdPath": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "format": "uuid" },
+        "description": "Um `id` que não seja UUID é recusado na validação (400), antes de chegar ao banco."
+      },
+      "PerPage": {
+        "name": "perPage",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "integer", "minimum": 1 },
+        "description": "Registros por página. Padrão 10."
+      },
+      "CurrentPage": {
+        "name": "currentPage",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "integer", "minimum": 1 },
+        "description": "Página, começando em 1. Padrão 1."
+      }
+    },
+    "responses": {
+      "ValidationFailed": {
+        "description": "Corpo, params ou query reprovados pelo schema yup.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ValidationError" }
           }
         }
       },
-      "Tag": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The unique identifier for the tag"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the tag"
-          },
-          "userId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The ID of the user who owns this tag"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The creation timestamp"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The last update timestamp"
+      "Unauthorized": {
+        "description": "Cookie `access_token` ausente (`JWT token is missing`), inválido (`Invalid token`) ou com sessão já invalidada (`Session expired`).",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/AppError" }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "O recurso existe mas pertence a outro usuário (`Access denied.`).",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/AppError" }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Recurso inexistente.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/AppError" }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Regra de negócio violada.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/AppError" }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Exceção não prevista. O `message` é sempre `Internal server error`; o detalhe fica no log, correlacionado pelo `requestId`.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/AppError" }
           }
         }
       }
     }
   },
   "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Cria um usuário",
+        "description": "Rota pública. A senha é hasheada com bcrypt antes de persistir.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "password"],
+                "properties": {
+                  "name": { "type": "string", "example": "Heytor Pires" },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "heytor@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "senha-forte-123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário criado. Note o status: o controller usa `response.json(...)`, não 201.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDTO" }
+              }
+            }
+          },
+          "400": {
+            "description": "`Email address already used.` (AppError) ou falha de validação (ValidationError).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Retorna o usuário autenticado",
+        "description": "Resolve o usuário a partir do `sub` do JWT. Responde o mesmo corpo de `GET /profile`.",
+        "security": [{ "cookieAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDTO" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Envia o avatar do usuário autenticado",
+        "description": "`multipart/form-data` com um único arquivo no campo `avatar`, processado por multer. Um avatar anterior é apagado do storage. O `avatarUrl` da resposta já aponta para o arquivo novo.",
+        "security": [{ "cookieAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["avatar"],
+                "properties": {
+                  "avatar": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar atualizado.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDTO" }
+              }
+            }
+          },
+          "400": {
+            "description": "`User not found!`",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
     "/sessions": {
       "post": {
         "tags": ["Authentication"],
-        "summary": "Create a new session (login)",
+        "summary": "Login",
+        "description": "Em caso de sucesso define os cookies `access_token` (15 min) e `refresh_token` (7 dias), ambos httpOnly, e registra a sessão no Redis por `jti`. Os tokens **não** vão no corpo.",
         "requestBody": {
           "required": true,
           "content": {
@@ -132,12 +432,10 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "description": "Validado apenas como string obrigatória nesta rota — sem checagem de formato, ao contrário de `POST /users`.",
+                    "example": "heytor@example.com"
                   },
-                  "password": {
-                    "type": "string",
-                    "format": "password"
-                  }
+                  "password": { "type": "string", "format": "password" }
                 }
               }
             }
@@ -145,75 +443,111 @@
         },
         "responses": {
           "200": {
-            "description": "Login successful",
+            "description": "Autenticado. O corpo é envelopado em `user`.",
+            "headers": {
+              "Set-Cookie": {
+                "description": "Dois cookies: `access_token` e `refresh_token`, httpOnly, `secure` apenas em produção.",
+                "schema": { "type": "string" }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "user": {
-                      "$ref": "#/components/schemas/User"
-                    },
-                    "token": {
-                      "type": "string"
-                    }
-                  }
+                    "user": { "$ref": "#/components/schemas/UserDTO" }
+                  },
+                  "required": ["user"]
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": {
+            "description": "`Incorrect email/password combination.` — a mesma mensagem para e-mail inexistente e senha errada, de propósito.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "delete": {
+        "tags": ["Authentication"],
+        "summary": "Logout",
+        "description": "Apaga a sessão do Redis, remove a linha de `user_tokens` e limpa os dois cookies.",
+        "security": [{ "cookieAuth": [] }],
+        "responses": {
+          "204": { "description": "Sessão encerrada. Sem corpo." },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/sessions/refresh": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Renova o access token",
+        "description": "Lê o cookie `refresh_token` — não recebe corpo. Rotaciona os dois cookies e invalida o `jti` anterior. Tem rate limiter próprio, mais estrito que o global.",
+        "security": [{ "refreshCookie": [] }],
+        "responses": {
+          "200": {
+            "description": "Cookies rotacionados. O `accessToken` também vem no corpo, além do cookie.",
+            "headers": {
+              "Set-Cookie": {
+                "description": "`access_token` e `refresh_token` renovados.",
+                "schema": { "type": "string" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "accessToken": { "type": "string" } },
+                  "required": ["accessToken"]
                 }
               }
             }
           },
           "401": {
-            "description": "Invalid credentials"
-          }
+            "description": "`Refresh token is missing. Please login again.` (cookie ausente), `Invalid refresh token` ou `Refresh token revoked` (já rotacionado ou logout feito).",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit da rota de refresh excedido.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
-    "/users": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "List all users",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/password/forgot": {
       "post": {
-        "tags": ["Users"],
-        "summary": "Create a new user",
+        "tags": ["Password"],
+        "summary": "Solicita a recuperação de senha",
+        "description": "Gera um token em `user_tokens` e envia por e-mail um link para `APP_WEB_URL`. Em desenvolvimento o e-mail vai para o Ethereal e a URL de preview sai no log.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "password"],
+                "required": ["email"],
                 "properties": {
-                  "name": {
-                    "type": "string"
-                  },
                   "email": {
                     "type": "string",
-                    "format": "email"
-                  },
-                  "password": {
-                    "type": "string",
-                    "format": "password"
+                    "format": "email",
+                    "example": "heytor@example.com"
                   }
                 }
               }
@@ -221,38 +555,115 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "User created successfully",
+          "204": { "description": "E-mail enviado. Sem corpo." },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "404": {
+            "description": "`User does not exists.` — a rota distingue e-mail cadastrado de não cadastrado, o que permite enumerar contas. Achado aberto, rastreado no CHECKLIST.md.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/password/reset": {
+      "put": {
+        "tags": ["Password"],
+        "summary": "Redefine a senha a partir do token",
+        "description": "O token vale 2 horas a partir do `created_at` da linha em `user_tokens`, e é apagado no uso. O `passwordConfirmation` é exigido pelo schema e precisa bater com `password`, mas o controller só encaminha `password` e `token` ao service.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["password", "passwordConfirmation", "token"],
+                "properties": {
+                  "password": { "type": "string", "format": "password" },
+                  "passwordConfirmation": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "Precisa ser igual a `password`."
+                  },
+                  "token": { "type": "string", "format": "uuid" }
                 }
               }
             }
           }
+        },
+        "responses": {
+          "204": { "description": "Senha redefinida. Sem corpo." },
+          "400": {
+            "description": "`User Token does not exists.`, `User does not exists.`, `Token Expired.` (AppError) ou `As senhas devem coincidir` (ValidationError).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
-    "/users/avatar": {
-      "patch": {
-        "tags": ["Users"],
-        "summary": "Update user avatar",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+    "/profile": {
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Consulta o próprio perfil",
+        "security": [{ "cookieAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Perfil do usuário autenticado.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDTO" }
+              }
+            }
+          },
+          "400": {
+            "description": "`User not found.`",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "put": {
+        "tags": ["Profile"],
+        "summary": "Atualiza o próprio perfil",
+        "description": "`name` e `email` são obrigatórios mesmo quando não mudam. Para trocar a senha, envie `password`, `passwordConfirmation` e `oldPassword` — o schema só exige `passwordConfirmation` quando `password` está presente.",
+        "security": [{ "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["name", "email"],
                 "properties": {
-                  "avatar": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "oldPassword": {
                     "type": "string",
-                    "format": "binary"
+                    "format": "password",
+                    "description": "Obrigatório na prática quando `password` é enviado."
+                  },
+                  "password": { "type": "string", "format": "password" },
+                  "passwordConfirmation": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "Exigido, e igual a `password`, somente quando `password` é enviado."
                   }
                 }
               }
@@ -261,51 +672,60 @@
         },
         "responses": {
           "200": {
-            "description": "Avatar updated successfully",
+            "description": "Perfil atualizado.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDTO" }
+              }
+            }
+          },
+          "400": {
+            "description": "`User not found.`, `there is already one user with this email`, `Old password is required`, `Old password does not match.` (AppError) ou falha de validação (ValidationError).",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
                 }
               }
             }
-          }
+          },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/projects": {
       "get": {
         "tags": ["Projects"],
-        "summary": "List all projects",
-        "security": [
-          {
-            "bearerAuth": []
-          }
+        "summary": "Lista os projetos do usuário autenticado",
+        "description": "Devolve o envelope de paginação, não um array. `variablesEnvironment` de cada item já vem decifrado.",
+        "security": [{ "cookieAuth": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/PerPage" },
+          { "$ref": "#/components/parameters/CurrentPage" }
         ],
         "responses": {
           "200": {
-            "description": "List of projects",
+            "description": "Página de projetos.",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Project"
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/PaginatedProjects" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "post": {
         "tags": ["Projects"],
-        "summary": "Create a new project",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Cria um projeto",
+        "description": "`variablesEnvironment` é cifrado em AES antes de persistir; o IV é gerado por registro. O título tem de ser único dentro do usuário. Se `tagId` for enviado, a tag precisa existir e pertencer ao mesmo usuário.",
+        "security": [{ "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -314,110 +734,95 @@
                 "type": "object",
                 "required": ["title", "description", "variablesEnvironment"],
                 "properties": {
-                  "title": {
-                    "type": "string"
-                  },
+                  "title": { "type": "string", "example": "Nimbus Web" },
                   "description": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Front-end do Nimbus"
                   },
                   "variablesEnvironment": {
-                    "type": "string"
-                  },
-                  "tagId": {
                     "type": "string",
-                    "format": "uuid"
-                  }
+                    "example": "DATABASE_URL=postgres://...\nAPI_KEY=..."
+                  },
+                  "tagId": { "type": "string", "format": "uuid" }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Project created successfully",
+          "200": {
+            "description": "Projeto criado. O controller usa `response.json(...)`, não 201.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProjectDTO" }
+              }
+            }
+          },
+          "400": {
+            "description": "`User not exist: <id>`, `Tag not found: <id>`, `Project title already in use` (AppError) ou falha de validação (ValidationError).",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
                 }
               }
             }
-          }
+          },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": {
+            "description": "`Tag belongs to another user`",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/projects/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
       "get": {
         "tags": ["Projects"],
-        "summary": "Get a project by ID",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "summary": "Detalha um projeto",
+        "security": [{ "cookieAuth": [] }],
         "responses": {
           "200": {
-            "description": "Project details",
+            "description": "Projeto encontrado.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
+                "schema": { "$ref": "#/components/schemas/ProjectDTO" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "put": {
         "tags": ["Projects"],
-        "summary": "Update a project",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "summary": "Atualiza um projeto",
+        "description": "Substituição completa: `title`, `description` e `variablesEnvironment` são obrigatórios mesmo sem mudança. Omitir `tagId` **preserva** a tag atual em vez de desvinculá-la — comportamento ainda em decisão, rastreado no CHECKLIST.md.",
+        "security": [{ "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["title", "description", "variablesEnvironment"],
                 "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "variablesEnvironment": {
-                    "type": "string"
-                  },
-                  "tagId": {
-                    "type": "string",
-                    "format": "uuid"
-                  }
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "variablesEnvironment": { "type": "string" },
+                  "tagId": { "type": "string", "format": "uuid" }
                 }
               }
             }
@@ -425,71 +830,77 @@
         },
         "responses": {
           "200": {
-            "description": "Project updated successfully",
+            "description": "Projeto atualizado.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
+                "schema": { "$ref": "#/components/schemas/ProjectDTO" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": {
+            "description": "`Access denied.` (projeto de outro usuário) ou `Tag belongs to another user`.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "404": {
+            "description": "`Project not found.` ou `Tag not found: <id>`.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppError" }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "delete": {
         "tags": ["Projects"],
-        "summary": "Delete a project",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "summary": "Remove um projeto",
+        "security": [{ "cookieAuth": [] }],
         "responses": {
-          "204": {
-            "description": "Project deleted successfully"
-          }
+          "204": { "description": "Projeto removido. Sem corpo." },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/tags": {
       "get": {
         "tags": ["Tags"],
-        "summary": "List all tags",
-        "security": [{ "bearerAuth": [] }],
+        "summary": "Lista as tags do usuário autenticado",
+        "description": "Devolve o envelope de paginação, não um array.",
+        "security": [{ "cookieAuth": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/PerPage" },
+          { "$ref": "#/components/parameters/CurrentPage" }
+        ],
         "responses": {
           "200": {
-            "description": "List of tags",
+            "description": "Página de tags.",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Tag"
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/PaginatedTags" }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "post": {
         "tags": ["Tags"],
-        "summary": "Create a new tag",
-        "security": [{ "bearerAuth": [] }],
+        "summary": "Cria uma tag",
+        "description": "O nome tem de ser único dentro do usuário.",
+        "security": [{ "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -498,87 +909,65 @@
                 "type": "object",
                 "required": ["name"],
                 "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the tag"
-                  }
+                  "name": { "type": "string", "example": "backend" }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Tag created successfully",
+          "200": {
+            "description": "Tag criada. O controller usa `response.json(...)`, não 201.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
+                "schema": { "$ref": "#/components/schemas/TagDTO" }
               }
             }
           },
           "400": {
-            "description": "Invalid input data"
+            "description": "`User not exist: <id>`, `Tag name already in use` (AppError) ou falha de validação (ValidationError).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
           },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       }
     },
     "/tags/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/IdPath" }],
       "get": {
         "tags": ["Tags"],
-        "summary": "Get a tag by ID",
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Tag ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "summary": "Detalha uma tag",
+        "security": [{ "cookieAuth": [] }],
         "responses": {
           "200": {
-            "description": "Tag details",
+            "description": "Tag encontrada.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
+                "schema": { "$ref": "#/components/schemas/TagDTO" }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Tag not found"
-          }
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "put": {
         "tags": ["Tags"],
-        "summary": "Update a tag",
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Tag ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "summary": "Atualiza uma tag",
+        "security": [{ "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -586,63 +975,158 @@
               "schema": {
                 "type": "object",
                 "required": ["name"],
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The new name for the tag"
-                  }
-                }
+                "properties": { "name": { "type": "string" } }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Tag updated successfully",
+            "description": "Tag atualizada.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                }
+                "schema": { "$ref": "#/components/schemas/TagDTO" }
               }
             }
           },
           "400": {
-            "description": "Invalid input data"
+            "description": "`Tag name already in use.` (AppError) ou falha de validação (ValidationError).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/AppError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Tag not found"
-          }
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
         }
       },
       "delete": {
         "tags": ["Tags"],
-        "summary": "Delete a tag",
-        "security": [{ "bearerAuth": [] }],
+        "summary": "Remove uma tag",
+        "security": [{ "cookieAuth": [] }],
+        "responses": {
+          "204": { "description": "Tag removida. Sem corpo." },
+          "400": { "$ref": "#/components/responses/ValidationFailed" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Liveness",
+        "description": "Responde 200 se o processo está de pé. Não toca em Postgres nem Redis — use `/ready` para isso.",
+        "responses": {
+          "200": {
+            "description": "Processo vivo.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthStatus" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Readiness",
+        "description": "Checa Postgres (`SELECT 1`) e Redis (`PING`) em paralelo. 503 se qualquer um falhar — o corpo mostra qual.",
+        "responses": {
+          "200": {
+            "description": "Todas as dependências respondendo.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReadyStatus" }
+              }
+            }
+          },
+          "503": {
+            "description": "Postgres ou Redis indisponível.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReadyStatus" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Métricas Prometheus",
+        "description": "Métricas default do processo mais o histograma `http_request_duration_seconds`, rotulado por método, rota e status. Hoje sem autenticação — achado aberto no CHECKLIST.md.",
+        "responses": {
+          "200": {
+            "description": "Exposição no formato texto do Prometheus.",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string" },
+                "example": "# HELP http_request_duration_seconds Duration of HTTP requests in seconds\n# TYPE http_request_duration_seconds histogram\nhttp_request_duration_seconds_bucket{le=\"0.01\",method=\"GET\",route=\"/projects\",status_code=\"200\"} 3"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/{filename}": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Serve um arquivo do storage",
+        "description": "Faz stream do arquivo resolvido pelo StorageProvider. `Content-Type` deduzido da extensão (jpg, jpeg, png, svg), com `application/octet-stream` como fallback. Rota pública: quem tiver o nome do arquivo acessa. Atenção: hoje um arquivo inexistente **pendura** a requisição em vez de responder 404, porque o ENOENT chega no evento `error` do stream, fora do try/catch (`app.ts:43-62`) — achado aberto no CHECKLIST.md.",
         "parameters": [
           {
-            "name": "id",
+            "name": "filename",
             "in": "path",
-            "description": "Tag ID",
             "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
+            "schema": { "type": "string" },
+            "description": "Nome gerado no upload, no formato `<hex10>-<nome-original>`.",
+            "example": "a1b2c3d4e5-avatar.png"
           }
         ],
         "responses": {
-          "204": {
-            "description": "Tag deleted successfully"
-          },
-          "401": {
-            "description": "Unauthorized"
+          "200": {
+            "description": "Conteúdo do arquivo.",
+            "content": {
+              "image/png": {
+                "schema": { "type": "string", "format": "binary" }
+              },
+              "image/jpeg": {
+                "schema": { "type": "string", "format": "binary" }
+              },
+              "image/svg+xml": {
+                "schema": { "type": "string", "format": "binary" }
+              },
+              "application/octet-stream": {
+                "schema": { "type": "string", "format": "binary" }
+              }
+            }
           },
           "404": {
-            "description": "Tag not found"
+            "description": "Comportamento pretendido para arquivo inexistente — veja a ressalva na descrição.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "File not found" }
+                  }
+                }
+              }
+            }
           }
         }
       }

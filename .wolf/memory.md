@@ -189,3 +189,10 @@
 |------|--------|---------|---------|--------|
 | 11:20 | Unificar suítes de teste num só `jest.config.ts` com projects `unit`/`integration`/`e2e`; árvore reorganizada em tests/{unit,integration,e2e,support} | jest.config.ts, package.json, .github/workflows/ci.yml, 49 arquivos em tests/, CLAUDE.md, README.md, CHECKLIST.md | 162 testes verdes (67 unit + 95 integration), e2e passa com 0, lint e tsc limpos | ~40k |
 
+
+## Session: 2026-08-25 11:15
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:18 | README.md reescrito contra o código real (rotas, scripts, testes, CI/CD, estrutura) | README.md | ok | ~18k |
+| 11:42 | swagger.json reescrito: 24 operacoes reais, cookieAuth, envelope de paginacao, AppError/ValidationError | src/docs/swagger.json | valido (swagger-parser), 24/24 casam com o router | ~22k |

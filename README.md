@@ -1,217 +1,352 @@
 # Api do Nimbus (api-nimbus) 🚀
 
-Um projeto de API back-end desenvolvido com Node.js e TypeScript, focado em estudos e na aplicação de boas práticas de desenvolvimento de software.
-
-## 🎯 Objetivos de Estudo e Práticas (Checklist)
-
-Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e práticas são o foco principal:
-
-- [x] Consolidar e aplicar um conjunto diversificado de práticas e tecnologias de desenvolvimento de software em um ambiente prático.
-- [x] Implementação de JWT (JSON Web Tokens) para autenticação e autorização.
-- [x] Utilização de serviços de mensageria (ex: envio de e-mail com Nodemailer) para funcionalidades como redefinição de senha.
-- [x] Explorar e aplicar conceitos de **Domain-Driven Design (DDD)** para a arquitetura do software.
-- [x] Utilizar ferramentas modernas para otimizar o ciclo de desenvolvimento e deploy.
-- [x] Criar uma base de código limpa, organizada, testável e escalável.
-- [x] Implementar uma suíte robusta de **testes automatizados**:
-  - [x] Testes Unitários
-  - [x] Testes de Integração
-  - [ ] Testes End-to-End (E2E)
-- [ ] Upload de avatar de usuário.
-- [ ] Processo de recuperação de senha.
-- 🔒 Veja o [Roadmap de Segurança](#-roadmap-de-segurança) para os próximos passos de segurança e infraestrutura.
+API REST em Node.js + TypeScript, construída como projeto de estudo com arquitetura inspirada em **Domain-Driven Design**: Express + TypeORM + PostgreSQL, autenticação JWT em cookie `httpOnly`, sessões e cache em Redis, storage de arquivos local ou compatível com S3 (MinIO), envio de e-mail via Nodemailer e observabilidade com Prometheus/Grafana.
 
 ---
 
-## ✨ Funcionalidades Implementadas
+## 🎯 Objetivos de estudo (checklist)
 
-- 👤 **Gerenciamento de Usuários:**
-  - CRUD (Criar, Ler, Atualizar, Deletar) completo de usuários.
-  - Autenticação de usuários utilizando JWT.
+- [x] Arquitetura modular no estilo **DDD** (`domain` / `infra` / `services` / `mappers` / `dtos`)
+- [x] Injeção de dependência com **tsyringe** (repositórios e providers atrás de interfaces)
+- [x] Autenticação com **JWT** em cookie `httpOnly` + fluxo de refresh token
+- [x] Invalidação de sessão por `jti` no **Redis**, com fallback no banco
+- [x] Criptografia de dados sensíveis em repouso (AES + IV por registro)
+- [x] Validação de entrada por schema (**yup**) em middleware, por rota
+- [x] Rate limiting, tratamento centralizado de erros e logs com `requestId`
+- [x] Upload de avatar de usuário (storage local ou MinIO)
+- [x] Recuperação de senha por e-mail
+- [x] Health checks (`/health`, `/ready`) e métricas Prometheus (`/metrics`)
+- [x] Documentação da API com **Swagger** (`/api-docs`)
+- [x] Suíte de **testes automatizados**:
+  - [x] Testes unitários (services com fakes em memória)
+  - [x] Testes de integração (supertest contra Postgres e Redis reais)
+  - [ ] Testes End-to-End (slot já configurado, sem specs ainda)
+- [x] CI (lint, unit, integration, build, imagem Docker) e CD (deploy via SSH)
+- 🔒 Próximos passos de segurança e infraestrutura: veja o [Roadmap de Segurança](#-roadmap-de-segurança)
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Funcionalidades implementadas
 
-- **Node.js:** Ambiente de execução JavaScript server-side.
-- **TypeScript:** Superset do JavaScript que adiciona tipagem estática, melhorando a robustez e manutenibilidade do código.
-- **Express.js:** Framework web minimalista e flexível para Node.js, utilizado para construir as rotas da API.
-- **TypeORM:** ORM (Object-Relational Mapper) para interação com o banco de dados, facilitando a modelagem e manipulação dos dados.
-- **Banco de Dados:** PostgreSQL 8.13
-- **Docker & Docker Compose:** Para containerização da aplicação e do ambiente de desenvolvimento/produção, garantindo consistência e facilidade de configuração.
-- **JWT (jsonwebtoken):** Biblioteca para geração e verificação de JSON Web Tokens para autenticação.
-- **bcrypt.js:** Biblioteca para hashing de senhas.
-- **Nodemailer:** Para envio de e-mails (ex: confirmação de cadastro, redefinição de senha).
-- **Redis:** Banco de dados em memória utilizado para cache de dados, otimizando o desempenho das respostas e gerenciamento de listas de invalidação de tokens.
-- **ESLint:** Ferramenta para identificar e reportar padrões problemáticos no código JavaScript/TypeScript, ajudando a manter a qualidade do código.
-- **Prettier:** Formatador de código para manter um estilo consistente em todo o projeto.
+**Usuários e autenticação**
+
+- Cadastro de usuário, consulta do próprio usuário (`/users/me`) e upload de avatar
+- Login/logout com JWT em cookie `httpOnly` (`access_token`) e refresh token (`refresh_token`)
+- Sessão rastreada por `jti` no Redis (`session:<userId>`), com fallback na tabela `user_tokens`
+- Perfil: consulta e atualização (inclui troca de senha com confirmação)
+- Recuperação de senha: solicitação por e-mail com token e reset
+
+**Projetos**
+
+- CRUD completo, escopado por dono (usuário só acessa os próprios projetos)
+- Listagem paginada (`typeorm-pagination`)
+- Variáveis de ambiente do projeto cifradas no banco (`variables_environment` + `initialization_vector`)
+- Vínculo opcional com uma tag
+
+**Tags**
+
+- CRUD completo, escopado por dono, com checagem de nome duplicado
+
+**Infraestrutura transversal**
+
+- `/health` e `/ready` para liveness/readiness
+- `/metrics` no formato Prometheus (`prom-client`)
+- `/files/:filename` para servir arquivos do storage local
+- `/api-docs` com a especificação Swagger
+
+---
+
+## 🌐 Endpoints
+
+Todas as rotas abaixo são relativas à raiz da API. Rotas marcadas com 🔒 exigem o cookie `access_token`.
+
+| Método   | Rota                | Descrição                                      |
+| -------- | ------------------- | ---------------------------------------------- |
+| `POST`   | `/users`            | Cria um usuário                                |
+| `GET`    | `/users/me`         | 🔒 Retorna o usuário autenticado               |
+| `PATCH`  | `/users/avatar`     | 🔒 Envia o avatar (`multipart/form-data`)      |
+| `POST`   | `/sessions`         | Login — define os cookies de sessão            |
+| `POST`   | `/sessions/refresh` | Renova o access token (com rate limit próprio) |
+| `DELETE` | `/sessions`         | 🔒 Logout — invalida a sessão                  |
+| `POST`   | `/password/forgot`  | Envia e-mail de recuperação de senha           |
+| `PUT`    | `/password/reset`   | Redefine a senha a partir do token             |
+| `GET`    | `/profile`          | 🔒 Consulta o perfil                           |
+| `PUT`    | `/profile`          | 🔒 Atualiza o perfil (nome, e-mail, senha)     |
+| `GET`    | `/projects`         | 🔒 Lista os projetos do usuário (paginado)     |
+| `GET`    | `/projects/:id`     | 🔒 Detalha um projeto                          |
+| `POST`   | `/projects`         | 🔒 Cria um projeto                             |
+| `PUT`    | `/projects/:id`     | 🔒 Atualiza um projeto                         |
+| `DELETE` | `/projects/:id`     | 🔒 Remove um projeto                           |
+| `GET`    | `/tags`             | 🔒 Lista as tags do usuário                    |
+| `GET`    | `/tags/:id`         | 🔒 Detalha uma tag                             |
+| `POST`   | `/tags`             | 🔒 Cria uma tag                                |
+| `PUT`    | `/tags/:id`         | 🔒 Atualiza uma tag                            |
+| `DELETE` | `/tags/:id`         | 🔒 Remove uma tag                              |
+| `GET`    | `/health`           | Liveness                                       |
+| `GET`    | `/ready`            | Readiness (checa dependências)                 |
+| `GET`    | `/metrics`          | Métricas no formato Prometheus                 |
+| `GET`    | `/files/:filename`  | Serve um arquivo do storage local              |
+| `GET`    | `/api-docs`         | Swagger UI                                     |
+
+O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, `oldPassword`); o banco usa **snake_case**. O nome físico da coluna aparece apenas no decorator da entidade.
+
+---
+
+## 🛠️ Tecnologias
+
+| Camada              | Ferramentas                                                   |
+| ------------------- | ------------------------------------------------------------- |
+| Runtime / linguagem | Node.js 18+, TypeScript 5                                     |
+| HTTP                | Express 4, cors, cookie-parser, `rate-limiter-flexible`       |
+| Persistência        | TypeORM 0.2, PostgreSQL 17, `typeorm-pagination`              |
+| Cache / sessão      | Redis 7 (ioredis)                                             |
+| Autenticação        | `jsonwebtoken`, `bcryptjs`                                    |
+| Validação           | yup (um schema por ação, aplicado por middleware)             |
+| DI                  | tsyringe                                                      |
+| E-mail              | Nodemailer (Ethereal em desenvolvimento, SMTP real fora dele) |
+| Storage             | filesystem local ou MinIO (S3-compatível), multer no upload   |
+| Observabilidade     | `prom-client`, Prometheus, Grafana                            |
+| Documentação        | swagger-ui-express + `src/docs/swagger.json`                  |
+| Testes              | Jest 30 + ts-jest, supertest                                  |
+| Qualidade           | ESLint (zero warnings), Prettier                              |
+| Infra               | Docker, Docker Compose, GitHub Actions (CI + CD), GHCR        |
 
 ---
 
 ## 📋 Pré-requisitos
 
-Antes de começar, garanta que você tenha instalado em sua máquina:
-
-- [Node.js](https://nodejs.org/) (v18 ou superior recomendado)
-- [Yarn](https://yarnpkg.com/) (preferencialmente) ou [npm](https://www.npmjs.com/) (gerenciador de pacotes do Node.js)
-- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) (para gerenciamento de containers)
-- [Git](https://git-scm.com/) (para versionamento de código)
+- [Node.js](https://nodejs.org/) v18 ou superior
+- [Yarn](https://yarnpkg.com/) (preferencialmente) ou npm
+- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
+- [Git](https://git-scm.com/)
 
 ---
 
-## ⚙️ Configuração e Instalação
+## ⚙️ Configuração e instalação
 
-Siga os passos abaixo para configurar e executar o projeto localmente:
+1. **Clone o repositório:**
 
-1.  **Clone o repositório:**
+   ```bash
+   git clone https://github.com/HeytorPires/api-nimbus.git
+   cd api-nimbus
+   ```
 
-    ```bash
-    git clone [https://github.com/HeytorPires/api-nimbus.git](https://github.com/HeytorPires/api-nimbus.git)
-    cd api-nimbus
-    ```
+2. **Instale as dependências:**
 
-2.  **Instale as dependências:**
+   ```bash
+   yarn install
+   ```
 
-    ```bash
-    yarn install
-    # ou, se preferir o npm:
-    # npm install
-    ```
+3. **Configure o ambiente:**
 
-3.  **Configuração do Ambiente:**
+   ```bash
+   cp .env.example .env
+   ```
 
-    - Copie o arquivo de exemplo `.env.example` para um novo arquivo chamado `.env`:
-      ```bash
-      cp .env.example .env
-      ```
-    - Edite o arquivo `.env` com as suas configurações de ambiente. Isso inclui:
-      - Credenciais de conexão com o banco de dados (host, porta, usuário, senha, nome do banco).
-      - Chaves secretas para JWT (ex: `APP_SECRET`).
-      - Configurações do serviço de e-mail (host, porta, usuário, senha do Nodemailer).
-      - Configurações do Redis.
-      - Porta da aplicação (ex: `API_PORT=3333`).
-      - URL da aplicação (ex: `APP_API_URL=http://localhost:3333`).
-      - Outras variáveis específicas do seu projeto.
-    - **Atenção:** Se você **não** for utilizar o Docker para o banco de dados, certifique-se de que as variáveis no `.env` apontam para uma instância de banco de dados acessível manualmente.
+   Preencha o `.env`. As variáveis principais:
 
-4.  **Subir os Serviços com Docker (Banco de Dados, Redis, etc.):**
+   | Variável                                                    | Para que serve                                              |
+   | ----------------------------------------------------------- | ----------------------------------------------------------- |
+   | `NODE_ENV`                                                  | `development` \| `production` — decide o provider de e-mail |
+   | `API_PORT`                                                  | Porta da API (padrão `3333`)                                |
+   | `APP_SECRET`                                                | Segredo de assinatura do JWT                                |
+   | `CRYPTO_SECRET_KEY`                                         | Chave AES (64 caracteres hexadecimais) dos dados cifrados   |
+   | `APP_API_URL`, `APP_WEB_URL`, `CORS_ORIGIN`                 | URLs da API, do front e origem liberada no CORS             |
+   | `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`   | Conexão com o PostgreSQL                                    |
+   | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASS`                    | Conexão com o Redis                                         |
+   | `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`          | SMTP de envio de e-mail                                     |
+   | `STORAGE_DISK`                                              | `local` \| `minio` — escolhe o provider de storage          |
+   | `MINIO_*`                                                   | Endpoint, credenciais e bucket do MinIO                     |
+   | `PROMETHEUS_PORT`, `GRAFANA_PORT`, `GRAFANA_ADMIN_PASSWORD` | Portas e senha da stack de observabilidade                  |
 
-    - Certifique-se de que o Docker Desktop (ou Docker Engine/Compose) está em execução.
-    - O comando `yarn docker:up` (ou similar, verifique seu `package.json`) utiliza o `docker-compose.yml` para subir os containers necessários (aplicação, banco de dados, Redis, etc.).
-      ```bash
-      yarn docker:up
-      # ou, se o comando for direto com docker-compose:
-      # docker-compose up -d
-      ```
-    - Aguarde até que todos os containers estejam ativos e saudáveis. Você pode verificar os logs com `docker-compose logs -f`.
+   Se você **não** for usar o Docker para o banco, aponte as variáveis para uma instância acessível manualmente.
 
-5.  **Executar Migrations (TypeORM):**
-    Após o container do banco de dados estar ativo e acessível, execute as migrations para criar as tabelas e estruturas necessárias.
-    ```bash
-    yarn typeorm migration:run
-    # ou o comando equivalente para o seu ORM e scripts definidos no package.json
-    ```
-    _Nota: Pode ser necessário executar este comando dentro do container da aplicação se o TypeORM CLI estiver configurado para rodar a partir do ambiente do container._
-    ```bash
-    # Exemplo para executar dentro do container (verifique o nome do serviço no docker-compose.yml):
-    # docker-compose exec NOME_DO_SERVICO_DA_APP yarn typeorm migration:run
-    ```
+4. **Suba os serviços de apoio:**
+
+   ```bash
+   yarn up          # docker-compose up: postgres, redis, minio, prometheus, grafana
+   ```
+
+   Aguarde os containers ficarem saudáveis (`docker compose logs -f`).
+
+5. **Rode as migrations:**
+
+   ```bash
+   yarn migration:run
+   ```
 
 ---
 
-## ▶️ Executando a Aplicação
+## ▶️ Executando a aplicação
 
-### Modo de Desenvolvimento
-
-Com o ambiente configurado e o banco de dados pronto, inicie a aplicação em modo de desenvolvimento (geralmente com hot-reload):
+**Desenvolvimento** (hot reload via `ts-node-dev`, debugger em `--inspect`):
 
 ```bash
 yarn dev
-# ou
-# npm run dev
 ```
 
-A API estará disponível em `http://localhost:PORTA_DEFINIDA_NO_.ENV` (ex: `http://localhost:3333`).
+A API responde em `http://localhost:$API_PORT` (por padrão `http://localhost:3333`), com o Swagger em `/api-docs`.
 
-### Modo de Produção (Build)
-
-Para gerar a build de produção:
+**Produção:**
 
 ```bash
-yarn build
+yarn build     # tsc + tsc-alias + copia o .env para build/
+yarn start     # node build/src/shared/infra/http/server.js
 ```
 
-E para iniciar a aplicação a partir da build:
+---
+
+## 🧪 Testes
+
+A suíte usa **uma única config** na raiz (`jest.config.ts`) que declara três _projects_ do Jest — `unit`, `integration` e `e2e` — cada um com escopo definido por `roots`.
+
+```
+tests/
+├── unit/          services com fakes em memória, sem I/O
+├── integration/   supertest contra Postgres + Redis reais
+├── e2e/           reservado, sem specs ainda
+└── support/       fakes/ + helpers/ + setup/ (nunca casado como teste)
+```
 
 ```bash
-yarn start
+yarn test                      # project unit (rápido, sem Docker)
+yarn test:integration:up       # sobe postgres-test (5433) e redis-test (6380)
+yarn test:integration          # project integration (serial)
+yarn test:integration:down     # derruba a infra e apaga os volumes
+yarn test:integration:local    # up + test + down
+yarn test:e2e                  # project e2e (hoje passa com 0 testes)
+yarn test:all                  # todos os projects, em série
+
+yarn test -- CreateProjectService.spec.ts      # um arquivo
+yarn test -- -t "should be able to create"     # por nome do caso
+yarn test -- --coverage                        # coverage (não é automático)
+TEST_LOGS=true yarn test:integration           # não silencia o LogProvider
 ```
 
-## 📜 Scripts Principais no `package.json`
+Estado atual: **67 casos unitários** e **95 de integração** verdes. Alguns casos de integração estão comentados de propósito, com um comentário `// BUG: arquivo:linha` acima — são bugs conhecidos ainda abertos, rastreados no `CHECKLIST.md`. O CI reprova enquanto houver achado aberto, e o job que publica a imagem não roda nesse período.
 
-Verifique o arquivo `package.json` para a lista completa de scripts. Alguns dos mais comuns podem ser:
+Os testes unitários usam **fakes**, não mocks nem banco: `tests/support/fakes/` implementa as interfaces de repositório e de provider em memória, e o service sob teste é construído com `new`, passando os fakes pelo construtor — a tsyringe fica de fora. Os testes de integração falam **só HTTP**; o banco é acessado diretamente apenas para inspecionar cifra/IV ou envelhecer o `created_at` de um token. O único override de container é o `EmailProvider`.
 
-- `dev`: Inicia o servidor em modo de desenvolvimento.
-- `typeorm`: Acesso à CLI do TypeORM para operações de banco de dados.
-- `typeorm: run`: Acesso as rodar as migrations do TypeORM para operações de banco de dados.
-- `typeorm: generate`: Acesso as geração de migrations do TypeORM para operações de banco de dados.
-- `up`: Sobe os containers Docker definidos no `docker-compose.yml`.
-- ***
+A infra de teste vem do `docker-compose.test.yml` (Postgres na 5433, Redis na 6380 — as mesmas portas dos `services:` do CI, por isso o `.env.test` é compartilhado).
 
-## 🏗️ Estrutura do Projeto
+---
+
+## 📜 Scripts do `package.json`
+
+| Script                         | O que faz                                       |
+| ------------------------------ | ----------------------------------------------- |
+| `dev`                          | Servidor em modo desenvolvimento com hot reload |
+| `build` / `build-local`        | Build de produção (com / sem copiar o `.env`)   |
+| `start`                        | Executa a build compilada                       |
+| `test*`                        | Suítes de teste (veja a seção acima)            |
+| `lint` / `lint:fix`            | ESLint, zero warnings tolerados                 |
+| `format` / `format:check`      | Prettier em `src/` e `tests/`                   |
+| `up`                           | Sobe os containers do `docker-compose.yml`      |
+| `migration:create -n <Nome>`   | Cria uma migration vazia                        |
+| `migration:generate -n <Nome>` | Gera a migration a partir do diff das entidades |
+| `migration:run`                | Aplica as migrations pendentes                  |
+| `migration:revert`             | Reverte a última migration                      |
+
+A config do CLI do TypeORM fica em `ormconfig.ts` (raiz), usada pelo driver `typeorm-ts-node-commonjs` nos comandos de migration — separada da conexão de runtime em `src/shared/infra/typeorm/index.ts`.
+
+---
+
+## 🏗️ Estrutura do projeto
 
 ```
 /
-├── dist/                     # Código transpilado para produção
-├── src/                      # Código fonte da aplicação
-│   ├── @types/               # Definições de tipos globais
-│   ├── config/               # Arquivos de configuração (auth, database, mail, upload)
-│   ├── modules/              # Módulos da aplicação (DDD: Domínios)
-│   │   ├── users/            # Exemplo de módulo de usuário
-│   │   │   ├── domain/       # Entidades, Repositórios (interfaces), Serviços de Domínio
-│   │   │   │   ├── models/
-│   │   │   │   └── repositories/
-│   │   │   ├── infra/        # Implementações de infraestrutura (TypeORM entities, repositories)
-│   │   │   │   ├── http/     # Controladores, rotas, middlewares específicos do módulo
-│   │   │   │   └── typeorm/
-│   │   │   └── services/     # Services (Application Services)
-│   ├── shared/               # Código compartilhado entre módulos
-│   │   ├── infra/            # Infraestrutura compartilhada (http server, typeorm connection)
-│   │   │   ├── http/
-│   │   │   └── typeorm/
-│   │   │       └── migrations/
-│   │   │
-│   │   ├── container/        # Configuração de injeção de dependência
-│   │   └── errors/           # Classes de erro personalizadas
-│   └── server.ts             # Ponto de entrada da aplicação
-├── .env.example              # Arquivo de exemplo para variáveis de ambiente
-├── .gitignore                # Arquivos e pastas ignorados pelo Git
-├── docker-compose.yml        # Configuração do Docker Compose
-├── Dockerfile                # Instruções para build da imagem Docker da aplicação
-├── package.json              # Metadados do projeto e dependências
-├── tsconfig.json             # Configuração do compilador TypeScript
-└── yarn.lock                 # Lockfile do Yarn
+├── build/                       # Código transpilado para produção
+├── docker/                      # Configs de apoio (ex: prometheus.yml)
+├── src/
+│   ├── @types/                  # Augmentations de tipo (ex: Express.Request)
+│   ├── config/                  # auth, upload, mail, etc.
+│   ├── docs/swagger.json        # Especificação servida em /api-docs
+│   ├── modules/                 # Um diretório por domínio
+│   │   ├── users/
+│   │   ├── projects/
+│   │   ├── tags/
+│   │   └── audit/
+│   └── shared/
+│       ├── container/           # Registro da injeção de dependência
+│       ├── errors/              # AppError + ErrorHandler
+│       ├── interfaces/
+│       ├── providers/           # cache, cookie, cryptography, email, jwt, logs, storage
+│       └── infra/
+│           ├── http/            # app.ts, server.ts, routes, middleware, health, metrics
+│           └── typeorm/         # conexão + migrations
+├── tests/                       # unit / integration / e2e / support
+├── .env.example                 # Modelo das variáveis de ambiente
+├── .env.test                    # Ambiente dos testes (versionado, sem segredo real)
+├── docker-compose.yml           # Stack de desenvolvimento
+├── docker-compose.test.yml      # Postgres 5433 + Redis 6380 para os testes
+├── Dockerfile
+├── jest.config.ts               # Config única, com os projects unit/integration/e2e
+├── ormconfig.ts                 # Config do CLI do TypeORM
+└── tsconfig.json
 ```
 
+Cada módulo em `src/modules/<domínio>/` segue o mesmo layering:
+
+- `domain/models/` — interfaces da entidade e DTOs de escrita (`ICreateX`, `IUpdateX`, `IX`)
+- `domain/repositories/` — **interfaces** de repositório (`IXRepository`), que os services consomem
+- `infra/typeorm/entities/` — classes `@Entity` do TypeORM
+- `infra/typeorm/repositories/` — implementações concretas das interfaces de domínio
+- `infra/http/controllers/` — controllers finos: leem a request, resolvem o service no container, chamam `execute()`, formatam a resposta
+- `infra/http/routes/` — encadeiam `isAuthenticated` + `requestValidation(schema)` + método do controller
+- `infra/http/schemas/` — um schema yup por ação, validado contra `{ body, params, query }`
+- `services/` — um caso de uso por classe, com um único `execute()`; regra de negócio mora aqui, não no controller
+- `mapper(s)/` e `dtos/` — conversão entre entidade e o que o service devolve
+
+### Path aliases
+
+O `tsconfig.json` define `@shared/*`, `@modules/*`, `@config/*`, `@utils/*`, `@tests/*` e `@docs/*` — usados em vez de imports relativos. A resolução em runtime vem de `tsconfig-paths/register` (dev) e `tsc-alias` (build); o Jest resolve os mesmos aliases pelo `moduleNameMapper` do `jest.config.ts`. Ao adicionar um alias novo, atualize os dois lugares.
+
+### Injeção de dependência
+
+Repositórios e providers são registrados como singletons em `src/shared/container/index.ts` sob tokens string (`'UsersRepository'`, `'CacheProvider'`, …). Os services declaram `@injectable()` e recebem as dependências por `@inject('Token')`; os controllers os obtêm com `container.resolve(SomeService)` — nunca com `new` fora dos testes. O container também troca o provider conforme o ambiente: `EtherealEmailProvider` em desenvolvimento e `NodeMailerProvider` fora dele, `MinioStorageProvider` ou `LocalStorageProvider` conforme `STORAGE_DISK`. `RefreshTokenService` é registrado como transiente — uma instância nova por resolve.
+
+### Erros
+
+`AppError` é o único erro esperado lançado pela aplicação, carregando `message`, `context` e `statusCode`. O `ErrorHandler`, montado por último em `app.ts`, formata as respostas de `AppError` e registra qualquer outra exceção como 500 com um `errorId` gerado, através do `LogProvider` injetado.
+
 ---
 
-## 🔒 Roadmap de Segurança
+## 🚢 CI/CD
 
-Veja o roadmap completo de evolução de segurança do Nimbus em **[ROADMAP.md](ROADMAP.md)** — desde o MVP até um Secrets Manager completo, dividido em 6 etapas progressivas.
+**CI** (`.github/workflows/ci.yml`), disparado em push e pull request:
+
+1. `lint` — Prettier `--check` e ESLint
+2. `test` — testes unitários, com upload do relatório de coverage
+3. `integration` — testes de integração com `services:` de Postgres e Redis
+4. `build` — `tsc` + `tsc-alias`
+5. `docker` — build multi-arquitetura e push da imagem para o GHCR, exigindo os jobs anteriores verdes
+
+O job de E2E já está escrito e comentado; basta descomentá-lo (e incluir `e2e` no `needs` do job `docker`) quando o primeiro spec entrar.
+
+**CD** (`.github/workflows/cd.yml`) — disparado pelo `workflow_run` do CI: valida os secrets obrigatórios, aplica as migrations num container efêmero da imagem nova e faz o deploy na VPS via SSH, com rollback revertendo a última migration.
 
 ---
 
-## 🤝 Como Contribuir
+## 🔒 Roadmap de segurança
 
-Este é um projeto de estudo, mas contribuições são bem-vindas! Se você tiver sugestões, melhorias ou correções:
+O roadmap completo de evolução de segurança está em **[ROADMAP.md](ROADMAP.md)** — do MVP até um Secrets Manager completo, dividido em 6 etapas progressivas. Consulte-o antes de mexer em autenticação, segredos ou infraestrutura.
 
-1.  Faça um **Fork** do projeto.
-2.  Crie uma nova **Branch** (`git checkout -b feature/sua-feature` ou `fix/seu-fix`).
-3.  Faça suas alterações e **Commit** (`git commit -m 'feat: Adiciona nova funcionalidade X'`). Siga o padrão de [Conventional Commits](https://www.conventionalcommits.org/).
-4.  Envie suas alterações para o seu fork (`git push origin feature/sua-feature`).
-5.  Abra um **Pull Request**.
+O **[CHECKLIST.md](CHECKLIST.md)** acompanha as etapas em execução e a lista de achados de segurança/robustez ainda abertos, cada um com o arquivo e a linha correspondentes.
+
+---
+
+## 🤝 Como contribuir
+
+Este é um projeto de estudo, mas contribuições são bem-vindas:
+
+1. Faça um **fork** do projeto.
+2. Crie uma **branch** (`git checkout -b feature/sua-feature` ou `fix/seu-fix`).
+3. Rode `yarn lint`, `yarn format:check` e `yarn test` antes de commitar.
+4. **Commit** seguindo [Conventional Commits](https://www.conventionalcommits.org/) (`git commit -m 'feat: adiciona funcionalidade X'`).
+5. Envie para o seu fork (`git push origin feature/sua-feature`) e abra um **Pull Request**.
 
 ---
 
 ## 📝 Licença
 
-Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE).
