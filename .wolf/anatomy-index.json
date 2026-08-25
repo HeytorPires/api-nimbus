@@ -198,15 +198,6 @@
       "updatedAt": "2026-08-25T14:00:39.181Z",
       "source": "scan"
     },
-    "logger.ts": {
-      "description": "",
-      "tokens": 16,
-      "hash": "a8325d9ce9274083",
-      "size": 54,
-      "mtimeMs": 1782326229464.659,
-      "updatedAt": "2026-08-25T14:00:39.181Z",
-      "source": "scan"
-    },
     "ormconfig.ts": {
       "description": "/infra/typeorm/entities/*.js'",
       "tokens": 220,

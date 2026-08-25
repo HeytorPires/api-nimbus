@@ -196,3 +196,10 @@
 |------|--------|---------|---------|--------|
 | 11:18 | README.md reescrito contra o código real (rotas, scripts, testes, CI/CD, estrutura) | README.md | ok | ~18k |
 | 11:42 | swagger.json reescrito: 24 operacoes reais, cookieAuth, envelope de paginacao, AppError/ValidationError | src/docs/swagger.json | valido (swagger-parser), 24/24 casam com o router | ~22k |
+
+## Session: 2026-08-25 14:33
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:18 | Auditoria da suíte e2e (project vazio) — mapeada infra de testes; discutida separação semântica unit/integration/e2e | jest.config.ts, tests/support/** (leitura) | integration está semanticamente correto; e2e só se paga como suíte de artefato (build compilado, conexão real, SIGTERM) | ~40k |
+| 15:32 | Resíduo do pino removido: logger.ts órfão apagado, alias PinoProvider renomeado para LogProvider | logger.ts (del), src/shared/errors/ErrorHandler.ts | grep -ri pino vazio; tsc/lint/format limpos; unit 67/67, integration 95/95, build-local ok | ~8k |

@@ -17,7 +17,6 @@
 - `eslint.config.mjs` — ESLint flat configuration (~132 tok)
 - `jest.config.ts` — Jest test configuration (unitário; ignora build/ e tests/integration/) (~842 tok)
 - `LICENSE` — Project license (~284 tok)
-- `logger.ts` (~16 tok)
 - `ormconfig.ts` — /infra/typeorm/entities/*.js' (~220 tok)
 - `package-lock.json` — npm lock file (~114050 tok)
 - `package.json` — Node.js package manifest (~1017 tok)

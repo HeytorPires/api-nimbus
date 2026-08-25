@@ -3,12 +3,12 @@ import { ErrorRequestHandler } from 'express';
 import moment from 'moment';
 import AppError from './AppError';
 import { container } from 'tsyringe';
-import PinoProvider from '@shared/providers/logs/implementations/LogProvider';
+import LogProvider from '@shared/providers/logs/implementations/LogProvider';
 import { requestContext } from '@config/context';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ErrorHandler: ErrorRequestHandler = (error, request, response, _next) => {
-  const logger = container.resolve<PinoProvider>('LogProvider');
+  const logger = container.resolve<LogProvider>('LogProvider');
 
   const context = requestContext.getStore();
 
