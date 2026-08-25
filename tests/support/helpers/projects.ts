@@ -1,5 +1,5 @@
 import { TestAgent } from './auth';
-import { connection } from '../setup/database';
+import { connection } from '@tests/support/setup/database';
 
 export const defaultProject = {
   title: 'Nimbus API',

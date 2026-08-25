@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-08-11T18:00:03.508Z",
-    "fileCount": 186,
+    "lastScanned": "2026-08-25T14:00:39.202Z",
+    "fileCount": 210,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "abc3fc15fe0c21ec49d89f3fea2b4408f46ca6a5f67a6f3c22306d3080b6f0e2",
-    "storeUpdatedAt": "2026-08-11T18:00:03.508Z"
+    "renderedHash": "27497cf00272bf957215499f49c6c71e9b635576444a74bcbac5bbdfa3ae6fe8",
+    "storeUpdatedAt": "2026-08-25T14:00:39.204Z"
   },
   "files": {
     ".claude/commands/reframe.md": {
@@ -14,8 +14,8 @@
       "tokens": 551,
       "hash": "17a75695be5d4629",
       "size": 2221,
-      "mtimeMs": 1786471203458.8843,
-      "updatedAt": "2026-08-11T18:00:03.473Z",
+      "mtimeMs": 1786973313653.115,
+      "updatedAt": "2026-08-25T14:00:39.172Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -23,8 +23,8 @@
       "tokens": 510,
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
-      "mtimeMs": 1786471203458.8843,
-      "updatedAt": "2026-08-11T18:00:03.473Z",
+      "mtimeMs": 1786973313657.1155,
+      "updatedAt": "2026-08-25T14:00:39.172Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -32,8 +32,8 @@
       "tokens": 328,
       "hash": "6d735b2c1c54a916",
       "size": 1323,
-      "mtimeMs": 1786471203274.8682,
-      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "mtimeMs": 1786973313657.1155,
+      "updatedAt": "2026-08-25T14:00:39.173Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -41,8 +41,17 @@
       "tokens": 514,
       "hash": "f68759bb50af5ee4",
       "size": 1799,
-      "mtimeMs": 1786471203274.8682,
-      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "mtimeMs": 1786973313657.1155,
+      "updatedAt": "2026-08-25T14:00:39.174Z",
+      "source": "scan"
+    },
+    ".dockerignore": {
+      "description": "Docker ignore rules",
+      "tokens": 249,
+      "hash": "7d9a30c2092ddb6b",
+      "size": 951,
+      "mtimeMs": 1786973313657.1155,
+      "updatedAt": "2026-08-25T14:00:39.175Z",
       "source": "scan"
     },
     ".editorconfig": {
@@ -51,7 +60,16 @@
       "hash": "954f15e36d8ee0ec",
       "size": 232,
       "mtimeMs": 1778988836074.754,
-      "updatedAt": "2026-08-11T18:00:03.474Z",
+      "updatedAt": "2026-08-25T14:00:39.176Z",
+      "source": "scan"
+    },
+    ".github/actions/setup-node-deps/action.yml": {
+      "description": "CI: Setup Node & dependencies",
+      "tokens": 318,
+      "hash": "7f8f1e88f1f5ae25",
+      "size": 1118,
+      "mtimeMs": 1786973313661.1157,
+      "updatedAt": "2026-08-25T14:00:39.176Z",
       "source": "scan"
     },
     ".github/pull_request_template.md": {
@@ -60,25 +78,25 @@
       "hash": "a79010913b09a01d",
       "size": 1425,
       "mtimeMs": 1781010940458.497,
-      "updatedAt": "2026-08-11T18:00:03.475Z",
+      "updatedAt": "2026-08-25T14:00:39.177Z",
       "source": "scan"
     },
     ".github/workflows/cd.yml": {
       "description": "CI: CD",
-      "tokens": 719,
-      "hash": "2272e4025972cdaa",
-      "size": 2533,
-      "mtimeMs": 1786453309413.2668,
-      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "tokens": 1436,
+      "hash": "aeba207f9cf68ae9",
+      "size": 5076,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     ".github/workflows/ci.yml": {
       "description": "CI: CI",
-      "tokens": 495,
-      "hash": "cfd9eb0e74f7e0cd",
-      "size": 1740,
-      "mtimeMs": 1786453252313.5588,
-      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "tokens": 1873,
+      "hash": "0e2084bb7dbbff82",
+      "size": 6618,
+      "mtimeMs": 1787666356724.2415,
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -87,7 +105,7 @@
       "hash": "51622cc5463a221e",
       "size": 149,
       "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.476Z",
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     ".prettierrc": {
@@ -96,70 +114,79 @@
       "hash": "29c569d9bdf89fd3",
       "size": 136,
       "mtimeMs": 1781009183628.2124,
-      "updatedAt": "2026-08-11T18:00:03.477Z",
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     "CHECKLIST.md": {
       "description": "🚀 Checklist de Profissionalização — Backend",
-      "tokens": 1466,
-      "hash": "5de99768a6cf10a8",
-      "size": 6075,
-      "mtimeMs": 1786455759363.9058,
-      "updatedAt": "2026-08-11T18:00:03.478Z",
+      "tokens": 3773,
+      "hash": "1c06373720291ea2",
+      "size": 15499,
+      "mtimeMs": 1787666390617.3389,
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     "CLAUDE.md": {
       "description": "OpenWolf",
-      "tokens": 1563,
-      "hash": "6e5aed9c63b0eb92",
-      "size": 6291,
-      "mtimeMs": 1786471203274.8682,
-      "updatedAt": "2026-08-11T18:00:03.479Z",
+      "tokens": 2024,
+      "hash": "3c0585b541c75eb3",
+      "size": 8221,
+      "mtimeMs": 1787666390609.3381,
+      "updatedAt": "2026-08-25T14:00:39.178Z",
       "source": "scan"
     },
     "docker/prometheus/prometheus.yml": {
       "description": "",
-      "tokens": 49,
-      "hash": "20987a4c1ddd2b0a",
-      "size": 169,
-      "mtimeMs": 1786454749472.1086,
-      "updatedAt": "2026-08-11T18:00:03.479Z",
+      "tokens": 46,
+      "hash": "53ca7582178cc825",
+      "size": 161,
+      "mtimeMs": 1786973313677.1174,
+      "updatedAt": "2026-08-25T14:00:39.179Z",
+      "source": "scan"
+    },
+    "docker-compose.test.yml": {
+      "description": "Postgres 5433 + Redis 6380 efêmeros (tmpfs) para os testes de integração; projeto compose `nimbus-test`",
+      "tokens": 296,
+      "hash": "45ed883196816ed7",
+      "size": 1043,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.179Z",
       "source": "scan"
     },
     "docker-compose.yml": {
       "description": "Docker Compose services",
-      "tokens": 655,
-      "hash": "d8cb2f3f871ede52",
-      "size": 2293,
-      "mtimeMs": 1786454763852.1377,
-      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "tokens": 759,
+      "hash": "75c70f79a475a779",
+      "size": 2658,
+      "mtimeMs": 1786973313677.1174,
+      "updatedAt": "2026-08-25T14:00:39.179Z",
       "source": "scan"
     },
     "Dockerfile": {
       "description": "Docker container definition",
-      "tokens": 181,
-      "hash": "b857def3a7347123",
-      "size": 683,
-      "mtimeMs": 1786371364518.7026,
-      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "tokens": 325,
+      "hash": "f38f3f1f76562d7e",
+      "size": 1240,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.180Z",
       "source": "scan"
     },
     "eslint.config.mjs": {
       "description": "ESLint flat configuration",
-      "tokens": 127,
-      "hash": "b0d4c67e4cac16e6",
-      "size": 474,
-      "mtimeMs": 1781009475626.112,
-      "updatedAt": "2026-08-11T18:00:03.480Z",
+      "tokens": 132,
+      "hash": "79b02c7c0b0470ca",
+      "size": 494,
+      "mtimeMs": 1786973313677.1174,
+      "updatedAt": "2026-08-25T14:00:39.180Z",
       "source": "scan"
     },
     "jest.config.ts": {
-      "description": "Jest test configuration",
-      "tokens": 2023,
-      "hash": "eccbab4efda788f9",
-      "size": 7080,
-      "mtimeMs": 1786454955781.446,
-      "updatedAt": "2026-08-11T18:00:03.482Z",
+      "description": "Jest test configuration (unitário; ignora build/ e tests/integration/)",
+      "tokens": 842,
+      "hash": "5339b0a4494bdfce",
+      "size": 2974,
+      "mtimeMs": 1787666184373.9622,
+      "updatedAt": "2026-08-25T14:00:39.181Z",
       "source": "scan"
     },
     "LICENSE": {
@@ -168,7 +195,7 @@
       "hash": "95b775d25f30fe04",
       "size": 1062,
       "mtimeMs": 1778988836078.7542,
-      "updatedAt": "2026-08-11T18:00:03.482Z",
+      "updatedAt": "2026-08-25T14:00:39.181Z",
       "source": "scan"
     },
     "logger.ts": {
@@ -177,7 +204,7 @@
       "hash": "a8325d9ce9274083",
       "size": 54,
       "mtimeMs": 1782326229464.659,
-      "updatedAt": "2026-08-11T18:00:03.483Z",
+      "updatedAt": "2026-08-25T14:00:39.181Z",
       "source": "scan"
     },
     "ormconfig.ts": {
@@ -186,7 +213,7 @@
       "hash": "5a4ae8131641cab2",
       "size": 767,
       "mtimeMs": 1782137687682.4402,
-      "updatedAt": "2026-08-11T18:00:03.483Z",
+      "updatedAt": "2026-08-25T14:00:39.181Z",
       "source": "scan"
     },
     "package-lock.json": {
@@ -195,25 +222,25 @@
       "hash": "badccc93f7fd1eea",
       "size": 399175,
       "mtimeMs": 1786371387760.3606,
-      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "updatedAt": "2026-08-25T14:00:39.184Z",
       "source": "scan"
     },
     "package.json": {
       "description": "Node.js package manifest",
-      "tokens": 880,
-      "hash": "425ed6995d6a63ff",
-      "size": 3077,
-      "mtimeMs": 1786454696407.18,
-      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "tokens": 1017,
+      "hash": "af8370a34dae7cce",
+      "size": 3559,
+      "mtimeMs": 1787666194110.9634,
+      "updatedAt": "2026-08-25T14:00:39.184Z",
       "source": "scan"
     },
     "README.md": {
       "description": "Project documentation",
-      "tokens": 2434,
-      "hash": "c52dfa94c80ddeb6",
-      "size": 10254,
-      "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.484Z",
+      "tokens": 2380,
+      "hash": "de2a3c017521ea31",
+      "size": 10037,
+      "mtimeMs": 1787666390617.3389,
+      "updatedAt": "2026-08-25T14:00:39.184Z",
       "source": "scan"
     },
     "ROADMAP.md": {
@@ -222,16 +249,16 @@
       "hash": "7f3f3429029bd3b6",
       "size": 4825,
       "mtimeMs": 1782326229464.659,
-      "updatedAt": "2026-08-11T18:00:03.485Z",
+      "updatedAt": "2026-08-25T14:00:39.184Z",
       "source": "scan"
     },
     "src/@types/express/index.d.ts": {
       "description": "Exports Request",
-      "tokens": 29,
-      "hash": "2f3f38650a9b493d",
-      "size": 100,
-      "mtimeMs": 1778988836078.7542,
-      "updatedAt": "2026-08-11T18:00:03.486Z",
+      "tokens": 36,
+      "hash": "6b013d91b34939b2",
+      "size": 125,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.184Z",
       "source": "scan"
     },
     "src/config/auth.ts": {
@@ -240,7 +267,16 @@
       "hash": "a5aa1cda7d2630a3",
       "size": 953,
       "mtimeMs": 1786371387760.3606,
-      "updatedAt": "2026-08-11T18:00:03.487Z",
+      "updatedAt": "2026-08-25T14:00:39.185Z",
+      "source": "scan"
+    },
+    "src/config/context.ts": {
+      "description": "Exports IRequestContext, requestContext",
+      "tokens": 68,
+      "hash": "a77274686f0f754b",
+      "size": 235,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/config/upload.ts": {
@@ -249,70 +285,70 @@
       "hash": "cc0805573292710a",
       "size": 576,
       "mtimeMs": 1781008853173.4446,
-      "updatedAt": "2026-08-11T18:00:03.488Z",
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/docs/swagger.json": {
       "description": "",
-      "tokens": 4745,
-      "hash": "f48c5d38ed970df4",
-      "size": 16605,
-      "mtimeMs": 1781010940794.5156,
-      "updatedAt": "2026-08-11T18:00:03.489Z",
+      "tokens": 4556,
+      "hash": "38b4e16b2bd3f98d",
+      "size": 15946,
+      "mtimeMs": 1787445059424.9836,
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/modules/projects/domain/models/ICreateProject.ts": {
       "description": "Exports ICreateProject",
-      "tokens": 54,
-      "hash": "901841dc97dde7b0",
-      "size": 187,
-      "mtimeMs": 1780953857520.6418,
-      "updatedAt": "2026-08-11T18:00:03.490Z",
+      "tokens": 53,
+      "hash": "2f7104c2d0f20b1c",
+      "size": 185,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/modules/projects/domain/models/IProject.ts": {
       "description": "Exports IProject",
-      "tokens": 118,
-      "hash": "f9962e273f774f4b",
-      "size": 413,
-      "mtimeMs": 1781006033907.8704,
-      "updatedAt": "2026-08-11T18:00:03.490Z",
+      "tokens": 117,
+      "hash": "998ca3b5bcc96508",
+      "size": 409,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/modules/projects/domain/models/IUpdateProject.ts": {
       "description": "Exports IUpdateProject",
       "tokens": 48,
-      "hash": "6c3e0277dbce14f8",
-      "size": 168,
-      "mtimeMs": 1780953857552.6462,
-      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "hash": "2b0e7c78715336ea",
+      "size": 166,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.185Z",
       "source": "scan"
     },
     "src/modules/projects/domain/repositories/IProjectRepository.ts": {
       "description": "Exports IProjectRepository",
-      "tokens": 214,
-      "hash": "2d04ddb63122b7d7",
-      "size": 746,
-      "mtimeMs": 1781008857061.7495,
-      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "tokens": 213,
+      "hash": "233c8900c6400a2e",
+      "size": 745,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.186Z",
       "source": "scan"
     },
     "src/modules/projects/dtos/IProjectDTO.ts": {
       "description": "Exports IProjectDTO",
-      "tokens": 60,
-      "hash": "29ded8b60328ddf8",
-      "size": 207,
-      "mtimeMs": 1781006033827.865,
-      "updatedAt": "2026-08-11T18:00:03.491Z",
+      "tokens": 58,
+      "hash": "0554c421b9eb293c",
+      "size": 203,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.186Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/controllers/ProjectsController.ts": {
       "description": "Exports ProjectsController",
-      "tokens": 756,
-      "hash": "37129820aaf56127",
-      "size": 2645,
-      "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "tokens": 768,
+      "hash": "e5e4f481791169f9",
+      "size": 2687,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.186Z",
       "source": "scan",
       "symbols": [
         {
@@ -320,7 +356,7 @@
           "kind": "class",
           "startLine": 9,
           "endLine": 79,
-          "tokens": 592
+          "tokens": 604
         }
       ]
     },
@@ -329,17 +365,17 @@
       "tokens": 376,
       "hash": "52f5dc1c03b1d7aa",
       "size": 1314,
-      "mtimeMs": 1781022483978.6917,
-      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "mtimeMs": 1787366517830.987,
+      "updatedAt": "2026-08-25T14:00:39.186Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/schemas/ICreateProjectSchema.ts": {
       "description": "Declares projectCreateSchema",
-      "tokens": 92,
-      "hash": "b919e0e678d8592b",
-      "size": 319,
-      "mtimeMs": 1780953859332.8828,
-      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "tokens": 91,
+      "hash": "8dafd4c80af354d9",
+      "size": 318,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/schemas/IDeleteProjectSchema.ts": {
@@ -348,7 +384,7 @@
       "hash": "53aa29306f265cd1",
       "size": 185,
       "mtimeMs": 1780949796454.2437,
-      "updatedAt": "2026-08-11T18:00:03.492Z",
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/schemas/IListProjectSchema.ts": {
@@ -357,7 +393,7 @@
       "hash": "93e05bb4c5d44fb9",
       "size": 263,
       "mtimeMs": 1780949796454.2437,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/schemas/IShowProjectSchema.ts": {
@@ -366,34 +402,34 @@
       "hash": "6e6f5d8287561286",
       "size": 181,
       "mtimeMs": 1780949796454.2437,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/http/schemas/IUpdateProjectSchema.ts": {
       "description": "Declares projectUpdateSchema",
       "tokens": 112,
-      "hash": "f988679c54946e18",
-      "size": 391,
-      "mtimeMs": 1780953857552.6462,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "hash": "b8fabde9e8109500",
+      "size": 390,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/typeorm/entities/Project.ts": {
       "description": "Declares Project",
-      "tokens": 313,
-      "hash": "25f26b5d8a73a020",
-      "size": 1094,
-      "mtimeMs": 1781008862534.1758,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "tokens": 324,
+      "hash": "c7bc171781274613",
+      "size": 1133,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/infra/typeorm/repositories/ProjectsRepository.ts": {
       "description": "Zustand store",
-      "tokens": 753,
-      "hash": "fa7fdd8e80da60dc",
-      "size": 2634,
-      "mtimeMs": 1781006547231.469,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "tokens": 752,
+      "hash": "2f8c0d6e798df1c5",
+      "size": 2629,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan",
       "symbols": [
         {
@@ -401,26 +437,26 @@
           "kind": "class",
           "startLine": 9,
           "endLine": 96,
-          "tokens": 595
+          "tokens": 594
         }
       ]
     },
     "src/modules/projects/mapper/ProjectMapper.ts": {
       "description": "Exports ProjectMapper",
-      "tokens": 190,
-      "hash": "5025f43770378e7f",
-      "size": 664,
-      "mtimeMs": 1781006033787.862,
-      "updatedAt": "2026-08-11T18:00:03.493Z",
+      "tokens": 188,
+      "hash": "72260f5fbfd3b453",
+      "size": 656,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/services/CreateProjectService.ts": {
       "description": "Declares CreateProjectService",
-      "tokens": 773,
-      "hash": "fcc4fa4ef2ecbb06",
-      "size": 2703,
-      "mtimeMs": 1782326229476.6604,
-      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "tokens": 770,
+      "hash": "8e0436464b97237c",
+      "size": 2693,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan",
       "symbols": [
         {
@@ -428,115 +464,115 @@
           "kind": "class",
           "startLine": 12,
           "endLine": 94,
-          "tokens": 565
+          "tokens": 562
         }
       ]
     },
     "src/modules/projects/services/DeleteProjectService.ts": {
       "description": "Declares DeleteProjectService",
-      "tokens": 192,
-      "hash": "ba0d12e3ebc8db9b",
-      "size": 672,
-      "mtimeMs": 1782326229480.6606,
-      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "tokens": 232,
+      "hash": "62a9382b00842ffd",
+      "size": 809,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/services/ListProjectService.ts": {
       "description": "Declares ListProjectService",
-      "tokens": 458,
-      "hash": "9f93a4a7c52fd6fa",
-      "size": 1600,
-      "mtimeMs": 1782130111767.2048,
-      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "tokens": 457,
+      "hash": "2bcca71c36a453dc",
+      "size": 1598,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/services/ShowProjectService.ts": {
       "description": "Declares ShowProjectService",
-      "tokens": 407,
-      "hash": "90bf8ce59e7e929d",
-      "size": 1423,
-      "mtimeMs": 1782326229480.6606,
-      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "tokens": 406,
+      "hash": "9f87735d06a4ab1f",
+      "size": 1421,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/projects/services/UpdateProjectService.ts": {
       "description": "Declares UpdateProjectService",
-      "tokens": 828,
-      "hash": "c31fecd88d3bdca0",
-      "size": 2896,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.494Z",
+      "tokens": 879,
+      "hash": "3b8f1c84881b1bad",
+      "size": 3075,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan",
       "symbols": [
         {
           "name": "UpdateProjectService",
           "kind": "class",
-          "startLine": 13,
-          "endLine": 91,
-          "tokens": 600
+          "startLine": 14,
+          "endLine": 96,
+          "tokens": 635
         }
       ]
     },
     "src/modules/tags/domain/models/ICreateTag.ts": {
       "description": "Exports ICreateTag",
-      "tokens": 21,
-      "hash": "b9ba2a2c05060812",
-      "size": 71,
-      "mtimeMs": 1781008893044.5945,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "tokens": 20,
+      "hash": "31a6f467f7908395",
+      "size": 70,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/tags/domain/models/ITag.ts": {
       "description": "Exports ITag",
-      "tokens": 52,
-      "hash": "a9c1c87229cd0eaa",
-      "size": 180,
-      "mtimeMs": 1781008897140.0793,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "tokens": 54,
+      "hash": "0c8a16ac644b0c4f",
+      "size": 188,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/tags/domain/models/IUpdateTag.ts": {
       "description": "Exports IUpdateTag",
       "tokens": 25,
-      "hash": "2fc8437ed10e6356",
-      "size": 86,
-      "mtimeMs": 1781008905708.7424,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "hash": "60965a4c1c8395ab",
+      "size": 85,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.187Z",
       "source": "scan"
     },
     "src/modules/tags/domain/repositories/ITagRepository.ts": {
       "description": "Exports ITagRepository",
-      "tokens": 194,
-      "hash": "12327a13283690ed",
-      "size": 676,
-      "mtimeMs": 1782128270978.3438,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "tokens": 176,
+      "hash": "ca81ebb2f314e776",
+      "size": 615,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/dtos/ITagDTO.ts": {
       "description": "Exports ITagDTO",
       "tokens": 30,
-      "hash": "84492b81fac14dcb",
-      "size": 104,
-      "mtimeMs": 1781008933328.9705,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "hash": "1f9bdc6355867c4a",
+      "size": 102,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/controllers/TagsController.ts": {
       "description": "Exports TagsController",
-      "tokens": 614,
-      "hash": "75c0e329d86563b2",
-      "size": 2147,
-      "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "tokens": 625,
+      "hash": "1b916b68bf2719e2",
+      "size": 2186,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan",
       "symbols": [
         {
           "name": "TagsController",
           "kind": "class",
           "startLine": 9,
-          "endLine": 63,
-          "tokens": 472
+          "endLine": 65,
+          "tokens": 482
         }
       ]
     },
@@ -545,8 +581,8 @@
       "tokens": 335,
       "hash": "9e849cfb323c3456",
       "size": 1170,
-      "mtimeMs": 1781021770314.3755,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "mtimeMs": 1787362583444.2217,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/schemas/ICreateTagSchema.ts": {
@@ -555,7 +591,7 @@
       "hash": "31954aab5f8b435d",
       "size": 161,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/schemas/IDeleteTagSchema.ts": {
@@ -564,7 +600,7 @@
       "hash": "9b69917a978ec394",
       "size": 177,
       "mtimeMs": 1780949796466.2446,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/schemas/IListTagSchema.ts": {
@@ -573,7 +609,7 @@
       "hash": "8b3629130f421ae4",
       "size": 255,
       "mtimeMs": 1780949796386.2378,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/schemas/IShowTagSchema.ts": {
@@ -582,7 +618,7 @@
       "hash": "4b5b80f1583c6f58",
       "size": 173,
       "mtimeMs": 1780949796466.2446,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/http/schemas/IUpdateTagSchema.ts": {
@@ -591,106 +627,115 @@
       "hash": "94bbadc217a81c80",
       "size": 230,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.495Z",
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/typeorm/entities/Tag.ts": {
       "description": "Declares Tag",
-      "tokens": 226,
-      "hash": "2bed966dabaac1fe",
-      "size": 789,
-      "mtimeMs": 1780945939072.9822,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 241,
+      "hash": "aba1fdd920d902c8",
+      "size": 841,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/infra/typeorm/repositories/TagsRepository.ts": {
       "description": "Zustand store",
-      "tokens": 622,
-      "hash": "789dda3b3d2bc70d",
-      "size": 2175,
-      "mtimeMs": 1780939135031.9521,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 608,
+      "hash": "fea803830058f44f",
+      "size": 2125,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan",
       "symbols": [
         {
           "name": "TagsRepository",
           "kind": "class",
-          "startLine": 8,
-          "endLine": 79,
-          "tokens": 495
+          "startLine": 7,
+          "endLine": 81,
+          "tokens": 498
         }
       ]
     },
     "src/modules/tags/mapper/TagMapper.ts": {
       "description": "Exports TagMapper",
-      "tokens": 109,
-      "hash": "1171e9606e944370",
-      "size": 381,
-      "mtimeMs": 1781004832430.0889,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 108,
+      "hash": "647a5be61c06b90b",
+      "size": 377,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/services/CreateTagService.ts": {
       "description": "Declares CreateTagService",
-      "tokens": 390,
-      "hash": "09ff93e4ed1e2291",
-      "size": 1362,
-      "mtimeMs": 1782326229480.6606,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 377,
+      "hash": "330ec1c8fb4acc09",
+      "size": 1318,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/services/DeleteTagService.ts": {
       "description": "Declares DeleteTagService",
-      "tokens": 176,
-      "hash": "8392ecc9fa18bf79",
-      "size": 616,
-      "mtimeMs": 1782326229484.6611,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 214,
+      "hash": "f0189b16b52c231d",
+      "size": 746,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/services/ListTagService.ts": {
       "description": "Declares ListTagService",
-      "tokens": 252,
-      "hash": "5ba307b66513834d",
-      "size": 879,
-      "mtimeMs": 1781004886106.8296,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 251,
+      "hash": "bf531a0da5734fb5",
+      "size": 877,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/services/ShowTagService.ts": {
       "description": "Declares ShowTagService",
       "tokens": 258,
-      "hash": "75219bf60041ad72",
-      "size": 902,
-      "mtimeMs": 1782326229484.6611,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "hash": "d6cb78fc39c7ca5b",
+      "size": 900,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/tags/services/UpdateTagService.ts": {
       "description": "Declares UpdateTagService",
-      "tokens": 389,
-      "hash": "90c1150237cd63c9",
-      "size": 1359,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
-      "source": "scan"
+      "tokens": 504,
+      "hash": "db5ff9dfec79938a",
+      "size": 1764,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "UpdateTagService",
+          "kind": "class",
+          "startLine": 11,
+          "endLine": 59,
+          "tokens": 357
+        }
+      ]
     },
     "src/modules/users/domain/dtos/UserDTO.ts": {
       "description": "Exports UserDTO",
-      "tokens": 44,
-      "hash": "978dde7ef2663e03",
-      "size": 153,
-      "mtimeMs": 1781010941150.5354,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 43,
+      "hash": "f9556ddb42c2e283",
+      "size": 150,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.188Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/ICreateSessions.ts": {
       "description": "Exports IRequestCreateSession, IResponseCreateSession",
-      "tokens": 101,
-      "hash": "89e660b2dd04ed36",
-      "size": 351,
-      "mtimeMs": 1786371387764.361,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "tokens": 72,
+      "hash": "57e852ac4da228c1",
+      "size": 251,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/ICreateUser.ts": {
@@ -699,7 +744,7 @@
       "hash": "b5297658f60c79f7",
       "size": 86,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/ICreateUserToken.ts": {
@@ -708,7 +753,7 @@
       "hash": "2f8126fb3352fceb",
       "size": 91,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/IResetPasswordUser.ts": {
@@ -717,7 +762,7 @@
       "hash": "83b989faca38969b",
       "size": 77,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.496Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/ISendForgotPasswordEmailUser.ts": {
@@ -726,43 +771,43 @@
       "hash": "9500f730de42cdfe",
       "size": 67,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/IUpdateProfileUser.ts": {
       "description": "Exports IUpdateProfileUser",
       "tokens": 39,
-      "hash": "14b83979998ccaa5",
-      "size": 136,
-      "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "hash": "af65fce26063c1c7",
+      "size": 134,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/IUpdateUserAvatar.ts": {
       "description": "Exports IUpdateUserAvatar",
       "tokens": 24,
-      "hash": "b55ead3aa932acc8",
-      "size": 84,
-      "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "hash": "7e2ced2c0a44b664",
+      "size": 83,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/IUser.ts": {
       "description": "Exports IUser",
       "tokens": 46,
-      "hash": "1a3102fe3caca36c",
-      "size": 161,
-      "mtimeMs": 1781008943053.7273,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "hash": "4fc00e9d27e66785",
+      "size": 159,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/models/IUserToken.ts": {
       "description": "Exports IUserToken",
-      "tokens": 35,
-      "hash": "19c6f18061dea123",
-      "size": 122,
-      "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "tokens": 34,
+      "hash": "efe2768baee20f97",
+      "size": 119,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/repositories/IUserRepository.ts": {
@@ -771,16 +816,16 @@
       "hash": "617f4e2612c43018",
       "size": 480,
       "mtimeMs": 1778988836082.7544,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/domain/repositories/IUserTokensRepository.ts": {
       "description": "Exports ICreateUserToken, IUserTokensRepository",
-      "tokens": 147,
-      "hash": "e13b56ba2fea11a2",
-      "size": 514,
-      "mtimeMs": 1783109636223.4365,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "tokens": 146,
+      "hash": "d1c022919423f2dd",
+      "size": 510,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/controllers/ForgotPasswordController.ts": {
@@ -788,17 +833,17 @@
       "tokens": 161,
       "hash": "e0dadc12316ebff9",
       "size": 561,
-      "mtimeMs": 1781880707712.8914,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "mtimeMs": 1787366210435.993,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/controllers/ProfileController.ts": {
       "description": "Exports ProfileController",
-      "tokens": 281,
-      "hash": "2f339736fd4e96ef",
-      "size": 981,
-      "mtimeMs": 1783023014287.33,
-      "updatedAt": "2026-08-11T18:00:03.497Z",
+      "tokens": 279,
+      "hash": "20f45571c0d58de4",
+      "size": 975,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/controllers/ResetPasswordController.ts": {
@@ -806,8 +851,8 @@
       "tokens": 156,
       "hash": "10a503be38e48435",
       "size": 546,
-      "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "mtimeMs": 1787367210783.9546,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/controllers/SessionsController.ts": {
@@ -815,8 +860,8 @@
       "tokens": 689,
       "hash": "79bfd7a2110f3a8e",
       "size": 2411,
-      "mtimeMs": 1786371387768.3616,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "mtimeMs": 1787361930697.2122,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan",
       "symbols": [
         {
@@ -830,11 +875,11 @@
     },
     "src/modules/users/infra/http/controllers/UserAvatarController.ts": {
       "description": "Exports UserAvatarController",
-      "tokens": 160,
-      "hash": "1c57d5a9648f3b5a",
-      "size": 557,
-      "mtimeMs": 1782326229488.6616,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "tokens": 159,
+      "hash": "1ef64f35ec37aa46",
+      "size": 556,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/controllers/UsersController.ts": {
@@ -842,8 +887,8 @@
       "tokens": 254,
       "hash": "6c791bbd89c8cb95",
       "size": 888,
-      "mtimeMs": 1782326229492.6619,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "mtimeMs": 1787361745074.1533,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/routes/password.routes.ts": {
@@ -852,7 +897,7 @@
       "hash": "13ac404a934b2e24",
       "size": 864,
       "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/routes/profile.routes.ts": {
@@ -861,7 +906,7 @@
       "hash": "c46c15bf077cd34f",
       "size": 653,
       "mtimeMs": 1782326229492.6619,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/routes/sessions.routes.ts": {
@@ -869,8 +914,8 @@
       "tokens": 241,
       "hash": "3b4aa3199ada2a54",
       "size": 842,
-      "mtimeMs": 1786371387772.362,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "mtimeMs": 1787361928532.983,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/routes/users.routes.ts": {
@@ -878,8 +923,8 @@
       "tokens": 286,
       "hash": "c2fbc8a36f2a5c92",
       "size": 1000,
-      "mtimeMs": 1782326229496.6624,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "mtimeMs": 1787361738423.9146,
+      "updatedAt": "2026-08-25T14:00:39.189Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/schemas/ICreateSessionSchema.ts": {
@@ -888,16 +933,16 @@
       "hash": "f055887222514b8c",
       "size": 209,
       "mtimeMs": 1778988836086.7546,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/schemas/ICreateUserSchema.ts": {
       "description": "Declares createUserSchema",
-      "tokens": 68,
-      "hash": "b14789424579b0dd",
-      "size": 238,
-      "mtimeMs": 1778988836086.7546,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "tokens": 74,
+      "hash": "d4acabda89a6ceb7",
+      "size": 257,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/schemas/IForgotPasswordSchema.ts": {
@@ -906,43 +951,43 @@
       "hash": "a2964524108be740",
       "size": 180,
       "mtimeMs": 1778988836086.7546,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/schemas/IResetPasswordSchema.ts": {
       "description": "Declares resetPasswordSchema",
       "tokens": 112,
-      "hash": "e5cd311ead54a914",
-      "size": 396,
-      "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.498Z",
+      "hash": "78165c20a6c0ad07",
+      "size": 395,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/http/schemas/IUpdateProfileSchema.ts": {
       "description": "Declares updateProfileSchema",
-      "tokens": 173,
-      "hash": "c87bd9304dec946b",
-      "size": 607,
-      "mtimeMs": 1778988836086.7546,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 172,
+      "hash": "b49ee98feac7b445",
+      "size": 605,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/typeorm/entities/User.ts": {
       "description": "Declares User",
       "tokens": 230,
-      "hash": "5db98c0cfa5330d8",
+      "hash": "78990b0845a5004a",
       "size": 802,
-      "mtimeMs": 1782326229496.6624,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/typeorm/entities/UserToken.ts": {
       "description": "Declares UserToken",
-      "tokens": 127,
-      "hash": "94ed724b9b12f432",
-      "size": 443,
-      "mtimeMs": 1781010941298.5437,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 136,
+      "hash": "8b8efe8f973614f9",
+      "size": 474,
+      "mtimeMs": 1787445059428.9841,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/typeorm/repositories/UsersRepository.ts": {
@@ -951,42 +996,42 @@
       "hash": "8428b570e2eef0ee",
       "size": 1468,
       "mtimeMs": 1778988836086.7546,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/infra/typeorm/repositories/UserTokensRepository.ts": {
       "description": "Declares UserTokensRepository",
-      "tokens": 456,
-      "hash": "e691e7966229211b",
-      "size": 1595,
-      "mtimeMs": 1786371387772.362,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 454,
+      "hash": "8b65c809cd247e87",
+      "size": 1588,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/mappers/userMapper.ts": {
       "description": "Exports UserMapper",
-      "tokens": 272,
-      "hash": "cc60db4538bc78e4",
-      "size": 951,
-      "mtimeMs": 1782326229496.6624,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 271,
+      "hash": "209ebfa732598780",
+      "size": 946,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/services/CreateSessionsService.ts": {
       "description": "Declares CreateSessionsService",
-      "tokens": 898,
-      "hash": "105e801812c8e74a",
-      "size": 3141,
-      "mtimeMs": 1786371387776.3625,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 895,
+      "hash": "cc0e605a07563984",
+      "size": 3132,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan",
       "symbols": [
         {
           "name": "CreateSessionsService",
           "kind": "class",
-          "startLine": 17,
+          "startLine": 19,
           "endLine": 104,
-          "tokens": 650
+          "tokens": 649
         }
       ]
     },
@@ -996,7 +1041,7 @@
       "hash": "4fffc8159008d55c",
       "size": 1197,
       "mtimeMs": 1782326229500.6628,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/services/ListUserService.ts": {
@@ -1005,25 +1050,25 @@
       "hash": "d45009bc019e5cb5",
       "size": 650,
       "mtimeMs": 1782326229500.6628,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/services/LogoutService.ts": {
       "description": "Declares LogoutService",
-      "tokens": 319,
-      "hash": "a144a1db2b50771d",
-      "size": 1115,
-      "mtimeMs": 1782326229500.6628,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 361,
+      "hash": "d388e9a2b93f9414",
+      "size": 1263,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.190Z",
       "source": "scan"
     },
     "src/modules/users/services/RefreshTokenService.ts": {
       "description": "Declares ITokenPayload",
       "tokens": 1005,
-      "hash": "c1b9e7b6458896a2",
-      "size": 3524,
-      "mtimeMs": 1786371387776.3625,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "hash": "655a97b0471c8755",
+      "size": 3522,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan",
       "symbols": [
         {
@@ -1051,74 +1096,74 @@
     },
     "src/modules/users/services/ResetPasswordservice.ts": {
       "description": "import { getCustomRepository } from 'typeorm';",
-      "tokens": 608,
-      "hash": "47fd944fa2cd77c9",
-      "size": 2127,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.499Z",
+      "tokens": 625,
+      "hash": "0add109ce4e092b7",
+      "size": 2187,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan",
       "symbols": [
         {
           "name": "ResetPasswordService",
           "kind": "class",
           "startLine": 14,
-          "endLine": 62,
-          "tokens": 395
+          "endLine": 64,
+          "tokens": 411
         }
       ]
     },
     "src/modules/users/services/SendForgotPasswordEmailService.ts": {
       "description": "Declares SendForgotPasswordEmailService",
-      "tokens": 792,
-      "hash": "66a36b48af27ae8d",
-      "size": 2769,
-      "mtimeMs": 1786371387776.3625,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 891,
+      "hash": "d4de732d77999473",
+      "size": 3116,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan",
       "symbols": [
         {
           "name": "SendForgotPasswordEmailService",
           "kind": "class",
-          "startLine": 11,
-          "endLine": 89,
-          "tokens": 610
+          "startLine": 12,
+          "endLine": 99,
+          "tokens": 692
         }
       ]
     },
     "src/modules/users/services/ShowProfileService.ts": {
       "description": "Declares ShowProfileService",
-      "tokens": 224,
-      "hash": "fa550ae47cbff782",
-      "size": 781,
-      "mtimeMs": 1782326229500.6628,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 223,
+      "hash": "f497ef8135090a10",
+      "size": 779,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan"
     },
     "src/modules/users/services/UpdateProfileService.ts": {
       "description": "Declares UpdateProfileService",
-      "tokens": 670,
-      "hash": "709dc99bd19f47b8",
-      "size": 2342,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 718,
+      "hash": "7b64d05665ea8a8f",
+      "size": 2511,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan",
       "symbols": [
         {
           "name": "UpdateProfileService",
           "kind": "class",
-          "startLine": 11,
-          "endLine": 78,
-          "tokens": 500
+          "startLine": 12,
+          "endLine": 83,
+          "tokens": 533
         }
       ]
     },
     "src/modules/users/services/UpdateUserAvatarService.ts": {
       "description": "Declares UpdateUserAvatarService",
-      "tokens": 470,
-      "hash": "88b65c658745aea0",
-      "size": 1644,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 469,
+      "hash": "3618dd95a1fb47fc",
+      "size": 1641,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan"
     },
     "src/modules/users/views/forgot_password.hbs": {
@@ -1127,7 +1172,7 @@
       "hash": "c114d4f687af8ba0",
       "size": 607,
       "mtimeMs": 1781814200811.2878,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "updatedAt": "2026-08-25T14:00:39.191Z",
       "source": "scan"
     },
     "src/shared/container/index.ts": {
@@ -1136,7 +1181,7 @@
       "hash": "5111f13031221ca1",
       "size": 3923,
       "mtimeMs": 1786371387776.3625,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/errors/AppError.ts": {
@@ -1144,35 +1189,44 @@
       "tokens": 91,
       "hash": "2982be3093cd34f4",
       "size": 316,
-      "mtimeMs": 1782326229504.6633,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "mtimeMs": 1787082304440.6414,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/errors/ErrorHandler.ts": {
       "description": "Declares ErrorHandler",
-      "tokens": 398,
-      "hash": "6e8a9e307ea124e2",
-      "size": 1393,
-      "mtimeMs": 1786459716787.5918,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 438,
+      "hash": "e3f861ebbd4cd4a5",
+      "size": 1530,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/app.ts": {
       "description": "API routes: GET (4 endpoints)",
-      "tokens": 533,
-      "hash": "b78b5f800f4e2834",
-      "size": 1864,
-      "mtimeMs": 1786459841692.1172,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "tokens": 566,
+      "hash": "7239e1d7e43b7711",
+      "size": 1979,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
-    "src/shared/infra/http/health/healthcheck.ts": {
+    "src/shared/infra/http/healthcheck.ts": {
       "description": "Exports healthHandler, readyHandler",
       "tokens": 316,
       "hash": "46c4d8f20b04b41a",
       "size": 1105,
-      "mtimeMs": 1786454663795.9226,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "mtimeMs": 1786973313677.1174,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/metrics.ts": {
+      "description": "Exports httpRequestDuration, metricsMiddleware, metricsHandler",
+      "tokens": 301,
+      "hash": "2d2d52997e112c79",
+      "size": 1051,
+      "mtimeMs": 1786973313677.1174,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/middleware/isAuthenticated.ts": {
@@ -1180,8 +1234,8 @@
       "tokens": 504,
       "hash": "c13e0ce1d1a45731",
       "size": 1761,
-      "mtimeMs": 1786371387780.3633,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "mtimeMs": 1787362014290.908,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan",
       "symbols": [
         {
@@ -1200,22 +1254,13 @@
         }
       ]
     },
-    "src/shared/infra/http/middleware/metrics.ts": {
-      "description": "Exports httpRequestDuration, metricsMiddleware, metricsHandler",
-      "tokens": 301,
-      "hash": "2d2d52997e112c79",
-      "size": 1051,
-      "mtimeMs": 1786455801933.5771,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
-      "source": "scan"
-    },
     "src/shared/infra/http/middleware/rateLimiter.ts": {
       "description": "redisCache: rateLimiter",
       "tokens": 236,
       "hash": "3ac26161fb38b1ce",
       "size": 826,
-      "mtimeMs": 1782326229508.6636,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "mtimeMs": 1787082148379.351,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/middleware/refreshTokenRateLimiter.ts": {
@@ -1224,7 +1269,16 @@
       "hash": "517fbeca07183276",
       "size": 1077,
       "mtimeMs": 1786371387784.3638,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
+      "source": "scan"
+    },
+    "src/shared/infra/http/middleware/requestContext.ts": {
+      "description": "Declares requestContextMiddleware",
+      "tokens": 125,
+      "hash": "23f1ebb127017080",
+      "size": 437,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/middleware/requestValidation.ts": {
@@ -1233,7 +1287,7 @@
       "hash": "e3fda71384ade943",
       "size": 778,
       "mtimeMs": 1781010941462.5527,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/routes/index.routes.ts": {
@@ -1242,7 +1296,7 @@
       "hash": "969fecb87e346094",
       "size": 992,
       "mtimeMs": 1782425832812.848,
-      "updatedAt": "2026-08-11T18:00:03.500Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/routes/index.ts": {
@@ -1251,7 +1305,7 @@
       "hash": "d01c41c517d4eedd",
       "size": 775,
       "mtimeMs": 1778988836090.755,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/http/server.ts": {
@@ -1260,7 +1314,7 @@
       "hash": "580def2175fedcae",
       "size": 296,
       "mtimeMs": 1782869242790.909,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/index.ts": {
@@ -1269,7 +1323,7 @@
       "hash": "73d00d935a9d8fca",
       "size": 167,
       "mtimeMs": 1782137687682.4402,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/migrations/1737498474377-CreateUsers.ts": {
@@ -1278,7 +1332,7 @@
       "hash": "773dab2312e65f39",
       "size": 1304,
       "mtimeMs": 1778988836090.755,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/migrations/1738429655796-CreateUserTokens.ts": {
@@ -1287,7 +1341,7 @@
       "hash": "38a55a83e18e6ad8",
       "size": 1510,
       "mtimeMs": 1781010941506.5552,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/migrations/1755221997757-CreateProjects.ts": {
@@ -1296,7 +1350,7 @@
       "hash": "f5b185da7018f8d7",
       "size": 2041,
       "mtimeMs": 1781010941518.556,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan",
       "symbols": [
         {
@@ -1314,7 +1368,7 @@
       "hash": "4f8e3bc432df9ebc",
       "size": 570,
       "mtimeMs": 1781010941534.557,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/migrations/1755715171256-CreateTableTags.ts": {
@@ -1323,7 +1377,7 @@
       "hash": "66a42aba4a147939",
       "size": 1399,
       "mtimeMs": 1781010941554.5579,
-      "updatedAt": "2026-08-11T18:00:03.501Z",
+      "updatedAt": "2026-08-25T14:00:39.192Z",
       "source": "scan"
     },
     "src/shared/infra/typeorm/migrations/1755717077159-AddColumntagIdToProjects.ts": {
@@ -1332,7 +1386,16 @@
       "hash": "6bf08ac2e9f62b1e",
       "size": 1078,
       "mtimeMs": 1781010941566.5586,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
+      "source": "scan"
+    },
+    "src/shared/infra/typeorm/migrations/1787368703953-RenameProjectColumnsToSnakeCase.ts": {
+      "description": "Renomeia projects.variablesEnvironment -> variables_environment e projects.InitializationVector -> initialization_vector; up/down simétricos via renameColumn",
+      "tokens": 221,
+      "hash": "41c102ec046708b2",
+      "size": 771,
+      "mtimeMs": 1787445059432.9844,
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/interfaces/IPaginationReturn.ts": {
@@ -1340,8 +1403,8 @@
       "tokens": 35,
       "hash": "0c9e27b2d0cfc750",
       "size": 122,
-      "mtimeMs": 1781814200815.2883,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "mtimeMs": 1787366531980.2832,
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cache/implementations/RedisCache.ts": {
@@ -1350,7 +1413,7 @@
       "hash": "852b098400ee61c4",
       "size": 914,
       "mtimeMs": 1782326229508.6636,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cache/models/ICacheProvider.ts": {
@@ -1359,7 +1422,7 @@
       "hash": "6dc7871d244873c7",
       "size": 248,
       "mtimeMs": 1782326229512.664,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cookie/implementations/CookieProvider.ts": {
@@ -1368,7 +1431,7 @@
       "hash": "a06b2e3550cb378f",
       "size": 2469,
       "mtimeMs": 1786371387784.3638,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan",
       "symbols": [
         {
@@ -1386,7 +1449,7 @@
       "hash": "3fc555dae3bd05f0",
       "size": 800,
       "mtimeMs": 1786371387784.3638,
-      "updatedAt": "2026-08-11T18:00:03.502Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cryptography/implementations/BcryptHashProvider.ts": {
@@ -1395,7 +1458,7 @@
       "hash": "bb89b135001c3e18",
       "size": 415,
       "mtimeMs": 1778988836090.755,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cryptography/implementations/CryptoProvider.ts": {
@@ -1404,7 +1467,7 @@
       "hash": "7346432a3757b0e9",
       "size": 1157,
       "mtimeMs": 1781700070022.01,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cryptography/models/ICryptographyProvider.ts": {
@@ -1413,7 +1476,7 @@
       "hash": "b4267fdbdb977c32",
       "size": 183,
       "mtimeMs": 1781010941618.5615,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/cryptography/models/IHashProvider.ts": {
@@ -1422,7 +1485,7 @@
       "hash": "87de17bee5ee35a0",
       "size": 151,
       "mtimeMs": 1781010941626.562,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/email/implementations/EtherealEmailProvider.ts": {
@@ -1431,7 +1494,7 @@
       "hash": "c02fafe1472a5974",
       "size": 2157,
       "mtimeMs": 1786371387784.3638,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan",
       "symbols": [
         {
@@ -1449,7 +1512,7 @@
       "hash": "467b29bb4b7c72fc",
       "size": 464,
       "mtimeMs": 1782326229512.664,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/email/implementations/NodeMailerProvider.ts": {
@@ -1458,7 +1521,7 @@
       "hash": "26e207b0e61a2a77",
       "size": 1202,
       "mtimeMs": 1786371387788.3643,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/email/models/ISendMail.ts": {
@@ -1467,7 +1530,7 @@
       "hash": "14d8e9624ec50dd3",
       "size": 366,
       "mtimeMs": 1782326229512.664,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/email/models/ISmtpProvider.ts": {
@@ -1476,7 +1539,7 @@
       "hash": "345b504c7eb7d89e",
       "size": 157,
       "mtimeMs": 1782326229516.6646,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/jwt/implementations/JsonWebTokenProvider.ts": {
@@ -1485,7 +1548,7 @@
       "hash": "4cade6103010f0c6",
       "size": 469,
       "mtimeMs": 1786371387788.3643,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/jwt/models/IJWTProvider.ts": {
@@ -1494,7 +1557,7 @@
       "hash": "6c5f84d154265725",
       "size": 213,
       "mtimeMs": 1786371387792.3647,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/logs/implementations/LogProvider.ts": {
@@ -1503,7 +1566,7 @@
       "hash": "d016e0eb86b8bfff",
       "size": 808,
       "mtimeMs": 1786459646752.6328,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/logs/models/ILogProvider.ts": {
@@ -1512,7 +1575,7 @@
       "hash": "841f315d680b3101",
       "size": 222,
       "mtimeMs": 1782326229516.6646,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/logs/models/IWriteLog.ts": {
@@ -1521,7 +1584,7 @@
       "hash": "1a0835c33b0325d4",
       "size": 159,
       "mtimeMs": 1782326229516.6646,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.193Z",
       "source": "scan"
     },
     "src/shared/providers/storage/implementations/LocalStorageProvider.ts": {
@@ -1530,7 +1593,7 @@
       "hash": "0f4208240580f64f",
       "size": 1441,
       "mtimeMs": 1782326229524.6653,
-      "updatedAt": "2026-08-11T18:00:03.503Z",
+      "updatedAt": "2026-08-25T14:00:39.194Z",
       "source": "scan"
     },
     "src/shared/providers/storage/implementations/MinioStorageProvider.ts": {
@@ -1539,7 +1602,7 @@
       "hash": "0d38b1e251d5fc85",
       "size": 1987,
       "mtimeMs": 1782326229524.6653,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "updatedAt": "2026-08-25T14:00:39.194Z",
       "source": "scan",
       "symbols": [
         {
@@ -1557,16 +1620,133 @@
       "hash": "a64ffb4e1e01f24b",
       "size": 302,
       "mtimeMs": 1782326229524.6653,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "updatedAt": "2026-08-25T14:00:39.194Z",
       "source": "scan"
     },
-    "tests/modules/projects/repositories/FakeProjectsRepository.ts": {
+    "tests/e2e/.gitkeep": {
+      "description": "",
+      "tokens": 0,
+      "hash": "e3b0c44298fc1c14",
+      "size": 0,
+      "mtimeMs": 1787666133556.4517,
+      "updatedAt": "2026-08-25T14:00:39.194Z",
+      "source": "scan"
+    },
+    "tests/integration/auth/auth.flow.spec.ts": {
+      "description": "22 casos: cadastro, login, profile, refresh (rotação de jti), logout, 4 bugs abertos",
+      "tokens": 2756,
+      "hash": "a294cbbce93b664a",
+      "size": 9686,
+      "mtimeMs": 1787666152439.917,
+      "updatedAt": "2026-08-25T14:00:39.194Z",
+      "source": "scan"
+    },
+    "tests/integration/projects/projects.crud.spec.ts": {
+      "description": "32 casos: CRUD, cifra AES no banco, decrypt, tag_id, paginação, cascade, 6 bugs abertos",
+      "tokens": 4622,
+      "hash": "11482cb8faece23d",
+      "size": 16234,
+      "mtimeMs": 1787666399046.1956,
+      "updatedAt": "2026-08-25T14:00:39.194Z",
+      "source": "scan"
+    },
+    "tests/integration/tags/tags.crud.spec.ts": {
+      "description": "20 casos: CRUD, unicidade por usuário, paginação, isolamento, 2 bugs abertos",
+      "tokens": 2537,
+      "hash": "c313236968a1e9d5",
+      "size": 8913,
+      "mtimeMs": 1787666152439.917,
+      "updatedAt": "2026-08-25T14:00:39.194Z",
+      "source": "scan"
+    },
+    "tests/integration/users/avatar.spec.ts": {
+      "description": "5 casos: upload multipart, avatar_url, GET /files/:filename, troca de avatar",
+      "tokens": 828,
+      "hash": "2efa0a558bb7b832",
+      "size": 2901,
+      "mtimeMs": 1787666152435.9165,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/integration/users/password.spec.ts": {
+      "description": "9 casos: forgot/reset com EmailProvider fake, token envelhecido, 2 bugs abertos",
+      "tokens": 1535,
+      "hash": "30f2ab56fad4f26d",
+      "size": 5381,
+      "mtimeMs": 1787666152439.917,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/integration/users/profile.crud.spec.ts": {
+      "description": "13 casos: /users/me, GET/PUT /profile, troca de senha revalidada por login",
+      "tokens": 1703,
+      "hash": "09145d47d05df4b0",
+      "size": 5976,
+      "mtimeMs": 1787666152439.917,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeCacheProvider.ts": {
+      "description": "Exports FakeCacheProvider",
+      "tokens": 171,
+      "hash": "f43f240ccceab876",
+      "size": 597,
+      "mtimeMs": 1787666152439.917,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeCryptoProvider.ts": {
+      "description": "Exports FakeCryptoProvider",
+      "tokens": 151,
+      "hash": "faa5632edb13758a",
+      "size": 528,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeEmailProvider.ts": {
+      "description": "Exports FakeEmailProvider",
+      "tokens": 66,
+      "hash": "9c96fce48fa4c686",
+      "size": 231,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeHashProvider.ts": {
+      "description": "Exports FakeHashProvider",
+      "tokens": 105,
+      "hash": "c779d14c67033561",
+      "size": 366,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeJWTProvider.ts": {
+      "description": "Exports FakeJWTProvider",
+      "tokens": 431,
+      "hash": "c612dbf702aaee73",
+      "size": 1507,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeLogProvider.ts": {
+      "description": "Exports FakeLogProvider",
+      "tokens": 116,
+      "hash": "0220a5683ab92c95",
+      "size": 405,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan"
+    },
+    "tests/support/fakes/FakeProjectsRepository.ts": {
       "description": "Declares FakeProjectsRepository",
-      "tokens": 890,
-      "hash": "2579db997f2ad6d1",
-      "size": 3112,
-      "mtimeMs": 1780946787644.284,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
+      "tokens": 886,
+      "hash": "6b5d613fd228a7ec",
+      "size": 3099,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
       "source": "scan",
       "symbols": [
         {
@@ -1574,125 +1754,44 @@
           "kind": "class",
           "startLine": 11,
           "endLine": 101,
-          "tokens": 686
+          "tokens": 682
         }
       ]
     },
-    "tests/modules/projects/unit/CreateProjectService.spec.ts": {
-      "description": "import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';",
-      "tokens": 1509,
-      "hash": "59290714ad690856",
-      "size": 5283,
-      "mtimeMs": 1782326229524.6653,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
+    "tests/support/fakes/FakeStorageProvider.ts": {
+      "description": "Exports FakeStorageProvider",
+      "tokens": 215,
+      "hash": "5bc16ca33f2a1b5e",
+      "size": 752,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
       "source": "scan"
     },
-    "tests/modules/projects/unit/DeleteProjectService.spec.ts": {
-      "description": "Declares project",
-      "tokens": 355,
-      "hash": "b669e29a8298f276",
-      "size": 1240,
-      "mtimeMs": 1781010941674.5647,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
-      "source": "scan"
-    },
-    "tests/modules/projects/unit/ListProjectService.spec.ts": {
-      "description": "Declares user_id",
-      "tokens": 833,
-      "hash": "dfef69fc87e8709e",
-      "size": 2915,
-      "mtimeMs": 1782326229524.6653,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
-      "source": "scan"
-    },
-    "tests/modules/projects/unit/ShowProjectService.spec.ts": {
-      "description": "Declares user_id",
-      "tokens": 563,
-      "hash": "4ad0a8baab0bbc0e",
-      "size": 1968,
-      "mtimeMs": 1782326229528.6658,
-      "updatedAt": "2026-08-11T18:00:03.504Z",
-      "source": "scan"
-    },
-    "tests/modules/projects/unit/UpdateProjectService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 1806,
-      "hash": "7da607c310a3492b",
-      "size": 6325,
-      "mtimeMs": 1782419838024.488,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/tags/repositories/FakeTagsRepository.ts": {
+    "tests/support/fakes/FakeTagsRepository.ts": {
       "description": "Declares FakeTagsRepository",
-      "tokens": 674,
-      "hash": "1e6ece9db6a7a7e1",
-      "size": 2358,
-      "mtimeMs": 1781010941746.5686,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "tokens": 651,
+      "hash": "b84c31ae087b3bc4",
+      "size": 2277,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
       "source": "scan",
       "symbols": [
         {
           "name": "FakeTagsRepository",
           "kind": "class",
           "startLine": 8,
-          "endLine": 88,
-          "tokens": 539
+          "endLine": 91,
+          "tokens": 540
         }
       ]
     },
-    "tests/modules/tags/unit/CreateTagService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 513,
-      "hash": "1cbd2d4a6387070c",
-      "size": 1797,
-      "mtimeMs": 1782326229528.6658,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/tags/unit/DeleteTagService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 383,
-      "hash": "9aea83579ec60141",
-      "size": 1340,
-      "mtimeMs": 1781010941758.5693,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/tags/unit/ListTagService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 809,
-      "hash": "69f7322168c3d851",
-      "size": 2832,
-      "mtimeMs": 1781010941766.5696,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/tags/unit/ShowTagService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 555,
-      "hash": "a6d9df1b36aa1979",
-      "size": 1943,
-      "mtimeMs": 1781010941782.5706,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/tags/unit/UpdateTagService.spec.ts": {
-      "description": "Declares user",
-      "tokens": 653,
-      "hash": "069c42155ae6f79b",
-      "size": 2284,
-      "mtimeMs": 1782419838028.4888,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
-      "source": "scan"
-    },
-    "tests/modules/user/repositories/FakeUsersRepository.ts": {
+    "tests/support/fakes/FakeUsersRepository.ts": {
       "description": "Declares FakeUsersRepository",
-      "tokens": 513,
-      "hash": "6277238ca3d5c045",
-      "size": 1795,
-      "mtimeMs": 1781010015695.462,
-      "updatedAt": "2026-08-11T18:00:03.505Z",
+      "tokens": 500,
+      "hash": "072d8babce6c8208",
+      "size": 1750,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
       "source": "scan",
       "symbols": [
         {
@@ -1704,13 +1803,13 @@
         }
       ]
     },
-    "tests/modules/user/repositories/FakeUsersTokensRepository.ts": {
+    "tests/support/fakes/FakeUsersTokensRepository.ts": {
       "description": "Declares FakeUserTokenRepository",
-      "tokens": 515,
-      "hash": "a37347a8b66a1057",
-      "size": 1800,
-      "mtimeMs": 1783109445156.5676,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 510,
+      "hash": "fa66006529fc6762",
+      "size": 1785,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
       "source": "scan",
       "symbols": [
         {
@@ -1718,170 +1817,356 @@
           "kind": "class",
           "startLine": 9,
           "endLine": 60,
-          "tokens": 412
+          "tokens": 407
         }
       ]
     },
-    "tests/modules/user/unit/CreateSessionsService.spec.ts": {
+    "tests/support/helpers/auth.ts": {
+      "description": "API routes: POST, GET (3 endpoints)",
+      "tokens": 616,
+      "hash": "04624197687ed327",
+      "size": 2156,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.195Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "createUser",
+          "kind": "fn",
+          "startLine": 16,
+          "endLine": 25,
+          "tokens": 77
+        },
+        {
+          "name": "login",
+          "kind": "fn",
+          "startLine": 26,
+          "endLine": 32,
+          "tokens": 46
+        },
+        {
+          "name": "authenticatedAgent",
+          "kind": "fn",
+          "startLine": 33,
+          "endLine": 46,
+          "tokens": 108
+        },
+        {
+          "name": "otherUserAgent",
+          "kind": "fn",
+          "startLine": 47,
+          "endLine": 54,
+          "tokens": 51
+        },
+        {
+          "name": "findUserTokens",
+          "kind": "fn",
+          "startLine": 55,
+          "endLine": 61,
+          "tokens": 55
+        },
+        {
+          "name": "findCachedSession",
+          "kind": "fn",
+          "startLine": 62,
+          "endLine": 69,
+          "tokens": 58
+        },
+        {
+          "name": "getSetCookie",
+          "kind": "fn",
+          "startLine": 70,
+          "endLine": 80,
+          "tokens": 75
+        }
+      ]
+    },
+    "tests/support/helpers/files.ts": {
+      "description": "Pasta onde o LocalStorageProvider e o multer gravam (<root>/uploads).",
+      "tokens": 376,
+      "hash": "e372b656fea587d3",
+      "size": 1325,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/helpers/http.ts": {
+      "description": "UUID válido que não existe em nenhuma tabela.",
+      "tokens": 89,
+      "hash": "c3029702b1a98ab3",
+      "size": 314,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/helpers/mail.ts": {
+      "description": "Substitui o EmailProvider do container por um fake.",
+      "tokens": 346,
+      "hash": "213a57d6e89de222",
+      "size": 1217,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/helpers/projects.ts": {
+      "description": "Colunas cruas do projeto no banco — usadas para provar que",
+      "tokens": 329,
+      "hash": "29faded80ec7e31a",
+      "size": 1156,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/helpers/tags.ts": {
+      "description": "API routes: POST (1 endpoints)",
+      "tokens": 100,
+      "hash": "f1cb4d5da28e4af9",
+      "size": 349,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/setup/database.ts": {
+      "description": "Cliente Redis do container. É o mesmo cliente que o `rateLimiter` usa, então",
+      "tokens": 371,
+      "hash": "d4c067203ab9443a",
+      "size": 1309,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/setup/env.ts": {
+      "description": "",
+      "tokens": 43,
+      "hash": "0496efae8a78226d",
+      "size": 150,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/setup/hooks.ts": {
+      "description": "Abre a conexão default esperando a infra subir.",
+      "tokens": 624,
+      "hash": "a9db0b9addde3215",
+      "size": 2197,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "connectWithRetry",
+          "kind": "fn",
+          "startLine": 21,
+          "endLine": 73,
+          "tokens": 387
+        }
+      ]
+    },
+    "tests/support/setup/ormconfig.ts": {
+      "description": "/infra/typeorm/entities/*.ts`],",
+      "tokens": 197,
+      "hash": "0d72aab147d78aac",
+      "size": 687,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/support/setup/typeormStub.ts": {
+      "description": "Stub de `@shared/infra/typeorm`.",
+      "tokens": 130,
+      "hash": "a5c9223e8b5b5e77",
+      "size": 467,
+      "mtimeMs": 1787666152443.9172,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/projects/CreateProjectService.spec.ts": {
+      "description": "import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';",
+      "tokens": 1457,
+      "hash": "1988ee0568dd2fe7",
+      "size": 5103,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/projects/DeleteProjectService.spec.ts": {
+      "description": "Declares project",
+      "tokens": 513,
+      "hash": "aa686f6afde7ef47",
+      "size": 1795,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/projects/ListProjectService.spec.ts": {
+      "description": "Declares userId",
+      "tokens": 830,
+      "hash": "80e66b20ee23e56f",
+      "size": 2904,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/projects/ShowProjectService.spec.ts": {
+      "description": "Declares userId",
+      "tokens": 562,
+      "hash": "e38dde459df48f78",
+      "size": 1965,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/projects/UpdateProjectService.spec.ts": {
       "description": "Declares user",
-      "tokens": 1082,
-      "hash": "7e7717c501f9cfef",
-      "size": 3796,
-      "mtimeMs": 1786371387792.3647,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 1740,
+      "hash": "62347ca557fd8961",
+      "size": 6092,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/CreateUserService.spec.ts": {
+    "tests/unit/modules/tags/CreateTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 495,
+      "hash": "962253d7a78009dc",
+      "size": 1735,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/tags/DeleteTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 377,
+      "hash": "3f7dc4221364177f",
+      "size": 1320,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/tags/ListTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 782,
+      "hash": "67bd6e0915d5ad44",
+      "size": 2739,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/tags/ShowTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 536,
+      "hash": "a524d47391a574cd",
+      "size": 1877,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/tags/UpdateTagService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 628,
+      "hash": "53e9d11c719f3292",
+      "size": 2199,
+      "mtimeMs": 1787666152455.9185,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/users/CreateSessionsService.spec.ts": {
+      "description": "Declares user",
+      "tokens": 1070,
+      "hash": "623a472419d9fd74",
+      "size": 3755,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
+      "source": "scan"
+    },
+    "tests/unit/modules/users/CreateUserService.spec.ts": {
       "description": "Declares User",
-      "tokens": 434,
-      "hash": "a491abc8eeb5430c",
-      "size": 1523,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 433,
+      "hash": "f5f517dd4d73b689",
+      "size": 1520,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.196Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/ListUserService.spec.ts": {
+    "tests/unit/modules/users/ListUserService.spec.ts": {
       "description": "Declares response",
       "tokens": 305,
-      "hash": "b289ce2b4de3d82f",
-      "size": 1066,
-      "mtimeMs": 1782326229532.6663,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "hash": "6e145afd799dcecb",
+      "size": 1067,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/LogoutService.spec.ts": {
+    "tests/unit/modules/users/LogoutService.spec.ts": {
       "description": "Declares userId",
-      "tokens": 614,
-      "hash": "3dc696457e5eabe6",
-      "size": 2148,
-      "mtimeMs": 1782326229532.6663,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 612,
+      "hash": "7bf81b1e29525de7",
+      "size": 2142,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/ResetPasswordService.spec.ts": {
+    "tests/unit/modules/users/ResetPasswordService.spec.ts": {
       "description": "Declares User",
-      "tokens": 840,
-      "hash": "ce51c3b5c353357e",
-      "size": 2946,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 839,
+      "hash": "7a7445b8bcbe3f53",
+      "size": 2941,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/SendForgotPasswordEmailService.spec.ts": {
+    "tests/unit/modules/users/SendForgotPasswordEmailService.spec.ts": {
       "description": "Declares generateSpy",
-      "tokens": 633,
-      "hash": "4ba2c92b334cbd75",
-      "size": 2217,
-      "mtimeMs": 1783109201984.7087,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 634,
+      "hash": "3882f60c56ba4327",
+      "size": 2219,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/ShowProfileService.spec.ts": {
+    "tests/unit/modules/users/ShowProfileService.spec.ts": {
       "description": "Declares id",
-      "tokens": 667,
-      "hash": "c6c5d32c36312230",
-      "size": 2336,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 664,
+      "hash": "2f5390af232208d3",
+      "size": 2326,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/UpdateProfileService.spec.ts": {
+    "tests/unit/modules/users/UpdateProfileService.spec.ts": {
       "description": "Declares createdUser",
-      "tokens": 991,
-      "hash": "98615e0d03dcf1c1",
-      "size": 3477,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 987,
+      "hash": "264f52133749091c",
+      "size": 3463,
+      "mtimeMs": 1787666152451.9182,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/modules/user/unit/UpdateUserAvatarService.spec.ts": {
+    "tests/unit/modules/users/UpdateUserAvatarService.spec.ts": {
       "description": "Declares user",
-      "tokens": 642,
-      "hash": "336522518aa67065",
-      "size": 2247,
-      "mtimeMs": 1782419838028.4888,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 640,
+      "hash": "fb8c035c3703b1c5",
+      "size": 2239,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/providers/fakes/FakeCacheProvider.ts": {
-      "description": "Exports FakeCacheProvider",
-      "tokens": 171,
-      "hash": "f43f240ccceab876",
-      "size": 597,
-      "mtimeMs": 1782326229540.667,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeCryptoProvider.ts": {
-      "description": "Exports FakeCryptoProvider",
-      "tokens": 151,
-      "hash": "faa5632edb13758a",
-      "size": 528,
-      "mtimeMs": 1782326229540.667,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeEmailProvider.ts": {
-      "description": "Exports FakeEmailProvider",
-      "tokens": 66,
-      "hash": "9c96fce48fa4c686",
-      "size": 231,
-      "mtimeMs": 1782326229540.667,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeHashProvider.ts": {
-      "description": "Exports FakeHashProvider",
-      "tokens": 108,
-      "hash": "75760ba61a144fe9",
-      "size": 378,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeJWTProvider.ts": {
-      "description": "Exports FakeJWTProvider",
-      "tokens": 431,
-      "hash": "c612dbf702aaee73",
-      "size": 1507,
-      "mtimeMs": 1786371387796.3655,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeLogProvider.ts": {
-      "description": "Exports FakeLogProvider",
-      "tokens": 116,
-      "hash": "0220a5683ab92c95",
-      "size": 405,
-      "mtimeMs": 1782326229544.6675,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/fakes/FakeStorageProvider.ts": {
-      "description": "Exports FakeStorageProvider",
-      "tokens": 215,
-      "hash": "5bc16ca33f2a1b5e",
-      "size": 752,
-      "mtimeMs": 1782326229544.6675,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
-      "source": "scan"
-    },
-    "tests/providers/unit/EmailProvider.spec.ts": {
+    "tests/unit/providers/EmailProvider.spec.ts": {
       "description": "Declares sendMailMock",
-      "tokens": 706,
-      "hash": "fc378d78dba4e255",
-      "size": 2470,
-      "mtimeMs": 1782326229544.6675,
-      "updatedAt": "2026-08-11T18:00:03.506Z",
+      "tokens": 703,
+      "hash": "4021084ebd6b49f9",
+      "size": 2458,
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
-    "tests/shared/http/health.spec.ts": {
+    "tests/unit/shared/http/health.spec.ts": {
       "description": "API routes: GET (3 endpoints)",
       "tokens": 561,
       "hash": "b97083c84705ef5a",
       "size": 1961,
-      "mtimeMs": 1786455802545.5793,
-      "updatedAt": "2026-08-11T18:00:03.507Z",
+      "mtimeMs": 1787666152447.9177,
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     },
     "tsconfig.json": {
@@ -1890,7 +2175,7 @@
       "hash": "5ea0d87d87a99321",
       "size": 1468,
       "mtimeMs": 1780930142038.5107,
-      "updatedAt": "2026-08-11T18:00:03.507Z",
+      "updatedAt": "2026-08-25T14:00:39.197Z",
       "source": "scan"
     }
   }

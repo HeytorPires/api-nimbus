@@ -1,13 +1,13 @@
 import app from '@shared/infra/http/app';
 
-import { authenticatedAgent } from '../helpers/auth';
-import { anonymous } from '../helpers/http';
+import { authenticatedAgent } from '@tests/support/helpers/auth';
+import { anonymous } from '@tests/support/helpers/http';
 import {
   fileNameFromUrl,
   pngFixture,
   removeUpload,
   uploadExists,
-} from '../helpers/files';
+} from '@tests/support/helpers/files';
 
 describe('PATCH /users/avatar (integração)', () => {
   /** Arquivos gravados em <root>/uploads durante o teste, limpos no afterEach. */

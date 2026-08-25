@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import DeleteProjectService from '@modules/projects/services/DeleteProjectService';
-import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
+import FakeProjectsRepository from '@tests/support/fakes/FakeProjectsRepository';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let deleteProject: DeleteProjectService;

@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import SendForgotPasswordEmailService from '@modules/users/services/SendForgotPasswordEmailService';
-import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
-import FakeEmailProvider from '../../../providers/fakes/FakeEmailProvider';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakeUserTokenRepository from '@tests/support/fakes/FakeUsersTokensRepository';
+import FakeEmailProvider from '@tests/support/fakes/FakeEmailProvider';
+import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokenRepository;

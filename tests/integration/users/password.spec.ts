@@ -2,10 +2,10 @@ import request from 'supertest';
 
 import app from '@shared/infra/http/app';
 
-import { authenticatedAgent, login } from '../helpers/auth';
-import { anonymous, missingUuid } from '../helpers/http';
-import { useFakeEmailProvider } from '../helpers/mail';
-import { connection } from '../setup/database';
+import { authenticatedAgent, login } from '@tests/support/helpers/auth';
+import { anonymous, missingUuid } from '@tests/support/helpers/http';
+import { useFakeEmailProvider } from '@tests/support/helpers/mail';
+import { connection } from '@tests/support/setup/database';
 
 describe('Password forgot/reset (integração)', () => {
   beforeEach(() => {

@@ -7,8 +7,8 @@ import {
   createUser,
   defaultCredentials,
   login,
-} from '../helpers/auth';
-import { anonymous } from '../helpers/http';
+} from '@tests/support/helpers/auth';
+import { anonymous } from '@tests/support/helpers/http';
 
 describe('Users e Profile CRUD (integração)', () => {
   describe('GET /users/me', () => {

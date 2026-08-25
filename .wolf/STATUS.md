@@ -2,11 +2,52 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-22
+> Last updated: 2026-08-25
 
 ---
 
 ## ✅ Done
+
+### Estrutura de testes unificada (2026-08-25)
+
+Uma config só: `jest.config.ts` na raiz com três *projects* do Jest — `unit`, `integration`, `e2e` —
+cada um com escopo declarado por `roots`. `jest.config.integration.ts` foi deletado.
+
+```
+tests/
+├── unit/          modules/{users,projects,tags}, providers, shared/http
+├── integration/   {auth,users,projects,tags}   (specs não se moveram)
+├── e2e/           reservado, só .gitkeep
+└── support/       fakes/ + helpers/ + setup/   (era espalhado em 4 lugares)
+```
+
+- Todo import entre diretórios de `tests/` passou a usar o alias `@tests/*`; relativo só entre irmãos.
+- `yarn test` = project `unit`. Novos: `yarn test:e2e`, `yarn test:all` (tudo em série).
+- Cada tipo é invocado por `--selectProjects`: `maxWorkers` não é aceito dentro de `projects`, e a
+  integração precisa ser serial — daí o `--runInBand` nos scripts.
+- Coverage ficou na raiz da config (o Jest ignora essas opções dentro de um project) e deixou de ser
+  automático: vem por `--coverage`, como o CI já fazia.
+- CI: job `test` renomeado para "Unit tests", job `e2e` já escrito e **comentado** no `ci.yml` — quando
+  o primeiro spec entrar, descomentar e incluir `e2e` no `needs` do job `docker`.
+- Verde: 67 unit + 95 integration = 162 casos; `yarn test:e2e` passa com 0. `tsc --noEmit` e `lint` limpos.
+
+### CHECKLIST.md auditado contra o código (2026-08-23)
+
+`yarn test:integration` = **95 casos, 6 suítes, todos verdes** (verificado rodando
+`test:integration:local`); `yarn test` 67/67; `yarn lint` limpo. Dos 14 achados que
+falhavam de propósito, 11 já estão corrigidos no código: autorização por dono em
+`DeleteProjectService`/`DeleteTagService`, defaults de paginação em `ProjectsController.list`,
+`findAndCount()` no `ProjectsRepository.list`, statusCodes 404/403 no `UpdateProjectService`,
+duplicidade de nome no `UpdateTagService`, `.email()` no `ICreateUserSchema` e
+`deleteByToken` no `ResetPasswordservice`.
+
+Os 3 achados restantes viraram testes **comentados** com o `// BUG:` acima (access token sem
+`jti`, sessão fora do Redis, desvínculo de tag no `PUT /projects/:id`) — descomentar depois
+de corrigir. A Etapa 1 fechou: todos os services listados leem `requestContext.getStore()`;
+só `ResetPasswordservice.ts:52-56` ainda loga sem `requestId`.
+
+CHECKLIST.md reescrito: Etapa 1 item 3 marcado, Etapa 7 dividida em "Achados corrigidos"
+e "Achados ainda abertos", tabela de prioridade atualizada.
 
 ### Nomes padronizados: banco snake_case, código e HTTP camelCase (2026-08-22)
 
@@ -104,18 +145,21 @@ Docker; `yarn lint`, `yarn format:check` e `yarn build-local` limpos.
 
 ## 🚀 Next phase
 
-**Goal:** fechar os 3 achados restantes e levar `yarn test:integration` a 98 casos verdes, desbloqueando o job `docker` do CI.
+**Goal:** fechar os 3 achados de auth/projects que sobraram (testes já escritos e comentados nos specs) e emendar na Etapa 3 do CHECKLIST — graceful shutdown.
 
 ### Acceptance criteria
-1. `isAuthenticated` recusando access token assinado sem `jti` (`auth.flow.spec.ts:266`)
+1. `isAuthenticated` recusando access token assinado sem `jti` — descomentar `auth.flow.spec.ts:262-271`
 2. Sessão ausente do Redis derrubando o token: `LogoutService` tem que apagar a linha de
-   `user_tokens` mesmo com o cache já expirado, senão a linha órfã continua autenticando
-   (`auth.flow.spec.ts:255`)
+   `user_tokens` mesmo com o cache já expirado, senão a linha órfã continua autenticando —
+   descomentar `auth.flow.spec.ts:253-258`
 3. Decidir o desvínculo de tag no `PUT /projects/:id` — hoje `UpdateProjectService.ts:50-67`
-   mantém a tag atual quando `tagId` é omitido (`projects.crud.spec.ts:368`)
+   mantém a tag atual quando `tagId` é omitido (`projects.crud.spec.ts:367-374`)
+4. `yarn test:integration` de volta a 98 casos verdes com os três descomentados
 
-Fora da suíte, ainda aberto: `GET /files/:filename` inexistente pendura a request
-(`app.ts:43-62` — tratar o evento `error` do stream) e por isso não tem teste.
+Também abertos, sem teste (lista completa no CHECKLIST.md, "Achados ainda abertos"):
+`GET /files/:filename` inexistente pendura a request (`app.ts:43-62` — tratar o evento `error`
+do stream), enumeração de contas no `POST /password/forgot`, `POST /users` sem `id` na resposta,
+nome do cookie hardcoded no `isAuthenticated`, `/metrics` sem autenticação.
 
 ### Closed decisions
 - Uma suíte de integração só: casos de bug dentro do `describe` da rota, `it()` normal, sem `it.failing`/`skip`
@@ -149,11 +193,13 @@ Fora da suíte, ainda aberto: `GET /files/:filename` inexistente pendura a reque
 ## 🔧 Useful commands
 
 ```bash
-yarn test                      # unitário, sem Docker (~5 min, coverage sempre ligado)
+yarn test                      # project unit, sem Docker (~30 s; coverage só com --coverage)
 yarn test:integration:up       # sobe postgres-test (5433) + redis-test (6380)
-yarn test:integration          # suíte de integração (serial)
+yarn test:integration          # project integration (serial)
 yarn test:integration:down     # derruba a infra e apaga os volumes
 yarn test:integration:local    # up + test + down
+yarn test:e2e                  # project e2e (hoje passa com 0 testes)
+yarn test:all                  # todos os projects, em série
 TEST_LOGS=true yarn test:integration   # não silencia o LogProvider
 yarn lint && yarn format:check && yarn build-local
 ```

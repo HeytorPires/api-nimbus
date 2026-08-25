@@ -23,8 +23,10 @@ jobs: # Definição dos jobs do workflow
       - name: Run ESLint
         run: yarn lint
 
+  # Suite unitaria: `jest --selectProjects unit` (jest.config.ts, project `unit`).
+  # Servicos com fakes, sem Postgres/Redis.
   test:
-    name: Tests
+    name: Unit tests
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
@@ -44,7 +46,8 @@ jobs: # Definição dos jobs do workflow
           path: coverage/
 
   # Testes de integração: batem no Express via supertest contra Postgres e Redis
-  # reais. Job separado do `test` para manter a suíte unitária rápida e sem infra.
+  # reais (`jest --selectProjects integration`). Job separado do `test` para
+  # manter a suíte unitária rápida e sem infra.
   integration:
     name: Integration tests
     timeout-minutes: 15
@@ -83,6 +86,45 @@ jobs: # Definição dos jobs do workflow
       # As migrations são aplicadas pelo próprio setup do Jest (hooks.ts).
       - name: Run integration tests
         run: yarn test:integration
+
+  # Slot de e2e: o project `e2e` já existe em jest.config.ts, mas tests/e2e/ está
+  # vazio. Descomentar quando o primeiro spec entrar (e então incluir `e2e` no
+  # `needs` do job `docker`).
+  #
+  # e2e:
+  #   name: E2E tests
+  #   timeout-minutes: 20
+  #   runs-on: ubuntu-latest
+  #
+  #   services:
+  #     postgres:
+  #       image: postgres:17-alpine
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: docker
+  #         POSTGRES_DB: nimbus_test
+  #       ports:
+  #         - '5433:5432'
+  #       options: >-
+  #         --health-cmd "pg_isready -U postgres -d nimbus_test"
+  #         --health-interval 2s
+  #         --health-timeout 3s
+  #         --health-retries 15
+  #     redis:
+  #       image: redis:7-alpine
+  #       ports:
+  #         - '6380:6379'
+  #       options: >-
+  #         --health-cmd "redis-cli ping"
+  #         --health-interval 2s
+  #         --health-timeout 3s
+  #         --health-retries 15
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ./.github/actions/setup-node-deps
+  #     - name: Run e2e tests
+  #       run: yarn test:e2e
 
   build:
     name: Build

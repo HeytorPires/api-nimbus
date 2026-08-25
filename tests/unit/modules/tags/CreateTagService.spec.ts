@@ -1,7 +1,7 @@
 import CreateTagService from '@modules/tags/services/CreateTagService';
 import AppError from '@shared/errors/AppError';
-import FakeUsersRepository from '../../../modules/user/repositories/FakeUsersRepository';
-import FakeTagsRepository from '../repositories/FakeTagsRepository';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakeTagsRepository from '@tests/support/fakes/FakeTagsRepository';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;

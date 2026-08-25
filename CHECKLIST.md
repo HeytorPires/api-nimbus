@@ -35,7 +35,7 @@ Este checklist complementa o `ROADMAP.md` (foco em segurança). Cada item foi ch
 
 - [x] Middleware gerando UUID por requisição, capturando IP real — `requestContext.ts` gera `randomUUID()`, seta `request.id`; `app.ts` liga `app.set('trust proxy', 1)` (há proxy reverso na VPS) antes do middleware, então `request.ip` resolve o `X-Forwarded-For` corretamente
 - [x] Propagar via `AsyncLocalStorage` — `src/config/context.ts` (`requestContext: AsyncLocalStorage<IRequestContext>`), `requestContextMiddleware` envolve `next()` inteiro em `requestContext.run(...)`, disponível em qualquer ponto da cadeia async da requisição
-- [~] Atualizar todos os pontos de log listados acima pra herdar o `requestId` do contexto — `LogoutService.ts` migrado e corrigido: lê `requestContext.getStore()` dentro do `execute()` com `?.` (não guarda em propriedade de instância no construtor), 3 testes de `LogoutService.spec.ts` passando. Pendente: `SendForgotPasswordEmailService.ts`, `UpdateProfileService.ts`, `UpdateTagService.ts`, `UpdateProjectService.ts` e `CreateSessionsService.ts` (`requestIp: 'N/A'` fixo) ainda não migrados
+- [x] Atualizar todos os pontos de log listados acima pra herdar o `requestId` do contexto — `LogoutService`, `CreateSessionsService` (`requestIp` fixo eliminado), `SendForgotPasswordEmailService`, `UpdateProfileService`, `UpdateTagService` e `UpdateProjectService` leem `requestContext.getStore()` dentro do `execute()` com `?.` (nunca guardando o store em propriedade de instância no construtor). Sobra só `ResetPasswordservice.ts:52-56`, que ainda loga sem `requestId`/`requestIp`
 - [x] Unificar `errorId` do `ErrorHandler.ts` com o `requestId` de correlação — `ErrorHandler.ts` agora lê `requestContext.getStore()` (com `?.`, sem crash se vazio) em vez de gerar `randomUUID()` isolado; `requestId` correlacionado aparece no log e na resposta JSON de erro (400 e 500)
 
 ---
@@ -98,14 +98,13 @@ Este checklist complementa o `ROADMAP.md` (foco em segurança). Cada item foi ch
 > **Custo:** Médio · **Valor agregado:** ⭐⭐⭐⭐
 
 - [x] `supertest` batendo endpoint real contra banco de teste — optamos por `docker-compose.test.yml` (Postgres 17 + Redis 7 em portas 5433/6380, dados em `tmpfs`) em vez de testcontainers, para não adicionar dependência nem tempo de startup. Config própria em `jest.config.integration.ts`; `.env.test` versionado; `tests/integration/setup/hooks.ts` abre a conexão, aplica as migrations e faz `TRUNCATE` + `FLUSHDB` entre testes
-- [x] Cobrir fluxo de autenticação completo (login → refresh → logout) ponta a ponta — `tests/integration/auth/auth.flow.spec.ts`, 20 casos: cadastro, login (cookies `HttpOnly`/`SameSite`, `jti` no Redis e em `user_tokens`), rota autenticada, rotação de `jti` no refresh, logout e invalidação
+- [x] Cobrir fluxo de autenticação completo (login → refresh → logout) ponta a ponta — `tests/integration/auth/auth.flow.spec.ts`, 18 casos: cadastro, login (cookies `HttpOnly`/`SameSite`, `jti` no Redis e em `user_tokens`), rota autenticada, rotação de `jti` no refresh, logout e invalidação
 - [x] Rodar esses testes no CI que já existe (`ci.yml`) — job `test` (unitário, sem infra) e novo job `integration` com `services: postgres/redis`; `docker` agora depende dos dois
 
 ### Achados desta etapa
 
-Os 7 achados levantados aqui foram consolidados na lista da Etapa 7 — os que têm
-teste viraram casos falhando de propósito nos specs de integração, e os demais
-estão em "Achados sem teste".
+Os 7 achados levantados aqui foram consolidados na lista da Etapa 7 — hoje divididos
+entre "Achados corrigidos" e "Achados ainda abertos".
 
 ---
 
@@ -114,58 +113,52 @@ estão em "Achados sem teste".
 > **Objetivo:** cobrir ponta a ponta todo o resto da API além do auth: `projects` (com criptografia), `tags`, perfil, upload de avatar e reset de senha.
 > **Custo:** Médio · **Valor agregado:** ⭐⭐⭐⭐
 
-- [x] Suíte única `yarn test:integration` — **100 casos**, 6 arquivos:
-  - `tests/integration/auth/auth.flow.spec.ts` (22) — cadastro, login, profile, refresh, logout e invalidação de sessão
-  - `tests/integration/tags/tags.crud.spec.ts` (20) — CRUD, unicidade de nome por usuário, paginação com defaults, isolamento entre contas
-  - `tests/integration/projects/projects.crud.spec.ts` (32) — CRUD, cifra AES persistida (ciphertext + IV de 16 bytes no banco), round-trip do decrypt, vínculo e validação de `tag_id`, paginação e ordenação, cascade ao apagar a tag
+- [x] Suíte única `yarn test:integration` — **95 casos, todos verdes**, 6 arquivos:
+  - `tests/integration/auth/auth.flow.spec.ts` (18) — cadastro, login, profile, refresh, logout e invalidação de sessão
+  - `tests/integration/tags/tags.crud.spec.ts` (20) — CRUD, unicidade de nome por usuário (create e update), paginação com defaults, isolamento entre contas
+  - `tests/integration/projects/projects.crud.spec.ts` (31) — CRUD, cifra AES persistida (ciphertext + IV de 16 bytes no banco), round-trip do decrypt, vínculo e validação de `tagId`, paginação/ordenação/`totalRows`, autorização por dono, cascade ao apagar a tag
   - `tests/integration/users/profile.crud.spec.ts` (13) — `GET /users/me`, `GET/PUT /profile`, troca de senha revalidada por novo login
-  - `tests/integration/users/avatar.spec.ts` (5) — upload multipart, `avatar_url` do `LocalStorageProvider`, `GET /files/:filename`, remoção do avatar anterior
-  - `tests/integration/users/password.spec.ts` (9) — forgot/reset com `EmailProvider` fake, token expirado envelhecido no banco
-- [x] Helpers reutilizáveis: `tests/integration/helpers/resources.ts` (factories de project/tag, `rawProject`, `otherUserAgent`, `missingUuid`), `helpers/files.ts` (PNG em memória, limpeza de uploads), `helpers/mail.ts` (`FakeEmailProvider` via `container.registerInstance`)
+  - `tests/integration/users/avatar.spec.ts` (5) — upload multipart, `avatarUrl` do `LocalStorageProvider`, `GET /files/:filename`, remoção do avatar anterior
+  - `tests/integration/users/password.spec.ts` (8) — forgot/reset com `EmailProvider` fake, token expirado envelhecido no banco, token de uso único
+- [x] Helpers reutilizáveis em `tests/support/helpers/`: `auth.ts` (`authenticatedAgent`, `otherUserAgent`, inspeção de token/sessão), `http.ts` (`anonymous`, `missingUuid`), `projects.ts`/`tags.ts` (factories, `rawProject`), `files.ts` (PNG em memória, limpeza de uploads), `mail.ts` (`FakeEmailProvider` via `container.registerInstance`)
 
-### Achados: 14 casos falhando de propósito
+### Achados corrigidos (11 de 14)
 
-Os testes afirmam o comportamento **desejado**, não o atual. Cada um tem um comentário
-`// BUG: arquivo:linha` acima do `it`, e vive no `describe` da rota que exercita — rodar
-`yarn test:integration` mostra o que falta, com `Expected`/`Received`.
+A leva de 14 casos que falhavam de propósito virou correção de código — a suíte fechou verde,
+então o job `integration` do CI passa e o `docker` volta a publicar imagem no GHCR.
 
-Consequência aceita: o job `integration` do CI reprova, e o job `docker` (que declara
-`needs: [lint, test, integration, build]`) não publica imagem no GHCR até a suíte ficar
-verde. Código com bug conhecido não vira artefato.
+**`projects`**
 
-**`projects.crud.spec.ts`**
+- [x] `DELETE /projects/:id` checa dono — `DeleteProjectService.execute(id, userId)` responde 404 (inexistente) / 403 (alheio) e `ProjectsController.delete` passa o `userId`
+- [x] `GET /projects` sem query params usa `Number(perPage) || 10` / `Number(currentPage) || 1` (`ProjectsController.list`), sem `NaN`
+- [x] `totalRows` passou a ser o total do usuário (`ProjectsRepository.list` com `findAndCount()`)
+- [x] `UpdateProjectService` lança "Project not found." com 404 e "Access denied." com 403; tag de outro dono responde 403 e tag inexistente 404
 
-- [ ] `DELETE /projects/:id` não checa dono: `DeleteProjectService.ts:12-20` só valida existência e `ProjectsController.ts:55-57` nem passa o `user_id` — qualquer autenticado apaga projeto alheio (esperado 403)
-- [ ] `GET /projects` sem query params vira `NaN` em `take`/`skip` — `ProjectsController.ts:33-35` faz `Number(...)` sem default (o controller de tags tem `|| 10` / `|| 1`)
-- [ ] `totalRows` é o tamanho da página, não o total do usuário — `ProjectsRepository.list` usa `find()` em vez de `findAndCount()`
-- [ ] `UpdateProjectService.ts:40-43` lança "Project not found." sem `statusCode` (400; esperado 404)
-- [ ] `UpdateProjectService.ts:45-48` lança "Access denied." sem `statusCode` (400; esperado 403, como no `ShowProjectService`)
-- [ ] `PUT /projects/:id` sem `tag_id` mantém a tag atual — não existe forma de desvincular (`UpdateProjectService.ts:50-67`); é decisão de produto
+**`tags`**
 
-**`tags.crud.spec.ts`**
+- [x] `DELETE /tags/:id` checa dono (`DeleteTagService` 404/403, `TagsController.delete` passa o `userId`)
+- [x] `PUT /tags/:id` revalida duplicidade: `findByName(name, userId)` com nome já usado por outra tag responde 400 "Tag name already in use."
 
-- [ ] `DELETE /tags/:id` não checa dono (`DeleteTagService.ts:12-20`, `TagsController.ts:46-48`) — esperado 403
-- [ ] `PUT /tags/:id` não revalida duplicidade de nome (`UpdateTagService.ts:23-48`) — dá para renomear uma tag para o nome de outra do mesmo usuário
+**`auth` / `password`**
 
-**`auth.flow.spec.ts`**
+- [x] `ICreateUserSchema.ts` valida formato de e-mail (`yup.string().email()`)
+- [x] `ResetPasswordservice.ts` invalida o `user_token` usado (`deleteByToken(token)`) — link de reset é de uso único
 
-- [ ] `POST /users` responde sem o `id`: a coluna tem `default uuid_generate_v4()`, mas a entidade `User` declara `@PrimaryColumn()` sem `@Generated('uuid')`
-- [ ] `ICreateUserSchema.ts` não valida formato de e-mail (falta `.email()`, que o `IUpdateProfileSchema` já tem)
-- [ ] Sessão apagada do Redis continua autenticando pelo fallback de banco: `LogoutService` não remove a linha de `user_tokens` quando o cache já expirou
-- [ ] Access token assinado **sem `jti`** passa direto: `isAuthenticated` só consulta Redis/banco quando o `jti` existe
+### Achados ainda abertos
 
-**`password.spec.ts`**
+Os três primeiros têm teste escrito e **comentado** no spec, com o `// BUG:` acima — basta
+descomentar depois da correção. Os demais nunca tiveram teste.
 
-- [ ] `POST /password/forgot` com e-mail inexistente responde 400 "User does not exists." (`SendForgotPasswordEmailService.ts:32-35`) — enumeração de contas; deveria ser 204 sempre
-- [ ] `ResetPasswordservice.ts` não invalida o `user_token` usado — o mesmo link de reset funciona até expirar por tempo
-
-### Achados sem teste
-
+- [ ] Access token assinado **sem `jti`** passa direto: `isAuthenticated` só consulta Redis/banco quando o `jti` existe (`auth.flow.spec.ts:260-271`)
+- [ ] Sessão apagada do Redis continua autenticando pelo fallback de banco: `LogoutService` não remove a linha de `user_tokens` quando o cache já expirou, e a linha órfã segue válida (`auth.flow.spec.ts:251-258`)
+- [ ] `PUT /projects/:id` sem `tagId` mantém a tag atual — não existe forma de desvincular (`UpdateProjectService.ts:50-67`); decisão de produto pendente (`projects.crud.spec.ts:367-374`)
+- [ ] `POST /password/forgot` com e-mail inexistente responde 404 "User does not exists." (`SendForgotPasswordEmailService.ts:31-37`) — enumeração de contas; deveria ser 204 sempre
+- [ ] `POST /users` responde sem o `id`: a coluna tem `default uuid_generate_v4()`, mas a entidade `User` declara `@PrimaryColumn()` sem `@Generated('uuid')`, então o TypeORM não faz `RETURNING` e o DTO sai com `id: undefined`
 - [ ] `isAuthenticated` lê `request.cookies?.access_token` hardcoded (`isAuthenticated.ts:20`), ignorando `authConfig.cookie.accessToken.name` / `ACCESS_TOKEN_COOKIE_NAME` — se a variável for definida, login e middleware divergem
-- [ ] `SessionsController.refresh` devolve `accessToken` no corpo, assimétrico com o `create`, que só usa cookies
+- [ ] `SessionsController.refresh` devolve `accessToken` no corpo (`SessionsController.ts:52`), assimétrico com o `create`, que só usa cookies
 - [ ] `src/shared/infra/http/routes/index.ts` é duplicata morta de `index.routes.ts`
 - [ ] `src/shared/infra/typeorm/index.ts` dispara `createConnection` como side effect, sem `await` nem export — obrigou o stub via `moduleNameMapper`
-- [ ] `GET /files/:filename` com arquivo inexistente **pendura a request**: `app.ts:43-62` chama `fs.createReadStream` dentro do `try`, mas o `ENOENT` vem no evento `error` do stream, fora dele — o 404 nunca é enviado. Sem teste porque travaria a suíte por timeout de 30s
+- [ ] `GET /files/:filename` com arquivo inexistente **pendura a request**: `app.ts:43-62` chama `getFileStream` dentro do `try`, mas o `ENOENT` vem no evento `error` do stream, fora dele — o 404 nunca é enviado. Sem teste porque travaria a suíte por timeout de 30s
 
 ### Fora do escopo desta leva
 
@@ -176,9 +169,12 @@ verde. Código com bug conhecido não vira artefato.
 
 ## Ordem Recomendada de Implementação
 
-| Prioridade                   | Itens                                       |
-| ---------------------------- | ------------------------------------------- |
-| **Agora**                    | Correlação de requestId, Graceful shutdown  |
-| **Depois**                   | Health check, Métricas, Teste de integração |
-| **Quando tiver caso de uso** | Mensageria                                  |
-| **Quando tiver mensageria**  | Tracing distribuído                         |
+| Prioridade                   | Itens                                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Agora**                    | Graceful shutdown (Etapa 3), auth no `/metrics`, achados abertos de auth (`jti`, sessão órfã)                          |
+| **Depois**                   | Timeout/retry em email e storage, dashboard do Grafana, limpeza (`routes/index.ts`, side effect do `typeorm/index.ts`) |
+| **Quando tiver caso de uso** | Mensageria                                                                                                             |
+| **Quando tiver mensageria**  | Tracing distribuído                                                                                                    |
+
+**Concluído:** Etapa 0 (CI/CD), Etapa 1 (correlação de `requestId`), Etapa 2 exceto auth no
+`/metrics` e dashboard, Etapas 6 e 7 (integração, 95 casos verdes).

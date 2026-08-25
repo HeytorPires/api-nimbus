@@ -1,9 +1,16 @@
 import app from '@shared/infra/http/app';
 
-import { authenticatedAgent, otherUserAgent } from '../helpers/auth';
-import { anonymous, missingUuid } from '../helpers/http';
-import { createProject, defaultProject, rawProject } from '../helpers/projects';
-import { createTag } from '../helpers/tags';
+import {
+  authenticatedAgent,
+  otherUserAgent,
+} from '@tests/support/helpers/auth';
+import { anonymous, missingUuid } from '@tests/support/helpers/http';
+import {
+  createProject,
+  defaultProject,
+  rawProject,
+} from '@tests/support/helpers/projects';
+import { createTag } from '@tests/support/helpers/tags';
 
 describe('Projects CRUD (integração)', () => {
   describe('POST /projects', () => {

@@ -141,3 +141,51 @@
 | 00:24 | Migration de rename das duas colunas fora do padrão + ordem de deploy corrigida no CD (migration antes do up -d, revert no rollback) | src/shared/infra/typeorm/migrations/1787368703953-*, .github/workflows/cd.yml | up e down validados no banco de teste; integração 95/98 (as 3 falhas são achados de bug já conhecidos) | ~20k |
 | 00:35 | Descoberto que o migration:run do deploy nunca rodou: a imagem levava ormconfig.ts sem ts-node. Passou a copiar build/ormconfig.js; validado rodando o CLI dentro da imagem contra o Postgres de teste | Dockerfile | migration aplicada de dentro da imagem de produção | ~15k |
 
+
+## Session: 2026-08-23 13:51
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 14:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 14:02
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 14:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 14:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 14:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 14:05 | Auditoria do código vs CHECKLIST.md: suíte de integração 95/95 verde, 11 dos 14 achados corrigidos; checklist reescrito (Etapa 1, Etapa 6/7, tabela de prioridade) | CHECKLIST.md | done | ~35k |
+
+## Session: 2026-08-23 14:16
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-25 21:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-25 10:47
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:20 | Unificar suítes de teste num só `jest.config.ts` com projects `unit`/`integration`/`e2e`; árvore reorganizada em tests/{unit,integration,e2e,support} | jest.config.ts, package.json, .github/workflows/ci.yml, 49 arquivos em tests/, CLAUDE.md, README.md, CHECKLIST.md | 162 testes verdes (67 unit + 95 integration), e2e passa com 0, lint e tsc limpos | ~40k |
+

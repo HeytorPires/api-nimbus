@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
-import FakeHashProvider from '../../../providers/fakes/FakeHashProvider';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakeStorageProvider from '@tests/support/fakes/FakeStorageProvider';
+import FakeHashProvider from '@tests/support/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;

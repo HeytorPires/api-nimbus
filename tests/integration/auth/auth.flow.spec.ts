@@ -12,8 +12,8 @@ import {
   findUserTokens,
   getSetCookie,
   login,
-} from '../helpers/auth';
-import { redisClient } from '../setup/database';
+} from '@tests/support/helpers/auth';
+import { redisClient } from '@tests/support/setup/database';
 
 const accessCookieName = authConfig.cookie.accessToken.name;
 const refreshCookieName = authConfig.cookie.refreshToken.name;

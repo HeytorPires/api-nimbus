@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import ListProjectService from '@modules/projects/services/ListProjectService';
-import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
-import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
+import FakeProjectsRepository from '@tests/support/fakes/FakeProjectsRepository';
+import FakeCryptoProvider from '@tests/support/fakes/FakeCryptoProvider';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeCryptoProvider: FakeCryptoProvider;

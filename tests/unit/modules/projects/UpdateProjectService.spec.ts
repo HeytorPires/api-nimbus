@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import UpdateProjectService from '@modules/projects/services/UpdateProjectService';
-import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
-import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
-import FakeTagsRepository from '../../tags/repositories/FakeTagsRepository';
-import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
+import FakeProjectsRepository from '@tests/support/fakes/FakeProjectsRepository';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakeTagsRepository from '@tests/support/fakes/FakeTagsRepository';
+import FakeCryptoProvider from '@tests/support/fakes/FakeCryptoProvider';
+import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeUsersRepository: FakeUsersRepository;

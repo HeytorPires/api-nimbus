@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import LogoutService from '@modules/users/services/LogoutService';
-import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
-import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
+import FakeCacheProvider from '@tests/support/fakes/FakeCacheProvider';
+import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
+import FakeUserTokenRepository from '@tests/support/fakes/FakeUsersTokensRepository';
 
 let logoutService: LogoutService;
 let fakeCacheProvider: FakeCacheProvider;

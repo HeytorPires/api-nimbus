@@ -14,7 +14,7 @@ Esta API foi concebida como um projeto de estudo. Os seguintes objetivos e prát
 - [x] Criar uma base de código limpa, organizada, testável e escalável.
 - [x] Implementar uma suíte robusta de **testes automatizados**:
   - [x] Testes Unitários
-  - [ ] Testes de Integração
+  - [x] Testes de Integração
   - [ ] Testes End-to-End (E2E)
 - [ ] Upload de avatar de usuário.
 - [ ] Processo de recuperação de senha.

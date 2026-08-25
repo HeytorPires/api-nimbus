@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import DeleteTagService from '@modules/tags/services/DeleteTagService';
-import FakeTagsRepository from '../repositories/FakeTagsRepository';
-import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
+import FakeTagsRepository from '@tests/support/fakes/FakeTagsRepository';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
 
 let fakeTagsRepository: FakeTagsRepository;
 let fakeUsersRepository: FakeUsersRepository;

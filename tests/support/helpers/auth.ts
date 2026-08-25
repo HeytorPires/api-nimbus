@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import type { Express } from 'express';
 
 import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
-import { redisClient } from '../setup/database';
+import { redisClient } from '@tests/support/setup/database';
 
 export type TestAgent = ReturnType<typeof request.agent>;
 

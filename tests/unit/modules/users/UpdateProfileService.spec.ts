@@ -1,16 +1,16 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
-import FakeUsersRepository from '../repositories/FakeUsersRepository';
-import FakefakeHashProvider from '../../../providers/fakes/FakeHashProvider';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakefakeHashProvider from '@tests/support/fakes/FakeHashProvider';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import AppError from '@shared/errors/AppError';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
-import FakeLogProvider from '../../../providers/fakes/FakeLogProvider';
-import FakeCacheProvider from '../../../providers/fakes/FakeCacheProvider';
-import FakeUserTokenRepository from '../repositories/FakeUsersTokensRepository';
-import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
-import FakeJWTProvider from '../../../providers/fakes/FakeJWTProvider';
+import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
+import FakeCacheProvider from '@tests/support/fakes/FakeCacheProvider';
+import FakeUserTokenRepository from '@tests/support/fakes/FakeUsersTokensRepository';
+import FakeStorageProvider from '@tests/support/fakes/FakeStorageProvider';
+import FakeJWTProvider from '@tests/support/fakes/FakeJWTProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let CreateUser: CreateUserService;

@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
-import FakeUsersRepository from '../repositories/FakeUsersRepository';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
 import ListUserService from '@modules/users/services/ListUserService';
-import FakeStorageProvider from '../../../providers/fakes/FakeStorageProvider';
+import FakeStorageProvider from '@tests/support/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let ListUser: ListUserService;

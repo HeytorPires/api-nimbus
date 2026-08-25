@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import CreateProjectService from '@modules/projects/services/CreateProjectService';
-import FakeProjectsRepository from '../repositories/FakeProjectsRepository';
-import FakeUsersRepository from '../../user/repositories/FakeUsersRepository';
-import FakeTagsRepository from '../../tags/repositories/FakeTagsRepository';
-import FakeCryptoProvider from '../../../providers/fakes/FakeCryptoProvider';
+import FakeProjectsRepository from '@tests/support/fakes/FakeProjectsRepository';
+import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
+import FakeTagsRepository from '@tests/support/fakes/FakeTagsRepository';
+import FakeCryptoProvider from '@tests/support/fakes/FakeCryptoProvider';
 // import FakeHashProvider from '@shared/providers/cryptography/fakes/FakeHashProvider';
 // import CreateUserService from '@modules/users/services/CreateUserService';
 // import CreateTagService from '@modules/tags/services/CreateTagService';

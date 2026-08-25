@@ -1,9 +1,9 @@
 import app from '@shared/infra/http/app';
 
-import { authenticatedAgent } from '../helpers/auth';
-import { anonymous, missingUuid } from '../helpers/http';
-import { createTag, defaultTag } from '../helpers/tags';
-import { otherUserAgent } from '../helpers/auth';
+import { authenticatedAgent } from '@tests/support/helpers/auth';
+import { anonymous, missingUuid } from '@tests/support/helpers/http';
+import { createTag, defaultTag } from '@tests/support/helpers/tags';
+import { otherUserAgent } from '@tests/support/helpers/auth';
 
 describe('Tags CRUD (integração)', () => {
   describe('POST /tags', () => {

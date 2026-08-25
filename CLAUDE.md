@@ -72,7 +72,35 @@ Auth model: JWT access token in an httpOnly cookie (`access_token`), refresh tok
 
 ## Testing
 
-Jest + ts-jest, tests under `tests/`, mirroring `src/modules/<domain>/unit/*.spec.ts`. Services are tested with **fakes**, not mocks/DB: `tests/modules/<domain>/repositories/FakeXRepository.ts` implements the domain repository interface in-memory, and `tests/providers/fakes/FakeXProvider.ts` implements provider interfaces the same way. Services under test are constructed directly with `new` and fakes passed into the constructor (bypassing tsyringe entirely) — see any `*.spec.ts` for the pattern. Only unit tests exist currently; integration/E2E are still on the roadmap (see README checklist).
+Jest + ts-jest. A single root config (`jest.config.ts`) declares three Jest **projects**, each scoped by `roots` — there is no second config file:
+
+```
+tests/
+├── unit/          project `unit`         — services with fakes, no I/O
+│   ├── modules/{users,projects,tags}/*.spec.ts
+│   ├── providers/EmailProvider.spec.ts
+│   └── shared/http/health.spec.ts
+├── integration/   project `integration`  — supertest over real Postgres + Redis
+│   └── {auth,users,projects,tags}/*.spec.ts
+├── e2e/           project `e2e`          — reserved, no spec yet
+└── support/       shared, never matched as a test
+    ├── fakes/     Fake*Repository + Fake*Provider
+    ├── helpers/   auth, http, mail, files, projects, tags
+    └── setup/     env, hooks, ormconfig, database, typeormStub
+```
+
+```bash
+yarn test              # project unit only (fast, no infra)
+yarn test:integration  # project integration (needs test:integration:up)
+yarn test:e2e          # project e2e (passes with 0 tests today)
+yarn test:all          # every project, serial
+```
+
+Each type is invoked with `--selectProjects` rather than in one run: the integration suite must be serial (`truncateAll()`/`flushRedis()` in `tests/support/setup/database.ts` are destructive and the DB is shared), and `maxWorkers` is not accepted inside `projects` — hence `--runInBand` in those scripts. Coverage options live at the root of the config; Jest ignores them inside a project. `passWithNoTests: true` is required because the `e2e` project is still empty.
+
+Unit tests use **fakes**, not mocks/DB: `tests/support/fakes/FakeXRepository.ts` implements the domain repository interface in-memory, and `FakeXProvider.ts` does the same for providers. Services under test are constructed directly with `new` and fakes passed into the constructor, bypassing tsyringe entirely. Everything in `tests/` imports across directories via the `@tests/*` alias — no relative paths beyond same-directory siblings.
+
+Integration tests speak HTTP only (touching the DB directly just to inspect ciphertext/IV or to age a token's `created_at`). The single container override is `EmailProvider` (`tests/support/helpers/mail.ts`); Postgres, Redis, local storage and crypto are real. `tests/support/setup/hooks.ts` runs migrations on connect and truncates + flushes before each test. Infra comes from `docker-compose.test.yml` (Postgres on 5433, Redis on 6380 — same ports the CI `services:` use, so `.env.test` is shared).
 
 ## Security roadmap
 
