@@ -76,7 +76,7 @@
           "avatarUrl": {
             "type": "string",
             "nullable": true,
-            "description": "URL resolvida pelo StorageProvider (rota `/files/:filename` no disco local, URL do bucket no MinIO). `null` quando o usuário não tem avatar.",
+            "description": "URL resolvida pelo StorageProvider (rota `/files/:filename` no disco local, URL do bucket S3). `null` quando o usuário não tem avatar.",
             "example": "http://localhost:3333/files/a1b2c3d4e5-avatar.png"
           },
           "createdAt": { "type": "string", "format": "date-time" },

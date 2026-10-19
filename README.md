@@ -1,6 +1,6 @@
 # Api do Nimbus (api-nimbus) 🚀
 
-API REST em Node.js + TypeScript, construída como projeto de estudo com arquitetura inspirada em **Domain-Driven Design**: Express + TypeORM + PostgreSQL, autenticação JWT em cookie `httpOnly`, sessões e cache em Redis, storage de arquivos local ou compatível com S3 (MinIO), envio de e-mail via Nodemailer e observabilidade com Prometheus/Grafana.
+API REST em Node.js + TypeScript, construída como projeto de estudo com arquitetura inspirada em **Domain-Driven Design**: Express + TypeORM + PostgreSQL, autenticação JWT em cookie `httpOnly`, sessões e cache em Redis, storage de arquivos local ou compatível com S3 (RustFS, via SDK da AWS), envio de e-mail via Nodemailer e observabilidade com Prometheus/Grafana.
 
 ---
 
@@ -13,7 +13,7 @@ API REST em Node.js + TypeScript, construída como projeto de estudo com arquite
 - [x] Criptografia de dados sensíveis em repouso (AES + IV por registro)
 - [x] Validação de entrada por schema (**yup**) em middleware, por rota
 - [x] Rate limiting, tratamento centralizado de erros e logs com `requestId`
-- [x] Upload de avatar de usuário (storage local ou MinIO)
+- [x] Upload de avatar de usuário (storage local ou S3-compatível)
 - [x] Recuperação de senha por e-mail
 - [x] Health checks (`/health`, `/ready`) e métricas Prometheus (`/metrics`)
 - [x] Documentação da API com **Swagger** (`/api-docs`)
@@ -104,7 +104,7 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
 | Validação           | yup (um schema por ação, aplicado por middleware)             |
 | DI                  | tsyringe                                                      |
 | E-mail              | Nodemailer (Ethereal em desenvolvimento, SMTP real fora dele) |
-| Storage             | filesystem local ou MinIO (S3-compatível), multer no upload   |
+| Storage             | filesystem local ou RustFS (S3-compatível), multer no upload  |
 | Observabilidade     | `prom-client`, Prometheus, Grafana                            |
 | Documentação        | swagger-ui-express + `src/docs/swagger.json`                  |
 | Testes              | Jest 30 + ts-jest, supertest                                  |
@@ -155,8 +155,8 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
    | `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`   | Conexão com o PostgreSQL                                    |
    | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASS`                    | Conexão com o Redis                                         |
    | `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`          | SMTP de envio de e-mail                                     |
-   | `STORAGE_DISK`                                              | `local` \| `minio` — escolhe o provider de storage          |
-   | `MINIO_*`                                                   | Endpoint, credenciais e bucket do MinIO                     |
+   | `STORAGE_DISK`                                              | `local` \| `s3` — escolhe o provider de storage          |
+   | `S3_*`                                                      | Endpoint, credenciais e bucket do storage S3 (RustFS)       |
    | `PROMETHEUS_PORT`, `GRAFANA_PORT`, `GRAFANA_ADMIN_PASSWORD` | Portas e senha da stack de observabilidade                  |
 
    Se você **não** for usar o Docker para o banco, aponte as variáveis para uma instância acessível manualmente.
@@ -164,7 +164,7 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
 4. **Suba os serviços de apoio:**
 
    ```bash
-   yarn up          # docker-compose up: postgres, redis, minio, prometheus, grafana
+   yarn up          # docker-compose up: postgres, redis, rustfs (serviço `minio`), prometheus, grafana
    ```
 
    Aguarde os containers ficarem saudáveis (`docker compose logs -f`).
@@ -303,7 +303,7 @@ O `tsconfig.json` define `@shared/*`, `@modules/*`, `@config/*`, `@utils/*`, `@t
 
 ### Injeção de dependência
 
-Repositórios e providers são registrados como singletons em `src/shared/container/index.ts` sob tokens string (`'UsersRepository'`, `'CacheProvider'`, …). Os services declaram `@injectable()` e recebem as dependências por `@inject('Token')`; os controllers os obtêm com `container.resolve(SomeService)` — nunca com `new` fora dos testes. O container também troca o provider conforme o ambiente: `EtherealEmailProvider` em desenvolvimento e `NodeMailerProvider` fora dele, `MinioStorageProvider` ou `LocalStorageProvider` conforme `STORAGE_DISK`. `RefreshTokenService` é registrado como transiente — uma instância nova por resolve.
+Repositórios e providers são registrados como singletons em `src/shared/container/index.ts` sob tokens string (`'UsersRepository'`, `'CacheProvider'`, …). Os services declaram `@injectable()` e recebem as dependências por `@inject('Token')`; os controllers os obtêm com `container.resolve(SomeService)` — nunca com `new` fora dos testes. O container também troca o provider conforme o ambiente: `EtherealEmailProvider` em desenvolvimento e `NodeMailerProvider` fora dele, `S3StorageProvider` ou `LocalStorageProvider` conforme `STORAGE_DISK`. `RefreshTokenService` é registrado como transiente — uma instância nova por resolve.
 
 ### Erros
 

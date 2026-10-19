@@ -59,7 +59,7 @@ DDD-flavored modular structure under `src/modules/<domain>/` (currently `users`,
 - `mapper(s)/` — converts between TypeORM entities and domain/DTO shapes returned by services
 - `dtos/` — response-facing DTOs
 
-Dependency injection: `tsyringe`. All repositories and providers are registered as singletons in `src/shared/container/index.ts` under string tokens (e.g. `'UsersRepository'`, `'CacheProvider'`). Services declare `@injectable()` and `@inject('Token')` constructor params, then get resolved with `container.resolve(SomeService)` in controllers — never instantiated with `new` outside tests. `container/index.ts` also branches provider selection by env: `EtherealEmailProvider` in development vs `NodeMailerProvider` otherwise, and `MinioStorageProvider` vs `LocalStorageProvider` based on `STORAGE_DISK`.
+Dependency injection: `tsyringe`. All repositories and providers are registered as singletons in `src/shared/container/index.ts` under string tokens (e.g. `'UsersRepository'`, `'CacheProvider'`). Services declare `@injectable()` and `@inject('Token')` constructor params, then get resolved with `container.resolve(SomeService)` in controllers — never instantiated with `new` outside tests. `container/index.ts` also branches provider selection by env: `EtherealEmailProvider` in development vs `NodeMailerProvider` otherwise, and `S3StorageProvider` (`@aws-sdk/client-s3`, any S3-compatible server) vs `LocalStorageProvider` based on `STORAGE_DISK`.
 
 `src/shared/` holds cross-module infrastructure:
 - `providers/` — swappable implementations behind interfaces (cache, cryptography, cookie, email, jwt, logs, storage), each with `models/IX.ts` (interface) + `implementations/X.ts`

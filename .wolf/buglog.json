@@ -242,6 +242,46 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-10-19T19:20:00Z"
+    },
+    {
+      "id": "bug-014",
+      "timestamp": "2026-10-19T19:50:00Z",
+      "error_message": "failed to resolve reference \"quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z\": 401 UNAUTHORIZED",
+      "file": "docker-compose.yml",
+      "root_cause": "A correção do bug-013 apontou para quay.io/minio/minio sem verificar; o repositório inteiro (inclusive a API de tags) responde 401 anônimo, então não é público.",
+      "fix": "image trocada para pgsty/minio:RELEASE.2026-08-04T00-00-00Z (fork comunitário do MinIO no Docker Hub, multi-arch). Verificado que o repositório e a tag existem via API do Docker Hub.",
+      "tags": [
+        "docker",
+        "minio",
+        "cd",
+        "registry"
+      ],
+      "related_bugs": [
+        "bug-013"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-10-19T19:50:00Z"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-10-19T20:10:00Z",
+      "error_message": "minio/minio e quay.io/minio/minio indisponíveis (404/401); pgsty/minio era só paliativo",
+      "file": "docker-compose.yml, S3StorageProvider.ts",
+      "root_cause": "Dependência de imagem de terceiro que deixou de ser distribuída publicamente.",
+      "fix": "Servidor trocado por rustfs/rustfs:1.0.3 (volume rustfs_data, vars RUSTFS_*). Provider migrado de SDK minio para @aws-sdk/client-s3 (S3StorageProvider, forcePathStyle, checksum WHEN_REQUIRED); MINIO_* -> S3_*, STORAGE_DISK=s3. tsc, eslint e 67 testes unit passam; não testado contra RustFS real.",
+      "tags": [
+        "docker",
+        "minio",
+        "rustfs",
+        "storage",
+        "cd"
+      ],
+      "related_bugs": [
+        "bug-013",
+        "bug-014"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-10-19T20:10:00Z"
     }
   ]
 }

@@ -58,13 +58,13 @@ Este checklist complementa o `ROADMAP.md` (foco em segurança). Cada item foi ch
 
 ## Etapa 3 — Graceful shutdown e resiliência
 
-> **Objetivo:** `server.ts` hoje é só `app.listen`, sem handler de `SIGTERM`/`SIGINT`. Há chamada externa real (`NodeMailerProvider.ts`, `MinioStorageProvider.ts`) sem nenhum retry/timeout — falha externa propaga direto.
+> **Objetivo:** `server.ts` hoje é só `app.listen`, sem handler de `SIGTERM`/`SIGINT`. Há chamada externa real (`NodeMailerProvider.ts`, `S3StorageProvider.ts`) sem nenhum retry/timeout — falha externa propaga direto.
 > **Custo:** Baixo/Médio · **Valor agregado:** ⭐⭐⭐⭐
 
 - [ ] Handler de `SIGTERM`/`SIGINT` drenando conexões (DB, Redis) antes de matar o processo
 - [ ] Timeout explícito em chamada de email/storage
 - [ ] Retry com backoff no envio de email (falha transitória de SMTP é comum)
-- [ ] Circuit breaker se storage externo (Minio/S3) ficar instável
+- [ ] Circuit breaker se storage externo (S3) ficar instável
 
 ---
 

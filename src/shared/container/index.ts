@@ -12,7 +12,7 @@ import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
 import EtherealEmailProvider from '@shared/providers/email/implementations/EtherealEmailProvider';
 import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
-import MinioStorageProvider from '@shared/providers/storage/implementations/MinioStorageProvider';
+import S3StorageProvider from '@shared/providers/storage/implementations/S3StorageProvider';
 import CookieProvider from '@shared/providers/cookie/implementations/CookieProvider';
 
 //Dominios
@@ -63,9 +63,7 @@ container.registerSingleton<ISmtpProvider>('EmailProvider', emailProvider);
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  process.env.STORAGE_DISK === 'minio'
-    ? MinioStorageProvider
-    : LocalStorageProvider
+  process.env.STORAGE_DISK === 's3' ? S3StorageProvider : LocalStorageProvider
 );
 
 container.registerSingleton<IJWTProvider>('JWTProvider', JsonWebTokenProvider);

@@ -51,20 +51,32 @@ services:
       - .env
 
   minio:
-    # MinIO parou de publicar no Docker Hub (minio/minio deu "pull access denied"); o registry oficial agora é o quay.io.
-    # Tag fixa em vez de :latest para o deploy não quebrar quando sair uma versão nova.
-    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    # O serviço continua se chamando "minio" só para não mexer no nome; quem roda aqui é o RustFS (storage compatível com S3).
+    # O MinIO saiu do Docker Hub e do quay.io, por isso a troca. A API usa o SDK da AWS (S3StorageProvider), que fala S3 com qualquer servidor compatível.
+    # Tag fixa para o deploy não mudar sozinho.
+    image: rustfs/rustfs:1.0.3
     container_name: nimbus-minio
     restart: unless-stopped
-    command: server /data --console-address ":9001"
     ports:
-      - '${MINIO_PORT}:9000'
+      # Porta da API S3 (a que a aplicação usa)
+      - '${S3_PORT}:9000'
+      # Porta do console web de administração
       - '9001:9001'
     environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+      # Usuário e senha do storage: vêm das variáveis S3_* do .env (as mesmas que a API usa)
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_KEY}
+      # Onde o RustFS grava os dados dentro do container (um único diretório = nó único)
+      RUSTFS_VOLUMES: /data
+      # Endereço e porta da API S3 dentro do container
+      RUSTFS_ADDRESS: 0.0.0.0:9000
+      # Endereço e porta do console web dentro do container
+      RUSTFS_CONSOLE_ADDRESS: 0.0.0.0:9001
+      # Liga o console web
+      RUSTFS_CONSOLE_ENABLE: 'true'
     volumes:
-      - minio_data:/data
+      # Volume novo: o formato de dados do MinIO não é o do RustFS, então não dá para reaproveitar o minio_data
+      - rustfs_data:/data
     env_file:
       - .env
 
@@ -96,6 +108,6 @@ services:
 volumes:
   Postgres_data:
   api_uploads:
-  minio_data:
+  rustfs_data:
   prometheus_data:
   grafana_data:
