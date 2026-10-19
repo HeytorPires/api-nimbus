@@ -225,6 +225,23 @@
       ],
       "occurrences": 1,
       "last_seen": "2026-08-22T00:35:00Z"
+    },
+    {
+      "id": "bug-013",
+      "timestamp": "2026-10-19T19:20:00Z",
+      "error_message": "Error response from daemon: pull access denied for minio/minio, repository does not exist or may require 'docker login'",
+      "file": "docker-compose.yml",
+      "root_cause": "Imagem minio/minio deixou de ser publicada no Docker Hub; o registry oficial passou a ser quay.io. O pull falho do MinIO interrompeu os demais pulls (Interrupted).",
+      "fix": "image trocada para quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z (tag fixa em vez de latest).",
+      "tags": [
+        "docker",
+        "minio",
+        "cd",
+        "registry"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-10-19T19:20:00Z"
     }
   ]
 }

@@ -51,7 +51,9 @@ services:
       - .env
 
   minio:
-    image: minio/minio:latest
+    # MinIO parou de publicar no Docker Hub (minio/minio deu "pull access denied"); o registry oficial agora é o quay.io.
+    # Tag fixa em vez de :latest para o deploy não quebrar quando sair uma versão nova.
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     container_name: nimbus-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
