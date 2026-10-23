@@ -50,12 +50,12 @@ services:
     env_file:
       - .env
 
-  minio:
-    # O serviço continua se chamando "minio" só para não mexer no nome; quem roda aqui é o RustFS (storage compatível com S3).
-    # O MinIO saiu do Docker Hub e do quay.io, por isso a troca. A API usa o SDK da AWS (S3StorageProvider), que fala S3 com qualquer servidor compatível.
+  rustfs:
+    # Storage compatível com S3. Substituiu o MinIO, que saiu do Docker Hub e do quay.io.
+    # A API usa o SDK da AWS (S3StorageProvider), que fala S3 com qualquer servidor compatível.
     # Tag fixa para o deploy não mudar sozinho.
     image: rustfs/rustfs:1.0.3
-    container_name: nimbus-minio
+    container_name: nimbus-rustfs
     restart: unless-stopped
     ports:
       # Porta da API S3 (a que a aplicação usa)
@@ -75,7 +75,7 @@ services:
       # Liga o console web
       RUSTFS_CONSOLE_ENABLE: 'true'
     volumes:
-      # Volume novo: o formato de dados do MinIO não é o do RustFS, então não dá para reaproveitar o minio_data
+      # O formato de dados do MinIO não é o do RustFS, então o antigo minio_data não é reaproveitável
       - rustfs_data:/data
     env_file:
       - .env

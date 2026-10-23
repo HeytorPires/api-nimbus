@@ -204,3 +204,8 @@
 | 15:18 | Auditoria da suíte e2e (project vazio) — mapeada infra de testes; discutida separação semântica unit/integration/e2e | jest.config.ts, tests/support/** (leitura) | integration está semanticamente correto; e2e só se paga como suíte de artefato (build compilado, conexão real, SIGTERM) | ~40k |
 | 15:32 | Resíduo do pino removido: logger.ts órfão apagado, alias PinoProvider renomeado para LogProvider | logger.ts (del), src/shared/errors/ErrorHandler.ts | grep -ri pino vazio; tsc/lint/format limpos; unit 67/67, integration 95/95, build-local ok | ~8k |
 | 20:15 | MinIO->RustFS + SDK minio->@aws-sdk/client-s3, MINIO_*->S3_* | docker-compose.yml, S3StorageProvider.ts, container/index.ts, .env*, README/CLAUDE/CHECKLIST | tsc/eslint/unit ok, sem teste real | ~9000 |
+
+## Session: 2026-10-23 13:42
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|

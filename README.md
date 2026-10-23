@@ -164,7 +164,7 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
 4. **Suba os serviços de apoio:**
 
    ```bash
-   yarn up          # docker-compose up: postgres, redis, rustfs (serviço `minio`), prometheus, grafana
+   yarn up          # docker-compose up: postgres, redis, rustfs, prometheus, grafana
    ```
 
    Aguarde os containers ficarem saudáveis (`docker compose logs -f`).

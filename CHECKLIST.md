@@ -8,7 +8,7 @@ Este checklist complementa o `ROADMAP.md` (foco em segurança). Cada item foi ch
 
 - ✅ **CI/CD existe e funciona** — `.github/workflows/ci.yml` (lint → test com coverage → build) e `cd.yml` (deploy via SSH em VPS, migration automática). Só não está otimizado (ver Etapa 0 abaixo).
 - ✅ **Log estruturado** — `LogProvider.ts` já emite JSON (`timestamp`, `level`, `message`, `context`, `requestId`, `requestIp`, `metadata`).
-- ✅ **docker-compose** já sobe `node`, `postgres`, `redis`, `minio` — infra pronta pra plugar observabilidade local sem custo extra.
+- ✅ **docker-compose** já sobe `node`, `postgres`, `redis`, `rustfs` — infra pronta pra plugar observabilidade local sem custo extra.
 
 ---
 
