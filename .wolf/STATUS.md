@@ -145,6 +145,8 @@ Docker; `yarn lint`, `yarn format:check` e `yarn build-local` limpos.
 
 ## 🚀 Next phase
 
+> 2026-10-23: `cd.yml` quebrado em steps (prepare → pull → migrate → switch → healthcheck → rollback `if: failure() && steps.migrate.outcome==success` → finalize). Não testado em runner real.
+
 **Goal:** fechar os 3 achados de auth/projects que sobraram (testes já escritos e comentados nos specs) e emendar na Etapa 3 do CHECKLIST — graceful shutdown.
 
 ### Acceptance criteria

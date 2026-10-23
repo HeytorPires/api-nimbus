@@ -30,79 +30,163 @@ jobs:
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
 
-      - name: Deploy via SSH # Realiza o deploy no servidor via SSH
+      - name: Prepare compose file # Atualiza o repositório só para obter o docker-compose.yml mais recente
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
-          script:
-            | # Comandos a serem executados no servidor para realizar o deploy
+          script: |
             set -e
             cd /home/ubuntu/nimbus/api-nimbus
 
-            # Atualiza o repositório apenas para obter o docker-compose.yml mais recente.
-            # O código da aplicação agora chega pela imagem, não por este pull.
+            # O código da aplicação chega pela imagem, não por este pull.
             git pull origin main
 
-            # Tag hoje em produção, gravada pelo deploy anterior bem-sucedido. Usada como alvo do rollback.
-            PREVIOUS_TAG=$(cat .last_deploy_tag 2>/dev/null || echo "latest")
+      - name: Pull image # Baixa do GHCR a imagem já construída pelo CI (a VPS não compila nada)
+        uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_TAG: ${{ github.event.workflow_run.head_sha }} # SHA que passou no CI: seleciona exatamente a imagem testada
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          envs: IMAGE_TAG
+          script: |
+            set -e
+            cd /home/ubuntu/nimbus/api-nimbus
 
-            # SHA do commit que passou no CI: seleciona exatamente a imagem que foi testada
-            export IMAGE_TAG=${{ github.event.workflow_run.head_sha }}
-
-            # Baixa do GHCR a imagem já construída pelo CI (sem --build: a VPS não compila nada)
             docker compose --profile production pull
 
-            # Migrations rodam ANTES de trocar os containers, num container efêmero da imagem nova.
+      - name: Run migrations # Antes de trocar os containers, num container efêmero da imagem nova
+        id: migrate
+        uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          envs: IMAGE_TAG
+          script: |
+            set -e
+            cd /home/ubuntu/nimbus/api-nimbus
+
             # Ordem importa: migrations de rename deixariam a versão em execução procurando
             # uma coluna que ainda não existe se o up -d viesse primeiro.
             docker compose --profile production run --rm --no-deps --name nimbus-api-migrate node npx typeorm migration:run
 
-            # Recria os containers usando a imagem baixada
+      - name: Switch containers # Recria os containers usando a imagem baixada
+        id: switch
+        uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          envs: IMAGE_TAG
+          script: |
+            set -e
+            cd /home/ubuntu/nimbus/api-nimbus
+
             docker compose --profile production up -d
 
-            # Healthcheck: função reaproveitada tanto pro deploy novo quanto pra confirmar o rollback.
+      - name: Healthcheck # Confirma que a versão nova responde em /ready
+        id: health
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
             # API_PORT vem do .env do próprio container (mesmo env_file do docker-compose.yml) — server.ts escuta nele.
-            check_health() {
-              for i in $(seq 1 10); do
-                if docker exec nimbus-api node -e "
-                  const http = require('http');
-                  const port = process.env.API_PORT || 3333;
-                  http.get('http://localhost:' + port + '/ready', res => process.exit(res.statusCode === 200 ? 0 : 1))
-                    .on('error', () => process.exit(1));
-                "; then
-                  return 0
-                fi
-                echo "Healthcheck falhou (tentativa $i/10), tentando de novo em 3s..."
-                sleep 3
-              done
-              return 1
-            }
-
-            if ! check_health; then
-              echo "::error::Deploy da imagem $IMAGE_TAG falhou no healthcheck. Revertendo para $PREVIOUS_TAG..."
-
-              # Desfaz a última migration antes de voltar o código: a versão antiga não conhece
-              # o schema novo. Falha aqui não aborta o rollback — o healthcheck seguinte decide.
-              docker compose --profile production run --rm --no-deps --name nimbus-api-revert node npx typeorm migration:revert || \
-                echo "::warning::migration:revert falhou ou não havia migration para reverter."
-
-              export IMAGE_TAG=$PREVIOUS_TAG
-              docker compose --profile production up -d
-
-              if ! check_health; then
-                echo "::error::Rollback para $PREVIOUS_TAG também falhou no healthcheck. Intervenção manual necessária."
-                exit 1
+            for i in $(seq 1 10); do
+              if docker exec nimbus-api node -e "
+                const http = require('http');
+                const port = process.env.API_PORT || 3333;
+                http.get('http://localhost:' + port + '/ready', res => process.exit(res.statusCode === 200 ? 0 : 1))
+                  .on('error', () => process.exit(1));
+              "; then
+                exit 0
               fi
+              echo "Healthcheck falhou (tentativa $i/10), tentando de novo em 3s..."
+              sleep 3
+            done
+            exit 1
 
-              echo "Rollback concluído. Aplicação voltou para a versão $PREVIOUS_TAG."
-              exit 1
-            fi
+      - name: Rollback # Só roda se uma etapa após as migrations falhou
+        if: ${{ failure() && steps.migrate.outcome == 'success' }}
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            cd /home/ubuntu/nimbus/api-nimbus
 
-            # Só grava a tag e limpa imagens antigas se o deploy novo passou no healthcheck
+            # Tag hoje em produção, gravada pelo deploy anterior bem-sucedido.
+            PREVIOUS_TAG=$(cat .last_deploy_tag 2>/dev/null || echo "latest")
+            echo "::error::Deploy falhou. Revertendo para $PREVIOUS_TAG..."
+
+            # Desfaz a última migration antes de voltar o código: a versão antiga não conhece
+            # o schema novo. Falha aqui não aborta o rollback — o healthcheck seguinte decide.
+            docker compose --profile production run --rm --no-deps --name nimbus-api-revert node npx typeorm migration:revert || \
+              echo "::warning::migration:revert falhou ou não havia migration para reverter."
+
+            export IMAGE_TAG=$PREVIOUS_TAG
+            docker compose --profile production up -d
+
+            for i in $(seq 1 10); do
+              if docker exec nimbus-api node -e "
+                const http = require('http');
+                const port = process.env.API_PORT || 3333;
+                http.get('http://localhost:' + port + '/ready', res => process.exit(res.statusCode === 200 ? 0 : 1))
+                  .on('error', () => process.exit(1));
+              "; then
+                echo "Rollback concluído. Aplicação voltou para a versão $PREVIOUS_TAG."
+                exit 1 # Job continua vermelho: o deploy novo falhou
+              fi
+              echo "Healthcheck do rollback falhou (tentativa $i/10), tentando de novo em 3s..."
+              sleep 3
+            done
+
+            echo "::error::Rollback para $PREVIOUS_TAG também falhou no healthcheck. Intervenção manual necessária."
+            exit 1
+
+      - name: Finalize # Só grava a tag e limpa imagens antigas depois do healthcheck passar
+        uses: appleboy/ssh-action@v1
+        env:
+          IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          envs: IMAGE_TAG
+          script: |
+            set -e
+            cd /home/ubuntu/nimbus/api-nimbus
+
             echo "$IMAGE_TAG" > .last_deploy_tag
+
+            # Histórico das 3 últimas versões bem-sucedidas (mais recente por último), alvo de rollback manual.
+            echo "$IMAGE_TAG" >> .deploy_history
+            tail -n 3 .deploy_history > .deploy_history.tmp && mv .deploy_history.tmp .deploy_history
+
+            # Remove imagens da API fora do histórico; `latest` fica por ser o fallback do compose.
+            REPO=ghcr.io/heytorpires/api-nimbus
+            docker images "$REPO" --format '{{.Tag}}' | while read -r tag; do
+              if [ "$tag" != "latest" ] && ! grep -qx "$tag" .deploy_history; then
+                docker rmi "$REPO:$tag" || true
+              fi
+            done
             docker image prune -f
 
             echo "Deploy completed successfully!"
