@@ -104,20 +104,20 @@ export default class EnvConfigProvider implements IEnvConfigProvider {
     const required = new Set<EnvVariable>(ALWAYS_REQUIRED);
 
     if (this.get(ENV_VARIABLE.NODE_ENV) === 'production') {
-      PRODUCTION_REQUIRED.forEach(name => required.add(name));
+      PRODUCTION_REQUIRED.forEach((name) => required.add(name));
     }
 
     const mailDriver = this.get(ENV_VARIABLE.MAIL_DRIVER) ?? '';
-    (REQUIRED_BY_MAIL_DRIVER[mailDriver] ?? []).forEach(name =>
+    (REQUIRED_BY_MAIL_DRIVER[mailDriver] ?? []).forEach((name) =>
       required.add(name)
     );
 
     const storageDisk = this.get(ENV_VARIABLE.STORAGE_DISK) ?? '';
-    (REQUIRED_BY_STORAGE_DISK[storageDisk] ?? []).forEach(name =>
+    (REQUIRED_BY_STORAGE_DISK[storageDisk] ?? []).forEach((name) =>
       required.add(name)
     );
 
-    return [...required].filter(name => !this.get(name));
+    return [...required].filter((name) => !this.get(name));
   }
 
   private findInvalid(): string[] {

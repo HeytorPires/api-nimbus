@@ -39,7 +39,7 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    const resetLink = `${this.appWebUrl}/reset-password?token=${token}`;
+    const resetLink = `${this.appWebUrl}/#/reset-password?token=${token}`;
 
     const context = requestContext.getStore();
 
