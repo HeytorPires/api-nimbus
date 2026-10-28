@@ -14,6 +14,7 @@ import { container } from 'tsyringe';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 import { healthHandler, readyHandler } from './healthcheck';
 import { metricsHandler, metricsMiddleware } from './metrics';
+import { homeHandler } from './home';
 import requestContextMiddleware from './middleware/requestContext';
 
 dotenv.config({
@@ -43,6 +44,7 @@ app.use(pagination);
 app.use(metricsMiddleware);
 app.use(routes);
 
+app.get('/home', homeHandler);
 app.get('/health', healthHandler);
 app.get('/ready', readyHandler);
 app.get('/metrics', metricsHandler);

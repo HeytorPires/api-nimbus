@@ -31,6 +31,19 @@ import { getConnection } from 'typeorm';
 import app from '@shared/infra/http/app';
 
 describe('Health and readiness endpoints', () => {
+  it('should return 200 with project info on /home', async () => {
+    const response = await request(app).get('/home');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      name: 'nimbus-api',
+      status: 'ok',
+      docs: '/api-docs',
+      health: '/health',
+      ready: '/ready',
+    });
+  });
+
   it('should always return 200 on /health', async () => {
     const response = await request(app).get('/health');
 
