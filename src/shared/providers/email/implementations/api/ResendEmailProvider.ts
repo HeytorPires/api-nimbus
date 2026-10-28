@@ -36,9 +36,10 @@ export default class ResendEmailProvider implements IEmailProvider {
 
     if (error) {
       throw new AppError(
-        `Failed to send email: ${error.message}`,
+        'Failed to send email',
         'ResendEmailProvider',
-        502
+        502,
+        `Failed to send email: ${error.message}`
       );
     }
 
