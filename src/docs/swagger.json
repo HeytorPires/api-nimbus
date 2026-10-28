@@ -597,7 +597,7 @@
         "responses": {
           "204": { "description": "Senha redefinida. Sem corpo." },
           "400": {
-            "description": "`User Token does not exists.`, `User does not exists.`, `Token Expired.` (AppError) ou `As senhas devem coincidir` (ValidationError).",
+            "description": "`User Token does not exists.`, `User does not exists.`, `Token Expired.` (AppError) or `Passwords must match` (ValidationError).",
             "content": {
               "application/json": {
                 "schema": {

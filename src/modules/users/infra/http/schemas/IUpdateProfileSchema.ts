@@ -10,8 +10,8 @@ const updateProfileSchema = yup.object({
       is: (val: string | undefined) => !!val,
       then: (schema) =>
         schema
-          .required('Confirmação obrigatória')
-          .oneOf([yup.ref('password')], 'As senhas devem coincidir'),
+          .required('Password confirmation is required')
+          .oneOf([yup.ref('password')], 'Passwords must match'),
       otherwise: (schema) => schema.notRequired(),
     }),
   }),

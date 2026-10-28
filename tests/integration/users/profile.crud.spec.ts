@@ -157,7 +157,7 @@ describe('Users e Profile CRUD (integração)', () => {
       });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toBe('Confirmação obrigatória');
+      expect(response.body.message).toBe('Password confirmation is required');
     });
 
     it('recusa confirmação divergente', async () => {
@@ -172,7 +172,7 @@ describe('Users e Profile CRUD (integração)', () => {
       });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toBe('As senhas devem coincidir');
+      expect(response.body.message).toBe('Passwords must match');
     });
 
     it('recusa e-mail malformado', async () => {

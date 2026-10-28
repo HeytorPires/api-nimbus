@@ -50,7 +50,7 @@ export default class S3StorageProvider implements IStorageProvider {
 
     this.ensureBucket().catch((error: Error) => {
       new LogProvider().error({
-        message: 'Falha ao garantir o bucket de storage',
+        message: 'Failed to ensure storage bucket',
         context: 'S3StorageProvider',
         metadata: { bucket: this.bucket, error: error.message },
       });

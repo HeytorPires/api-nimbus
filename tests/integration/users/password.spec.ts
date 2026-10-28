@@ -120,7 +120,7 @@ describe('Password forgot/reset (integração)', () => {
       });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toBe('As senhas devem coincidir');
+      expect(response.body.message).toBe('Passwords must match');
     });
 
     it('rejeita body sem token', async () => {
