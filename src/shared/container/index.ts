@@ -9,10 +9,12 @@ import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/Pro
 import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
 import LogProvider from '@shared/providers/logs/implementations/LogProvider';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
-import NodeMailerProvider from '@shared/providers/email/implementations/NodeMailerProvider';
-import EtherealEmailProvider from '@shared/providers/email/implementations/EtherealEmailProvider';
+import SmtpEmailProvider from '@shared/providers/email/implementations/smtp/SmtpEmailProvider';
+import EtherealEmailProvider from '@shared/providers/email/implementations/smtp/EtherealEmailProvider';
+import ResendEmailProvider from '@shared/providers/email/implementations/api/ResendEmailProvider';
 import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
 import S3StorageProvider from '@shared/providers/storage/implementations/S3StorageProvider';
+import EnvConfigProvider from '@shared/providers/env/implementations/EnvConfigProvider';
 import CookieProvider from '@shared/providers/cookie/implementations/CookieProvider';
 
 //Dominios
@@ -23,9 +25,10 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
-import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
+import { IEnvConfigProvider } from '@shared/providers/env/models/IEnvConfigProvider';
 import { ICookieProvider } from '@shared/providers/cookie/models/ICookieProvider';
 import JsonWebTokenProvider from '@shared/providers/jwt/implementations/JsonWebTokenProvider';
 import { IJWTProvider } from '@shared/providers/jwt/models/IJWTProvider';
@@ -46,6 +49,11 @@ container.registerSingleton<IProjectRepository>(
 
 container.registerSingleton<ITagRepository>('TagsRepository', TagsRepository);
 
+//transient, criando uma instancia a cada injeção
+container.register<RefreshTokenService>(RefreshTokenService, {
+  useClass: RefreshTokenService,
+});
+
 // providers
 container.registerSingleton<ICacheProvider>('CacheProvider', RedisCache);
 container.registerSingleton<IHashProvider>('HashProvider', BcryptHashProvider);
@@ -53,13 +61,6 @@ container.registerSingleton<ICryptographyProvider>(
   'CryptoProvider',
   cryptoProvider
 );
-
-const emailProvider =
-  process.env.NODE_ENV === 'development'
-    ? EtherealEmailProvider
-    : NodeMailerProvider;
-
-container.registerSingleton<ISmtpProvider>('EmailProvider', emailProvider);
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
@@ -69,9 +70,30 @@ container.registerSingleton<IStorageProvider>(
 container.registerSingleton<IJWTProvider>('JWTProvider', JsonWebTokenProvider);
 container.registerSingleton<ILogProvider>('LogProvider', LogProvider);
 container.registerSingleton<ICookieProvider>('CookieProvider', CookieProvider);
+container.registerSingleton<IEnvConfigProvider>(
+  'EnvConfigProvider',
+  EnvConfigProvider
+);
 
-// Services
-//transient, criando uma instancia a cada injeção
-container.register<RefreshTokenService>(RefreshTokenService, {
-  useClass: RefreshTokenService,
-});
+let emailProvider:
+  | typeof SmtpEmailProvider
+  | typeof ResendEmailProvider
+  | typeof EtherealEmailProvider;
+
+emailProvider = EtherealEmailProvider;
+
+switch (process.env.MAIL_DRIVER) {
+  case 'smtp':
+    emailProvider = SmtpEmailProvider;
+    break;
+  case 'resend':
+    emailProvider = ResendEmailProvider;
+    break;
+  case 'ethereal':
+    emailProvider = EtherealEmailProvider;
+    break;
+  default:
+    emailProvider = EtherealEmailProvider;
+}
+
+container.registerSingleton<IEmailProvider>('EmailProvider', emailProvider);

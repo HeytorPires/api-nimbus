@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Node.js/TypeScript REST API (Express + TypeORM + PostgreSQL), built as a DDD-style study project (JWT auth, Redis cache/session invalidation, S3-compatible or local file storage, email via Nodemailer).
+Node.js/TypeScript REST API (Express + TypeORM + PostgreSQL), built as a DDD-style study project (JWT auth, Redis cache/session invalidation, S3-compatible or local file storage, email via Resend API or SMTP/Nodemailer).
 
 ## Commands
 
@@ -59,7 +59,9 @@ DDD-flavored modular structure under `src/modules/<domain>/` (currently `users`,
 - `mapper(s)/` — converts between TypeORM entities and domain/DTO shapes returned by services
 - `dtos/` — response-facing DTOs
 
-Dependency injection: `tsyringe`. All repositories and providers are registered as singletons in `src/shared/container/index.ts` under string tokens (e.g. `'UsersRepository'`, `'CacheProvider'`). Services declare `@injectable()` and `@inject('Token')` constructor params, then get resolved with `container.resolve(SomeService)` in controllers — never instantiated with `new` outside tests. `container/index.ts` also branches provider selection by env: `EtherealEmailProvider` in development vs `NodeMailerProvider` otherwise, and `S3StorageProvider` (`@aws-sdk/client-s3`, any S3-compatible server) vs `LocalStorageProvider` based on `STORAGE_DISK`.
+Dependency injection: `tsyringe`. All repositories and providers are registered as singletons in `src/shared/container/index.ts` under string tokens (e.g. `'UsersRepository'`, `'CacheProvider'`). Services declare `@injectable()` and `@inject('Token')` constructor params, then get resolved with `container.resolve(SomeService)` in controllers — never instantiated with `new` outside tests. `container/index.ts` also branches provider selection by env: the email provider by `MAIL_DRIVER` (`resend` → `ResendEmailProvider`, `smtp` → `SmtpEmailProvider`, `ethereal` → `EtherealEmailProvider`; default is Ethereal in development, SMTP otherwise), and `S3StorageProvider` (`@aws-sdk/client-s3`, any S3-compatible server) vs `LocalStorageProvider` based on `STORAGE_DISK`.
+
+Env validation: `src/config/validateEnv.ts` is imported in `server.ts` between `dotenv/config` and `./app` (the app reads `process.env` at import time). It runs `EnvConfigProvider.validate()` (`src/shared/providers/env/`), which collects every missing/invalid variable into one error and the process exits with code 1. Required keys depend on `NODE_ENV=production`, `MAIL_DRIVER` and `STORAGE_DISK`. Add new keys to `ENV_VARIABLE` and to the rule lists there. Tests never run it (only the server entry does).
 
 `src/shared/` holds cross-module infrastructure:
 - `providers/` — swappable implementations behind interfaces (cache, cryptography, cookie, email, jwt, logs, storage), each with `models/IX.ts` (interface) + `implementations/X.ts`
@@ -78,7 +80,7 @@ Jest + ts-jest. A single root config (`jest.config.ts`) declares three Jest **pr
 tests/
 ├── unit/          project `unit`         — services with fakes, no I/O
 │   ├── modules/{users,projects,tags}/*.spec.ts
-│   ├── providers/EmailProvider.spec.ts
+│   ├── providers/SmtpEmailProvider.spec.ts, ResendEmailProvider.spec.ts, EnvConfigProvider.spec.ts
 │   └── shared/http/health.spec.ts
 ├── integration/   project `integration`  — supertest over real Postgres + Redis
 │   └── {auth,users,projects,tags}/*.spec.ts

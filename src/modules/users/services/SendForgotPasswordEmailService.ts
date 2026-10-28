@@ -4,7 +4,7 @@ import { ISendForgotPasswordEmailUser } from '../domain/models/ISendForgotPasswo
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../domain/repositories/IUserRepository';
 import { IUserTokensRepository } from '../domain/repositories/IUserTokensRepository';
-import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { requestContext } from '@config/context';
 
@@ -17,12 +17,13 @@ class SendForgotPasswordEmailService {
     @inject('UsersTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository,
     @inject('EmailProvider')
-    private readonly emailProvider: ISmtpProvider,
+    private readonly emailProvider: IEmailProvider,
     @inject('LogProvider')
     private readonly logger: ILogProvider
   ) {
     this.appWebUrl =
-      process.env.APP_WEB_URL || `http://localhost:${process.env.PORT}`;
+      process.env.APP_WEB_URL ||
+      `http://localhost:${process.env.API_PORT || process.env.PORT || 3000}`;
   }
 
   public async execute({ email }: ISendForgotPasswordEmailUser) {
@@ -62,10 +63,7 @@ class SendForgotPasswordEmailService {
       const templatePath = path.resolve(
         __dirname,
         '..',
-        '..',
-        '..',
         'views',
-        'emails',
         'forgot_password.hbs'
       );
 

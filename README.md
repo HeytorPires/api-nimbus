@@ -1,6 +1,6 @@
 # Api do Nimbus (api-nimbus) 🚀
 
-API REST em Node.js + TypeScript, construída como projeto de estudo com arquitetura inspirada em **Domain-Driven Design**: Express + TypeORM + PostgreSQL, autenticação JWT em cookie `httpOnly`, sessões e cache em Redis, storage de arquivos local ou compatível com S3 (RustFS, via SDK da AWS), envio de e-mail via Nodemailer e observabilidade com Prometheus/Grafana.
+API REST do Nimbus, um gerenciador de `.env`: cada projeto guarda as variáveis de ambiente de uma aplicação, cifradas em repouso. Construída em Node.js + TypeScript como projeto de estudo com arquitetura inspirada em **Domain-Driven Design**: Express + TypeORM + PostgreSQL, autenticação JWT em cookie `httpOnly`, sessões e cache em Redis, storage de arquivos local ou compatível com S3 (RustFS, via SDK da AWS), envio de e-mail via API do Resend ou SMTP (Nodemailer) e observabilidade com Prometheus/Grafana.
 
 ---
 
@@ -103,7 +103,7 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
 | Autenticação        | `jsonwebtoken`, `bcryptjs`                                    |
 | Validação           | yup (um schema por ação, aplicado por middleware)             |
 | DI                  | tsyringe                                                      |
-| E-mail              | Nodemailer (Ethereal em desenvolvimento, SMTP real fora dele) |
+| E-mail              | Resend (API), SMTP via Nodemailer ou Ethereal, escolhidos por `MAIL_DRIVER` |
 | Storage             | filesystem local ou RustFS (S3-compatível), multer no upload  |
 | Observabilidade     | `prom-client`, Prometheus, Grafana                            |
 | Documentação        | swagger-ui-express + `src/docs/swagger.json`                  |
@@ -143,18 +143,20 @@ O contrato HTTP usa **camelCase** (`createdAt`, `userId`, `tagId`, `avatarUrl`, 
    cp .env.example .env
    ```
 
-   Preencha o `.env`. As variáveis principais:
+   Preencha o `.env`. O servidor **não sobe** se faltar variável obrigatória: `src/config/validateEnv.ts` roda no boot (antes do banco e do container) e imprime tudo que falta de uma vez, por exemplo `Missing environment variables: APP_SECRET, CRYPTO_SECRET_KEY`. Valem em qualquer ambiente `APP_SECRET`, `REFRESH_TOKEN_SECRET`, `CRYPTO_SECRET_KEY` (64 caracteres hex), `APP_API_URL` e `APP_WEB_URL`; em produção também `CORS_ORIGIN`, `DB_*` e `REDIS_HOST`; e o `MAIL_DRIVER` / `STORAGE_DISK` escolhido exige as suas chaves. As variáveis principais:
 
    | Variável                                                    | Para que serve                                              |
    | ----------------------------------------------------------- | ----------------------------------------------------------- |
-   | `NODE_ENV`                                                  | `development` \| `production` — decide o provider de e-mail |
+   | `NODE_ENV`                                                  | `development` \| `production`                               |
+   | `MAIL_DRIVER`                                               | `resend` \| `smtp` \| `ethereal` — sem ele, `development` usa Ethereal e o resto SMTP |
    | `API_PORT`                                                  | Porta da API (padrão `3333`)                                |
    | `APP_SECRET`                                                | Segredo de assinatura do JWT                                |
    | `CRYPTO_SECRET_KEY`                                         | Chave AES (64 caracteres hexadecimais) dos dados cifrados   |
    | `APP_API_URL`, `APP_WEB_URL`, `CORS_ORIGIN`                 | URLs da API, do front e origem liberada no CORS             |
    | `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`   | Conexão com o PostgreSQL                                    |
    | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASS`                    | Conexão com o Redis                                         |
-   | `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`          | SMTP de envio de e-mail                                     |
+   | `RESEND_API_KEY`                                            | Chave da API do Resend (`MAIL_DRIVER=resend`)               |
+   | `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`          | SMTP de envio de e-mail (`MAIL_DRIVER=smtp`)                |
    | `STORAGE_DISK`                                              | `local` \| `s3` — escolhe o provider de storage          |
    | `S3_*`                                                      | Endpoint, credenciais e bucket do storage S3 (RustFS)       |
    | `PROMETHEUS_PORT`, `GRAFANA_PORT`, `GRAFANA_ADMIN_PASSWORD` | Portas e senha da stack de observabilidade                  |
@@ -303,7 +305,7 @@ O `tsconfig.json` define `@shared/*`, `@modules/*`, `@config/*`, `@utils/*`, `@t
 
 ### Injeção de dependência
 
-Repositórios e providers são registrados como singletons em `src/shared/container/index.ts` sob tokens string (`'UsersRepository'`, `'CacheProvider'`, …). Os services declaram `@injectable()` e recebem as dependências por `@inject('Token')`; os controllers os obtêm com `container.resolve(SomeService)` — nunca com `new` fora dos testes. O container também troca o provider conforme o ambiente: `EtherealEmailProvider` em desenvolvimento e `NodeMailerProvider` fora dele, `S3StorageProvider` ou `LocalStorageProvider` conforme `STORAGE_DISK`. `RefreshTokenService` é registrado como transiente — uma instância nova por resolve.
+Repositórios e providers são registrados como singletons em `src/shared/container/index.ts` sob tokens string (`'UsersRepository'`, `'CacheProvider'`, …). Os services declaram `@injectable()` e recebem as dependências por `@inject('Token')`; os controllers os obtêm com `container.resolve(SomeService)` — nunca com `new` fora dos testes. O container também troca o provider conforme o ambiente: o provider de e-mail conforme `MAIL_DRIVER` (`ResendEmailProvider`, `SmtpEmailProvider` ou `EtherealEmailProvider`), `S3StorageProvider` ou `LocalStorageProvider` conforme `STORAGE_DISK`. `RefreshTokenService` é registrado como transiente — uma instância nova por resolve.
 
 ### Erros
 

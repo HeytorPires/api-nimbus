@@ -1,9 +1,9 @@
 import { container } from 'tsyringe';
 
-import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
 import { ISendMail } from '@shared/providers/email/models/ISendMail';
 
-export class FakeEmailProvider implements ISmtpProvider {
+export class FakeEmailProvider implements IEmailProvider {
   public readonly messages: ISendMail[] = [];
 
   public async sendMail(message: ISendMail): Promise<void> {
@@ -26,14 +26,14 @@ export class FakeEmailProvider implements ISmtpProvider {
 /**
  * Substitui o EmailProvider do container por um fake.
  *
- * Necessário porque NODE_ENV=test cai no NodeMailerProvider (SMTP real) —
- * apenas `development` usa o Ethereal. Os services são resolvidos por request,
+ * Necessário porque no teste o MAIL_DRIVER é `smtp` (SmtpEmailProvider, SMTP real)
+ * e o container não sabe que está sob teste. Os services são resolvidos por request,
  * então o override vale a partir da requisição seguinte.
  */
 export function useFakeEmailProvider(): FakeEmailProvider {
   const fake = new FakeEmailProvider();
 
-  container.registerInstance<ISmtpProvider>('EmailProvider', fake);
+  container.registerInstance<IEmailProvider>('EmailProvider', fake);
 
   return fake;
 }

@@ -1,6 +1,6 @@
-import { ISmtpProvider } from '@shared/providers/email/models/ISmtpProvider';
+import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
 
-export default class FakeEmailProvider implements ISmtpProvider {
+export default class FakeEmailProvider implements IEmailProvider {
   public async sendMail(): Promise<void> {
     // Simulate sending email
   }

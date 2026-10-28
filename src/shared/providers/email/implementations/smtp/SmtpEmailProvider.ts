@@ -1,13 +1,16 @@
 import nodemail, { Transporter } from 'nodemailer';
-import { ISendMail } from '../models/ISendMail';
-import { ISmtpProvider } from '../models/ISmtpProvider';
-import { HandlebarsMailTemplate } from './HandlebarsMailTemplate';
+import { ISendMail } from '../../models/ISendMail';
+import { IEmailProvider } from '../../models/IEmailProvider';
+import { HandlebarsMailTemplate } from '../HandlebarsMailTemplate';
 
-export default class NodeMailerProvider implements ISmtpProvider {
+// Remetente padrão dos e-mails enviados por este provider
+const DEFAULT_FROM = 'Nimbus <no-reply@nimbus.com.br>';
+
+export default class SmtpEmailProvider implements IEmailProvider {
   private readonly transporter: Transporter;
 
   constructor() {
-    // Use configured SMTP for production (e.g., Resend)
+    // SMTP configurado por MAIL_HOST/MAIL_PORT/MAIL_USER/MAIL_PASS
     this.transporter = nodemail.createTransport({
       host: process.env.MAIL_HOST,
       port: Number(process.env.MAIL_PORT),
@@ -27,12 +30,10 @@ export default class NodeMailerProvider implements ISmtpProvider {
   }: ISendMail): Promise<void> {
     const mailTemplate = new HandlebarsMailTemplate();
     const html = await mailTemplate.parse(templateData);
+    const sender = from ? `${from.name} <${from.email}>` : DEFAULT_FROM;
 
     await this.transporter.sendMail({
-      from: {
-        name: from?.name || 'Default Name',
-        address: from?.email || 'default@example.com',
-      },
+      from: sender,
       to: {
         name: to.name,
         address: to.email,
