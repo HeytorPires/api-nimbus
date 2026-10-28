@@ -5,7 +5,7 @@ import { IEmailProvider } from '../../models/IEmailProvider';
 import { HandlebarsMailTemplate } from '../HandlebarsMailTemplate';
 
 // Remetente padrão; o domínio precisa estar verificado no Resend
-const DEFAULT_FROM = 'Nimbus <no-reply@nimbus.com.br>';
+const DEFAULT_FROM = 'Nimbus <no-reply@heytor.com.br>';
 
 export default class ResendEmailProvider implements IEmailProvider {
   private readonly client: Resend;

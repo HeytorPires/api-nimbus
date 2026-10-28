@@ -4,7 +4,7 @@ import { IEmailProvider } from '../../models/IEmailProvider';
 import { HandlebarsMailTemplate } from '../HandlebarsMailTemplate';
 
 // Remetente padrão dos e-mails enviados por este provider
-const DEFAULT_FROM = 'Nimbus <no-reply@nimbus.com.br>';
+const DEFAULT_FROM = 'Nimbus <no-reply@heytor.com.br>';
 
 export default class SmtpEmailProvider implements IEmailProvider {
   private readonly transporter: Transporter;

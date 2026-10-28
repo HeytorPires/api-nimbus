@@ -40,7 +40,7 @@ describe('ResendEmailProvider', () => {
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        from: 'Nimbus <no-reply@nimbus.com.br>',
+        from: 'Nimbus <no-reply@heytor.com.br>',
         to: 'Pires <pires@email.com>',
         subject: 'Teste de Email',
         html: expect.stringContaining('http://localhost:3000/reset'),
