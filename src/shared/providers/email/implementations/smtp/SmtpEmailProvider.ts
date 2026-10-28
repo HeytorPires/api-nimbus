@@ -1,5 +1,5 @@
 import nodemail, { Transporter } from 'nodemailer';
-import { ISendMail } from '../../models/ISendMail';
+import { ISendMail, ISendMailResult } from '../../models/ISendMail';
 import { IEmailProvider } from '../../models/IEmailProvider';
 import { HandlebarsMailTemplate } from '../HandlebarsMailTemplate';
 
@@ -27,12 +27,12 @@ export default class SmtpEmailProvider implements IEmailProvider {
     to,
     subject,
     templateData,
-  }: ISendMail): Promise<void> {
+  }: ISendMail): Promise<ISendMailResult> {
     const mailTemplate = new HandlebarsMailTemplate();
     const html = await mailTemplate.parse(templateData);
     const sender = from ? `${from.name} <${from.email}>` : DEFAULT_FROM;
 
-    await this.transporter.sendMail({
+    const info = await this.transporter.sendMail({
       from: sender,
       to: {
         name: to.name,
@@ -41,5 +41,7 @@ export default class SmtpEmailProvider implements IEmailProvider {
       subject,
       html,
     });
+
+    return { provider: 'smtp', messageId: info.messageId };
   }
 }

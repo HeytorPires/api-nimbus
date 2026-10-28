@@ -7,11 +7,14 @@ import cryptoProvider from '@shared/providers/cryptography/implementations/Crypt
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 import TagsRepository from '@modules/tags/infra/typeorm/repositories/TagsRepository';
+import EmailEventsRepository from '@modules/emails/infra/typeorm/repositories/EmailEventsRepository';
+import EmailsRepository from '@modules/emails/infra/typeorm/repositories/EmailsRepository';
 import LogProvider from '@shared/providers/logs/implementations/LogProvider';
 import RedisCache from '@shared/providers/cache/implementations/RedisCache';
 import SmtpEmailProvider from '@shared/providers/email/implementations/smtp/SmtpEmailProvider';
 import EtherealEmailProvider from '@shared/providers/email/implementations/smtp/EtherealEmailProvider';
 import ResendEmailProvider from '@shared/providers/email/implementations/api/ResendEmailProvider';
+import ResendWebhookProvider from '@shared/providers/email/implementations/api/ResendWebhookProvider';
 import LocalStorageProvider from '@shared/providers/storage/implementations/LocalStorageProvider';
 import S3StorageProvider from '@shared/providers/storage/implementations/S3StorageProvider';
 import EnvConfigProvider from '@shared/providers/env/implementations/EnvConfigProvider';
@@ -25,7 +28,10 @@ import { IHashProvider } from '@shared/providers/cryptography/models/IHashProvid
 import { ICryptographyProvider } from '@shared/providers/cryptography/models/ICryptographyProvider';
 import { IProjectRepository } from '@modules/projects/domain/repositories/IProjectRepository';
 import { ITagRepository } from '@modules/tags/domain/repositories/ITagRepository';
+import { IEmailEventsRepository } from '@modules/emails/domain/repositories/IEmailEventsRepository';
+import { IEmailsRepository } from '@modules/emails/domain/repositories/IEmailsRepository';
 import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
+import { IEmailWebhookProvider } from '@shared/providers/email/models/IEmailWebhookProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { IStorageProvider } from '@shared/providers/storage/models/IStorageProvider';
 import { IEnvConfigProvider } from '@shared/providers/env/models/IEnvConfigProvider';
@@ -48,6 +54,14 @@ container.registerSingleton<IProjectRepository>(
 );
 
 container.registerSingleton<ITagRepository>('TagsRepository', TagsRepository);
+container.registerSingleton<IEmailsRepository>(
+  'EmailsRepository',
+  EmailsRepository
+);
+container.registerSingleton<IEmailEventsRepository>(
+  'EmailEventsRepository',
+  EmailEventsRepository
+);
 
 //transient, criando uma instancia a cada injeção
 container.register<RefreshTokenService>(RefreshTokenService, {
@@ -97,3 +111,8 @@ switch (process.env.MAIL_DRIVER) {
 }
 
 container.registerSingleton<IEmailProvider>('EmailProvider', emailProvider);
+
+container.registerSingleton<IEmailWebhookProvider>(
+  'EmailWebhookProvider',
+  ResendWebhookProvider
+);

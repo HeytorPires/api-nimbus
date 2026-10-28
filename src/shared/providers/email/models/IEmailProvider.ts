@@ -1,5 +1,10 @@
-import { ISendMail } from './ISendMail';
+import { ISendMail, ISendMailResult } from './ISendMail';
 
 export interface IEmailProvider {
-  sendMail({ from, to, subject, templateData }: ISendMail): Promise<void>;
+  sendMail({
+    from,
+    to,
+    subject,
+    templateData,
+  }: ISendMail): Promise<ISendMailResult>;
 }

@@ -5,6 +5,8 @@ import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import ProfileRouter from '@modules/users/infra/http/routes/profile.routes';
 import projectsRouter from '@modules/projects/infra/http/routes/projects.routes';
 import tagsRouter from '@modules/tags/infra/http/routes/tags.routes';
+import emailsRouter from '@modules/emails/infra/http/routes/emails.routes';
+import webhooksRouter from '@modules/emails/infra/http/routes/webhooks.routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '@docs/swagger.json';
 
@@ -16,6 +18,8 @@ routes.use('/password', passwordRouter);
 routes.use('/profile', ProfileRouter);
 routes.use('/projects', projectsRouter);
 routes.use('/tags', tagsRouter);
+routes.use('/emails', emailsRouter);
+routes.use('/webhooks', webhooksRouter);
 routes.use(
   '/api-docs',
   swaggerUi.serve as any,

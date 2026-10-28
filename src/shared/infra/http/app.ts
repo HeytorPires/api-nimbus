@@ -28,7 +28,14 @@ app.use(
   })
 );
 app.set('trust proxy', 1);
-app.use(express.json());
+app.use(
+  express.json({
+    // Guarda o corpo bruto: a assinatura dos webhooks é validada sobre ele
+    verify: (req, _res, buf) => {
+      (req as express.Request).rawBody = buf;
+    },
+  })
+);
 app.use(cookieParser());
 app.use(requestContextMiddleware);
 app.use(rateLimiter);

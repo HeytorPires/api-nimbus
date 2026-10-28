@@ -7,6 +7,8 @@ import { IUserTokensRepository } from '../domain/repositories/IUserTokensReposit
 import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
 import { ILogProvider } from '@shared/providers/logs/models/ILogProvider';
 import { requestContext } from '@config/context';
+import CreateEmailService from '@modules/emails/services/CreateEmailService';
+import { EmailStatus } from '@modules/emails/domain/enums/EmailStatus';
 
 @injectable()
 class SendForgotPasswordEmailService {
@@ -19,7 +21,8 @@ class SendForgotPasswordEmailService {
     @inject('EmailProvider')
     private readonly emailProvider: IEmailProvider,
     @inject('LogProvider')
-    private readonly logger: ILogProvider
+    private readonly logger: ILogProvider,
+    private readonly createEmail: CreateEmailService
   ) {
     this.appWebUrl =
       process.env.APP_WEB_URL ||
@@ -67,12 +70,15 @@ class SendForgotPasswordEmailService {
         'forgot_password.hbs'
       );
 
-      await this.emailProvider.sendMail({
+      const subject = '[Nimbus] Resetar Senha';
+      const template = 'forgot_password';
+
+      const message = {
         to: {
           name: user.name,
           email: user.email,
         },
-        subject: '[Nimbus] Resetar Senha',
+        subject,
         templateData: {
           file: templatePath,
           variables: {
@@ -80,6 +86,35 @@ class SendForgotPasswordEmailService {
             link: resetLink,
           },
         },
+      };
+
+      let result;
+
+      try {
+        result = await this.emailProvider.sendMail(message);
+      } catch (error) {
+        // AppError não herda de Error, mas ambos têm `message`
+        const { message: errorMessage } = error as { message?: string };
+
+        await this.createEmail.execute({
+          provider: process.env.MAIL_DRIVER ?? 'ethereal',
+          to: user.email,
+          subject,
+          template,
+          status: EmailStatus.FAILED,
+          errorMessage,
+        });
+
+        throw error;
+      }
+
+      await this.createEmail.execute({
+        provider: result.provider,
+        providerMessageId: result.messageId,
+        to: user.email,
+        subject,
+        template,
+        status: EmailStatus.SENT,
       });
     }
 

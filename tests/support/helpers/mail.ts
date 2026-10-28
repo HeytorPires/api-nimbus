@@ -1,13 +1,21 @@
 import { container } from 'tsyringe';
 
 import { IEmailProvider } from '@shared/providers/email/models/IEmailProvider';
-import { ISendMail } from '@shared/providers/email/models/ISendMail';
+import {
+  ISendMail,
+  ISendMailResult,
+} from '@shared/providers/email/models/ISendMail';
 
 export class FakeEmailProvider implements IEmailProvider {
   public readonly messages: ISendMail[] = [];
 
-  public async sendMail(message: ISendMail): Promise<void> {
+  public async sendMail(message: ISendMail): Promise<ISendMailResult> {
     this.messages.push(message);
+
+    return {
+      provider: 'fake',
+      messageId: `fake-message-${this.messages.length}`,
+    };
   }
 
   public get lastMessage(): ISendMail | undefined {

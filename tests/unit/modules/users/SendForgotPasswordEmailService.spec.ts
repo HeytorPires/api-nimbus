@@ -5,11 +5,15 @@ import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
 import FakeUserTokenRepository from '@tests/support/fakes/FakeUsersTokensRepository';
 import FakeEmailProvider from '@tests/support/fakes/FakeEmailProvider';
 import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
+import FakeEmailsRepository from '@tests/support/fakes/FakeEmailsRepository';
+import FakeEmailEventsRepository from '@tests/support/fakes/FakeEmailEventsRepository';
+import CreateEmailService from '@modules/emails/services/CreateEmailService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeUserTokensRepository: FakeUserTokenRepository;
 let fakeEmailProvider: FakeEmailProvider;
 let fakeLogProvider: FakeLogProvider;
+let fakeEmailsRepository: FakeEmailsRepository;
 let sendForgotPasswordEmail: SendForgotPasswordEmailService;
 
 describe('SendForgotPasswordEmail', () => {
@@ -18,12 +22,17 @@ describe('SendForgotPasswordEmail', () => {
     fakeUserTokensRepository = new FakeUserTokenRepository();
     fakeEmailProvider = new FakeEmailProvider();
     fakeLogProvider = new FakeLogProvider();
+    fakeEmailsRepository = new FakeEmailsRepository();
 
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
       fakeUserTokensRepository,
       fakeEmailProvider,
-      fakeLogProvider
+      fakeLogProvider,
+      new CreateEmailService(
+        fakeEmailsRepository,
+        new FakeEmailEventsRepository()
+      )
     );
   });
 

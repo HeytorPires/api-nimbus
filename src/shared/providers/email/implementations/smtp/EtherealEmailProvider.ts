@@ -1,5 +1,5 @@
 import nodemail, { Transporter } from 'nodemailer';
-import { ISendMail } from '../../models/ISendMail';
+import { ISendMail, ISendMailResult } from '../../models/ISendMail';
 import { IEmailProvider } from '../../models/IEmailProvider';
 import { HandlebarsMailTemplate } from '../HandlebarsMailTemplate';
 
@@ -38,7 +38,7 @@ export default class EtherealEmailProvider implements IEmailProvider {
     to,
     subject,
     templateData,
-  }: ISendMail): Promise<void> {
+  }: ISendMail): Promise<ISendMailResult> {
     const mailTemplate = new HandlebarsMailTemplate();
     const html = await mailTemplate.parse(templateData);
 
@@ -60,5 +60,7 @@ export default class EtherealEmailProvider implements IEmailProvider {
     if (previewUrl) {
       console.log(`📧 Email Preview: ${previewUrl}`);
     }
+
+    return { provider: 'ethereal', messageId: response.messageId };
   }
 }

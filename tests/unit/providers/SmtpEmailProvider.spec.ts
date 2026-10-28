@@ -13,7 +13,8 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  sendMailMock.mockClear();
+  sendMailMock.mockReset();
+  sendMailMock.mockResolvedValue({ messageId: 'smtp-message-id' });
 });
 
 const templatePath = path.resolve(

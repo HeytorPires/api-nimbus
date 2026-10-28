@@ -33,8 +33,9 @@ describe('ResendEmailProvider', () => {
     sendMock.mockResolvedValue({ data: { id: 'email-id' }, error: null });
     const provider = new ResendEmailProvider();
 
-    await provider.sendMail(message);
+    const result = await provider.sendMail(message);
 
+    expect(result).toEqual({ provider: 'resend', messageId: 'email-id' });
     expect(Resend).toHaveBeenCalledWith('re_test_key');
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith(
