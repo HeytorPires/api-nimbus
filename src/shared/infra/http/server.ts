@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import '@config/validateEnv';
 import app from './app';
 
 const port = process.env.API_PORT || process.env.PORT || 3000;
