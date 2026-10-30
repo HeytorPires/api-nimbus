@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
+import SendWelcomeEmailService from '@modules/users/services/SendWelcomeEmailService';
 import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
 import ResetPasswordService from '@modules/users/services/ResetPasswordservice';
 import FakeUsersTokensRepository from '@tests/support/fakes/FakeUsersTokensRepository';
@@ -34,7 +35,12 @@ describe('Create User', () => {
       new FakeLogProvider(),
       new FakeCacheProvider()
     );
-    CreateUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    CreateUser = new CreateUserService(
+      fakeUsersRepository,
+      hashProvider,
+      new FakeLogProvider(),
+      { execute: jest.fn() } as unknown as SendWelcomeEmailService
+    );
     ResetPassword = new ResetPasswordService(
       fakeUsersRepository,
       fakeUsersTokensRepository,

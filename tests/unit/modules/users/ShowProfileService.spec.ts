@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '@tests/support/fakes/FakeUsersRepository';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 import CreateUserService from '@modules/users/services/CreateUserService';
+import SendWelcomeEmailService from '@modules/users/services/SendWelcomeEmailService';
 import CreateSessionsService from '@modules/users/services/CreateSessionsService';
 import FakeLogProvider from '@tests/support/fakes/FakeLogProvider';
 import FakeCacheProvider from '@tests/support/fakes/FakeCacheProvider';
@@ -24,7 +25,12 @@ describe('Show Customer', () => {
     hashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
     showProfile = new ShowProfileService(fakeUsersRepository);
-    createUser = new CreateUserService(fakeUsersRepository, hashProvider);
+    createUser = new CreateUserService(
+      fakeUsersRepository,
+      hashProvider,
+      new FakeLogProvider(),
+      { execute: jest.fn() } as unknown as SendWelcomeEmailService
+    );
     createSession = new CreateSessionsService(
       fakeUsersRepository,
       new FakeUserTokenRepository(),
