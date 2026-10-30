@@ -22,7 +22,11 @@ describe('Password forgot/reset (integração)', () => {
         .send({ email: payload.email });
 
       expect(response.status).toBe(204);
-      expect(fake.messages).toHaveLength(1);
+      // criar o usuário já dispara o e-mail de boas-vindas; filtra só o de reset
+      const resetMessages = fake.messages.filter(
+        (message) => message.subject === '[Nimbus] Resetar Senha'
+      );
+      expect(resetMessages).toHaveLength(1);
       expect(fake.lastMessage?.to.email).toBe(payload.email);
       expect(fake.lastLink).toContain(process.env.APP_WEB_URL);
       expect(fake.lastToken).toBeTruthy();
