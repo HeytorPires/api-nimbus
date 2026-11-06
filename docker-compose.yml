@@ -81,33 +81,61 @@ services:
       - .env
 
   prometheus:
+    # Banco de séries temporais que "raspa" (scrape) o /metrics da API de tempos em tempos
+    # e guarda cada valor com timestamp. É ele que responde às consultas PromQL do Grafana.
+    # Imagem oficial. Tag latest muda sozinha a cada release (diferente do RustFS, que é fixo);
+    # trocar por uma versão fixa quando quiser deploy previsível.
     image: prom/prometheus:latest
     container_name: nimbus-prometheus
+    # Volta sozinho se cair ou se a máquina reiniciar; só fica parado se alguém der docker stop
     restart: unless-stopped
     extra_hosts:
+      # Cria o hostname host.docker.internal apontando para a máquina host.
+      # No Docker Desktop (Mac/Windows) esse nome já existe; no Linux/WSL não, por isso o host-gateway.
+      # Serve para o Prometheus raspar a API quando ela roda fora do Docker (yarn dev).
       - 'host.docker.internal:host-gateway'
     volumes:
+      # Arquivo de configuração do scrape (quais alvos, de quanto em quanto tempo).
+      # Vem do repositório; :ro = somente leitura, o container não consegue alterar o arquivo.
       - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      # Diretório onde o Prometheus grava as séries coletadas (TSDB).
+      # Volume nomeado: o histórico de métricas sobrevive a recriar/atualizar o container.
       - prometheus_data:/prometheus
     ports:
+      # UI web e API HTTP do Prometheus (útil para testar consultas PromQL e ver Status > Targets).
+      # :-9090 = valor padrão caso PROMETHEUS_PORT não esteja no .env
       - '${PROMETHEUS_PORT:-9090}:9090'
 
   grafana:
+    # Interface de dashboards. Não coleta nada sozinho: consulta o Prometheus (datasource)
+    # e desenha os gráficos. Mesma observação da tag latest acima.
     image: grafana/grafana:latest
     container_name: nimbus-grafana
     restart: unless-stopped
     depends_on:
+      # Só garante a ORDEM de subida (Prometheus inicia antes); não espera ele ficar pronto.
+      # Sem problema aqui: o Grafana tenta o datasource de novo a cada consulta.
       - prometheus
     environment:
+      # Senha do usuário admin do Grafana. Fallback "admin" só é aceitável em máquina local.
+      # Atenção: só vale no PRIMEIRO boot; depois a senha fica gravada no volume grafana_data
+      # e mudar a variável não altera mais nada (trocar pela UI ou com grafana-cli).
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
     ports:
+      # Grafana escuta na 3000 dentro do container; no host expõe na 3001 por padrão
+      # para não brigar com outros serviços que costumam usar a 3000 (ex: front-end em dev).
       - '${GRAFANA_PORT:-3001}:3000'
     volumes:
+      # Banco interno do Grafana (SQLite): usuários, datasources e dashboards.
+      # Hoje o datasource e os painéis são criados na mão pela UI (não há provisioning),
+      # então é esse volume que impede de perder tudo ao recriar o container.
       - grafana_data:/var/lib/grafana
 
 volumes:
   Postgres_data:
   api_uploads:
   rustfs_data:
+  # Séries temporais coletadas pelo Prometheus
   prometheus_data:
+  # Usuários, datasources e dashboards do Grafana
   grafana_data:

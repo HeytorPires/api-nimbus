@@ -41,12 +41,15 @@ app.use(cookieParser());
 app.use(requestContextMiddleware);
 app.use(rateLimiter);
 app.use(pagination);
+// Cronometra cada requisição para o histograma do Prometheus.
+// Fica antes de routes para envolver todas as rotas da API.
 app.use(metricsMiddleware);
 app.use(routes);
 
 app.get('/home', homeHandler);
 app.get('/health', healthHandler);
 app.get('/ready', readyHandler);
+// Endpoint raspado pelo Prometheus. Hoje sem autenticação (pendência no CHECKLIST.md).
 app.get('/metrics', metricsHandler);
 
 app.get('/files/:filename', async (req, res) => {

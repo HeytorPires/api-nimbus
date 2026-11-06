@@ -1,8 +1,30 @@
+# Configuração do Prometheus, montada no container em /etc/prometheus/prometheus.yml
+# (ver serviço prometheus no docker-compose.yml). Alterou o arquivo? Reinicie o container
+# (docker compose restart prometheus) para ele reler.
+
+# Valores padrão aplicados a todos os jobs abaixo (cada job pode sobrescrever)
 global:
+  # De quanto em quanto tempo o Prometheus faz GET no /metrics de cada alvo.
+  # Menor = gráficos mais detalhados, porém mais dados gravados e mais requisições na API.
+  # 15s é o meio-termo comum.
   scrape_interval: 15s
 
+# Lista de "jobs": cada job é um grupo de alvos que expõem métricas do mesmo jeito
 scrape_configs:
+  # Nome do job. Vira o label job="nimbus-api" em todas as séries coletadas daqui,
+  # o que permite filtrar no Grafana (ex: http_request_duration_seconds_count{job="nimbus-api"}).
   - job_name: 'nimbus-api'
+    # Rota da API que devolve as métricas (registrada em src/shared/infra/http/app.ts).
+    # /metrics já é o padrão do Prometheus; está explícito só para deixar claro.
     metrics_path: /metrics
+    # Alvos fixos, escritos à mão (sem descoberta automática de serviços)
     static_configs:
+      # host:porta do alvo. "node" é o nome do serviço da API no docker-compose: dentro da rede
+      # do compose o Docker resolve esse nome para o IP do container. 3333 é a porta INTERNA
+      # do container (não a API_PORT do host).
+      # Atenção: o serviço node só sobe com --profile production. Em dev, com a API rodando
+      # fora do Docker (yarn dev), o alvo seria 'host.docker.internal:<API_PORT>'
+      # (é para isso que existe o extra_hosts no compose).
+      # Quando o /metrics ganhar Basic Auth (pendência no CHECKLIST.md), as credenciais
+      # entram neste job com o bloco basic_auth (username / password_file).
       - targets: ['node:3333']
